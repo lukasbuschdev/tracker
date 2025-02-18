@@ -1,0 +1,18 @@
+{
+  "name": "tracker",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "frontend": "cd frontend && ng serve --proxy-config proxy.conf.json",
+    "backend": "cd backend && npm start"
+  },
+  "keywords": [],
+  "author": "MEINS.. ganz alleine MEINS !",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@types/express": "^5.0.0",
+    "express": "^4.21.2",
+    "typescript": "^5.7.3"
+  }
+}
