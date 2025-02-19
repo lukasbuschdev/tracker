@@ -1,0 +1,46 @@
+@use 'variables' as *;
+
+nav {
+    height: calc(100vh - 80px);
+    width: 300px;
+    background-color: $red;
+    color: $white;
+    padding: 25px 0;
+    
+    .nav-row {
+        height: 60px;
+        width: 100%;
+        padding: 0 20px;
+        font-size: 1.2rem;
+        
+        &:hover {
+            cursor: pointer;
+            background-color: $red-hover;
+        }
+
+        img {
+            height: 25px;
+            width: 25px;
+            object-fit: contain;
+        }
+    }
+
+    .legal-privacy-container {
+        width: 100%;
+        
+        div {
+            width: 100%;
+            padding: 0 20px;
+
+            span:hover {
+                cursor: pointer;
+                filter: brightness(0.8);
+            }
+        }
+    }
+}
+
+.isActive {
+    font-weight: 600;
+    background-color: $red-hover;
+}

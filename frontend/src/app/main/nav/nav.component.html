@@ -1,1 +1,33 @@
-<p>nav works!</p>
+<nav class="column between">
+    <div class="column">
+        <div class="row gap-15 nav-row align-center" [class.isActive]="activeNav === 'dashboard'" (click)="setActive('dashboard')" routerLink="/dashboard">
+            <img src="img/dashboard.svg">
+            <span>Dashboard</span>
+        </div>
+        <div class="row gap-15 nav-row align-center" [class.isActive]="activeNav === 'expenses'" (click)="setActive('expenses')" routerLink="/expenses">
+            <img src="img/expenses.svg">
+            <span>Expenses</span>
+        </div>
+        <div class="row gap-15 nav-row align-center" [class.isActive]="activeNav === 'budgets'" (click)="setActive('budgets')" routerLink="/budgets">
+            <img src="img/budgets.svg">
+            <span>Budgets</span>
+        </div>
+        <div class="row gap-15 nav-row align-center" [class.isActive]="activeNav === 'categories'" (click)="setActive('categories')" routerLink="/categories">
+            <img src="img/categories.svg">
+            <span>Categories</span>
+        </div>
+        <div class="row gap-15 nav-row align-center" [class.isActive]="activeNav === 'reports'" (click)="setActive('reports')" routerLink="/reports">
+            <img src="img/reports.svg">
+            <span>Reports</span>
+        </div>
+    </div>
+
+    <div class="column gap-20 legal-privacy-container">
+        <div class="left">
+            <span routerLink="/legal-notice">Legal notice</span>
+        </div>
+        <div class="left">
+            <span routerLink="/privacy-policy">Privacy policy</span>
+        </div>
+    </div>
+</nav>

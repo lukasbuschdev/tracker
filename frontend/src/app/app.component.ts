@@ -1,13 +1,11 @@
 import '@fontsource/montserrat';
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
-import { HeaderComponent } from "./main/header/header.component";
-import { ContentComponent } from "./main/content/content.component";
-import { NavComponent } from "./main/nav/nav.component";
+import { MainComponent } from './main/main.component';
 
 @Component({
   selector: 'app-root',
-  imports: [HeaderComponent, ContentComponent, NavComponent],
+  imports: [MainComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

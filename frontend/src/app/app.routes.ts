@@ -14,10 +14,10 @@ export const routes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
     { path: 'expenses', component: ExpensesComponent },
     { path: 'budgets', component: BudgetsComponent },
-    { path: 'catgories', component: CategoriesComponent },
+    { path: 'categories', component: CategoriesComponent },
     { path: 'reports', component: ReportsComponent },
     { path: 'settings', component: SettingsComponent },
     { path: 'legal-notice', component: LegalNoticeComponent },
-    { path: 'privacy', component: PrivacyComponent },
+    { path: 'privacy-policy', component: PrivacyComponent },
     { path: 'help', component: HelpComponent },
 ];
