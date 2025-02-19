@@ -15,6 +15,12 @@ header {
         object-fit: contain;
     }
 
+    .heading {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: $white;
+    }
+
     div.align-center img {
         height: 25px;
         width: 25px;
@@ -26,7 +32,7 @@ header {
         }
     }
     
-    span {
+    .help {
         font-size: 25px;
         font-weight: 700;
         color: $white;
