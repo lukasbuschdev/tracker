@@ -2,7 +2,8 @@
 
 nav {
     height: calc(100vh - 80px);
-    width: 300px;
+    width: 30vw;
+    max-width: 300px;
     background-color: $red;
     color: $white;
     padding: 25px 0;

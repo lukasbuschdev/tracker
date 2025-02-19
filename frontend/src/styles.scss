@@ -63,22 +63,24 @@ button {
 
 h1 {
   color: $red;
-  font-size: min(14vmin, 2rem);
+  font-size: min(14vmin, 2.5rem);
+  font-weight: 600;
 }
 
 h2 {
   color: $red;
-  font-size: min(14vmin, 1.5rem);
+  font-size: min(14vmin, 2rem);
+  font-weight: 600;
 }
 
 h3 {
   color: $red;
-  font-size: min(14vmin, 1.2rem);
+  font-size: min(14vmin, 1.5rem);
 }
 
 h4 {
   color: $black;
-  font-size: min(14vmin, 1rem);
+  font-size: min(14vmin, 1.2rem);
 }
 
 $gap-sizes: 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 100;
@@ -124,4 +126,23 @@ input[type="number"] {
 
 input[type="number"] {
   -ms-appearance: none !important;
+}
+
+
+// CONTENT CONTAINER
+
+.section-container {
+  height: calc(100vh - 80px);
+  width: 100%;
+  padding: 20px 30px;
+
+  .heading-container {
+      width: 100%;
+  }
+
+  .content-container {
+      height: 100%;
+      width: 100%;
+
+  }
 }

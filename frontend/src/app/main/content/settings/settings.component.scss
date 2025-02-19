@@ -1,0 +1,26 @@
+@use 'variables' as *;
+
+.section-container {
+    height: calc(100vh - 80px);
+    width: 100%;
+    padding: 20px 30px;
+
+    .heading-container {
+        width: 100%;
+    }
+
+    .content-container {
+        height: 100%;
+        width: 100%;
+
+        .content-row {
+            height: 50%;
+            width: 100%;
+
+            .sub-container {
+                height: 100%;
+                width: 50%;
+            }
+        }
+    }
+}

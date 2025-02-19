@@ -1,0 +1,11 @@
+@use 'variables' as *;
+
+.content-row {
+    height: 50%;
+    width: 100%;
+
+    .sub-container {
+        height: 100%;
+        width: 50%;
+    }
+}
