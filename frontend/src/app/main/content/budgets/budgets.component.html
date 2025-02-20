@@ -3,7 +3,7 @@
         <h1>Budget</h1>
 
         <div class="row align-center gap-10">
-            <div class="btn-primary row gap-5 align-center" (click)="editBudget($event)">
+            <div class="btn-primary row gap-5 align-center" [class.isInactive]="activeBudgetId == ''" (click)="editBudget($event)">
                 <img src="img/edit.svg">
                 <span>Edit</span>
             </div>
