@@ -158,11 +158,21 @@ input[type="number"] {
   padding: 10px 15px;
   border: 2px solid $wine;
   border-radius: 999px;
-  
+
+  img {
+    height: 15px;
+    width: 15px;
+    object-fit: contain;
+  }
+
   &:hover {
     cursor: pointer;
     color: $wine;
     background-color: $white;
+
+    img {
+      filter: $icon-wine;
+    }
   }
 }
 
@@ -176,10 +186,20 @@ input[type="number"] {
   border: 2px solid $wine;
   border-radius: 999px;
 
+  img {
+    height: 15px;
+    width: 15px;
+    object-fit: contain;
+  }
+
   &:hover {
     cursor: pointer;
     color: $white;
     background-color: $wine;
+
+    img {
+      filter: $icon-wine;
+    }
   }
 }
 

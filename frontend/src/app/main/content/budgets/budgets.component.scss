@@ -1,2 +1,30 @@
 @use 'variables' as *;
 
+.budget-container {
+    width: 100%;
+    height: fit-content;
+    border: 1px solid $gray;
+    border-radius: 20px;
+    padding: 15px 20px;
+    
+    .information {
+        height: 0;
+        transition: all 125ms ease-in-out;
+        margin-top: 0;
+        overflow: hidden;
+    }
+}
+
+.isActiveBudget {
+    border-color: $wine;
+    
+    .information {
+        height: 55px;
+        margin-top: 15px;
+        transition: all 125ms ease-in-out;
+    }
+
+    .name {
+        font-weight: 600;
+    }
+}

@@ -1,9 +1,39 @@
-<div class="section-container column gap-20">
-    <div class="heading-container">
+<div class="section-container column gap-20" (click)="closeCategory()">
+    <div class="heading-container between">
         <h1>Categories</h1>
+
+        <div class="row align-center gap-10">
+            <div class="btn-primary row gap-5 align-center" (click)="editCategory($event)">
+                <img src="img/edit.svg">
+                <span>Edit</span>
+            </div>
+
+            <div class="btn-primary">
+                <span>+ Add</span>
+            </div>
+        </div>
     </div>
 
-    <div class="content-container column">
+    <div class="content-container column gap-20">
+        @for(category of categories; track category.id) {
+            <div class="column between category-container" (click)="toggleActiveCategory($event, category.id)" [class.isActiveCategory]="activeCategoryId === category.id">
+                <div class="row between">
+                    <div class="name">{{ category.name }}:</div>
+                    <div class="number green">{{ category.generalAvailable }}</div>
+                </div>
+                
+                <div class="column between gap-15 information">
+                    <div class="row between">
+                        <div>Used:</div>
+                        <div class="number red">{{ category.used }}</div>
+                    </div>
         
+                    <div class="row between">
+                        <div>Available:</div>
+                        <div class="number green">{{ category.currentAvailable }}</div>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
 </div>
