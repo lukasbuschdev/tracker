@@ -1,2 +1,73 @@
 @use 'variables' as *;
 
+.legal-notice-container {
+    padding: 0 5% 40px;
+    width: 100%;
+    gap: 80px;
+}
+
+.legal-notice-segments {
+    justify-content: space-between;
+}
+
+a, span {
+    font-family: $textfont;
+}
+
+a {
+    color: $wine;
+
+    &:hover {
+        cursor: pointer;
+        filter: brightness(0.8);
+        transition: all 125ms ease-in-out;
+    }
+}
+
+#back {
+    margin: 20px 0 20px 5%;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+
+    &:hover {
+        filter: brightness(0.8);
+        transition: all 125ms ease-in-out;
+    }
+}
+
+@media(max-width: 800px) {  
+    .legal-notice-container {
+        gap: 20px;
+        height: 100%;
+    }
+
+    .legal-notice-container h2 {
+        font-weight: 600 !important;
+    }
+}
+
+@media(max-width: 550px) {
+    .legal-notice-container {
+        align-items: flex-start;
+    }
+}
+
+@media(max-width: 400px) {
+    a, span {
+        font-size: 0.8rem;
+    }
+}
+
+@media(min-width: 1440px) {
+    .legal-notice-container {
+        align-items: center;
+        min-height: 85vh;
+        justify-content: center;
+    }
+
+    .legal-notice-segments {
+        justify-content: center;
+        max-height: 400px;
+    }
+}

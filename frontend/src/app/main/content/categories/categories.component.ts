@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { BudgetOrCategory } from '../../../types/types';
+import { UtilsService } from '../../../services/utils.service';
 
 @Component({
   selector: 'app-categories',
@@ -8,6 +9,9 @@ import { BudgetOrCategory } from '../../../types/types';
   styleUrl: './categories.component.scss'
 })
 export class CategoriesComponent {
+  isDropdownOpened: boolean = false;
+  selectableBudgets: string[] = ['Income', 'Savings', 'Whatever'];
+  selectedBudget: string = 'Income';
   isActiveCategory: boolean = false;
   activeCategoryId: string = '';
   categories: BudgetOrCategory[] = [
@@ -32,7 +36,9 @@ export class CategoriesComponent {
       used: 720.00,
       currentAvailable: 0.00
     }
-  ]
+  ];
+
+  constructor(public utils: UtilsService) { }
 
   toggleActiveCategory(event: MouseEvent, categoryId: string): void {
     event.stopPropagation();
@@ -46,5 +52,18 @@ export class CategoriesComponent {
 
   editCategory(event: MouseEvent): void {
     event.stopPropagation();
+  }
+
+  toggleBudgets(event: MouseEvent): void {
+    event.stopPropagation();
+    this.isDropdownOpened = !this.isDropdownOpened;
+  }
+
+  closeBudgtes(): void {
+    this.isDropdownOpened = false;
+  }
+
+  selectBudget(budget: string): void {
+    this.selectedBudget = budget;
   }
 }

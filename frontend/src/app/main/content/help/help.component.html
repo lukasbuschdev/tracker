@@ -3,7 +3,92 @@
         <h1>Help</h1>
     </div>
 
-    <div class="content-container column">
+    <div class="content-container column gap-30">
+        <section class="column gap-10 navigation">
+            <h3>Navigation</h3>
+            <ul>
+                <li (click)="scrollToSection('create-account')">Create account</li>
+                <li (click)="scrollToSection('dashboard')">Dashboard</li>
+                <li (click)="scrollToSection('expenses')">Expenses</li>
+                <li (click)="scrollToSection('budgets')">Budgets</li>
+                <li (click)="scrollToSection('categories')">Categories</li>
+                <li (click)="scrollToSection('reports')">Reports</li>
+                <li (click)="scrollToSection('settings')">Settings</li>
+            </ul>
+        </section>
         
+        <section class="column gap-10" id="create-account">
+            <h3>Create Account</h3>
+            <p>Manage your account:</p>
+            <ul>
+                <li>Create a new account</li>
+                <li>Edit your account details</li>
+                <li>Delete your account</li>
+            </ul>
+        </section>
+      
+        <section class="column gap-10" id="dashboard">
+            <h3 routerLink="../dashboard">Dashboard</h3>
+            <p>The Dashboard provides an overall statistic per budget with graphical representations.</p>
+            <ul>
+                <li>View overall statistics</li>
+                <li>See graphical summaries of budget performance</li>
+            </ul>
+        </section>
+      
+        <section class="column gap-10" id="expenses">
+            <h3 routerLink="../expenses">Expenses</h3>
+            <p>Manage your expenses for each budget:</p>
+            <ul>
+                <li>Create an expense (specify name, category, and amount)</li>
+                <li>Edit an existing expense</li>
+                <li>Delete an expense</li>
+                <li>Search and filter expenses</li>
+            </ul>
+        </section>
+      
+        <section class="column gap-10" id="budgets">
+            <h3 routerLink="../budgets">Budgets</h3>
+            <p>Manage your budgets. Each budget includes:</p>
+            <ul>
+                <li>Budget name</li>
+                <li>Monthly available budget amount</li>
+                <li>Budget used this month</li>
+                <li>Current available budget</li>
+                <li>Optional automatic monthly budget recreation</li>
+                <li>Create, edit, and delete budgets</li>
+            </ul>
+        </section>
+      
+        <section class="column gap-10" id="categories">
+            <h3 routerLink="../categories">Categories</h3>
+            <p>Manage categories for each budget. Each category includes:</p>
+            <ul>
+                <li>Category name</li>
+                <li>Monthly available amount per category</li>
+                <li>Category budget used this month</li>
+                <li>Current available category budget</li>
+                <li>Automatic monthly category recreation (if enabled in the budget)</li>
+                <li>Create, edit, and delete categories</li>
+            </ul>
+        </section>
+
+        <section class="column gap-10" id="reports">
+            <h3 routerLink="../reports">Reports</h3>
+            <p>Access detailed statistics per budget:</p>
+            <ul>
+                <li>Monthly detailed statistics</li>
+                <li>Yearly detailed statistics</li>
+            </ul>
+        </section>
+
+        <section class="column gap-10" id="settings">
+            <h3 routerLink="../settings">Settings</h3>
+            <p>Manage account settings:</p>
+            <ul>
+                <li>Edit account details</li>
+                <li>Delete account</li>
+            </ul>
+        </section>
     </div>
 </div>

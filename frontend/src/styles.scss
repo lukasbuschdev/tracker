@@ -5,6 +5,7 @@
   box-sizing: border-box;
   user-select: none;
   scroll-behavior: smooth;
+  outline: none;
 }
 
 *:hover {
@@ -49,6 +50,16 @@ button {
 .row {
   display: flex;
   flex-direction: row;
+}
+
+.left {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.right {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .align-center {
@@ -139,13 +150,12 @@ input[type="number"] {
   padding: 20px 30px;
 
   .heading-container {
-      width: 100%;
+    width: 100%;
   }
 
   .content-container {
-      height: 100%;
-      width: 100%;
-
+    height: 100%;
+    width: 100%;
   }
 }
 
@@ -227,11 +237,11 @@ input[type="number"] {
 }
 
 .red {
-  color: $red;
+  color: $red !important;
 }
 
 .green {
-  color: $green;
+  color: $green !important;
 }
 
 

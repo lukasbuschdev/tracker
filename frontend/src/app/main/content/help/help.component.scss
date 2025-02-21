@@ -1,2 +1,28 @@
 @use 'variables' as *;
 
+.content-container {
+    height: 80vh;
+    overflow: auto;
+}
+
+.navigation {
+    li {
+        color: $wine;
+        font-weight: 600;
+        width: fit-content;
+    
+        &:hover {
+            cursor: pointer;
+            filter: brightness(1.3);
+        }
+    }
+}
+
+h3[routerLink] {
+    width: fit-content;
+
+    &:hover {
+        cursor: pointer;
+        filter: brightness(1.3);
+    }
+}

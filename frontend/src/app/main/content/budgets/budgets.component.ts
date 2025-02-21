@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { BudgetOrCategory } from '../../../types/types';
+import { UtilsService } from '../../../services/utils.service';
 
 @Component({
   selector: 'app-budgets',
@@ -25,7 +26,9 @@ export class BudgetsComponent {
       used: 1760.00,
       currentAvailable: 12550.00
     }
-  ]
+  ];
+
+  constructor(public utils: UtilsService) { }
 
   toggleActiveBudget(event: MouseEvent, budgetId: string): void {
     event.stopPropagation();

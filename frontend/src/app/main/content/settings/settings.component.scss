@@ -1,26 +1,18 @@
 @use 'variables' as *;
 
-.section-container {
-    height: calc(100vh - 80px);
+.content-container {
+    height: fit-content;
+}
+
+.data-row span:first-of-type {
+    font-weight: 600;
+}
+
+.btn-container {
     width: 100%;
-    padding: 20px 30px;
+}
 
-    .heading-container {
-        width: 100%;
-    }
-
-    .content-container {
-        height: 100%;
-        width: 100%;
-
-        .content-row {
-            height: 50%;
-            width: 100%;
-
-            .sub-container {
-                height: 100%;
-                width: 50%;
-            }
-        }
-    }
+.dropdown-menu {
+    left: unset;
+    right: 0;
 }

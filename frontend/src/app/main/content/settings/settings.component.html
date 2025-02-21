@@ -1,9 +1,41 @@
-<div class="section-container column gap-20">
+<div class="section-container column between" (click)="closeLanguages()">
     <div class="heading-container">
         <h1>Settings</h1>
     </div>
 
-    <div class="content-container column">
-        
+    <div class="content-container column between">
+        <div class="column gap-50">
+            <div class="row between align-center data-row">
+                <span>Language:</span>
+                <div class="dropdown" [class.active]="isDropdownOpened">
+                    <div (click)="toggleLanguages($event)" class="dropdown-btn data">{{ selectedLanguage }}</div>
+                    <ul class="dropdown-menu frequency">
+                        @for(language of selectableLanguages; track language) {
+                            <li (click)="selectLanguage(language); toggleLanguages($event)">
+                                <span>{{ language }}</span>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="row between align-center data-row">
+                <span>Username:</span>
+                <span>John Doe</span>
+            </div>   
+            <div class="row between align-center data-row">
+                <span>Email:</span>
+                <span>peter&#64;pisser.com</span>
+            </div>  
+            <div class="row between align-center data-row">
+                <span>Passoword:</span>
+                <span>*****</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="right btn-container">
+        <div class="btn-primary">
+            <span>Delete Account</span>
+        </div>
     </div>
 </div>

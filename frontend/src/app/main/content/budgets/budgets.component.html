@@ -1,6 +1,6 @@
 <div class="section-container column gap-50" (click)="closeBudget()">
     <div class="heading-container between">
-        <h1>Budget</h1>
+        <h1>Budgets</h1>
 
         <div class="row align-center gap-10">
             <div class="btn-primary row gap-5 align-center" [class.isInactive]="activeBudgetId == ''" (click)="editBudget($event)">
@@ -19,18 +19,18 @@
             <div class="column between budget-container" (click)="toggleActiveBudget($event, budget.id)" [class.isActiveBudget]="activeBudgetId === budget.id">
                 <div class="row between">
                     <div class="name">{{ budget.name }}:</div>
-                    <div class="number green">{{ budget.generalAvailable }}</div>
+                    <div class="number green">+ {{ utils.formatNumber(budget.generalAvailable) }}</div>
                 </div>
                 
                 <div class="column between gap-15 information">
                     <div class="row between">
                         <div>Used:</div>
-                        <div class="number red">{{ budget.used }}</div>
+                        <div class="number red">- {{ utils.formatNumber(budget.used) }}</div>
                     </div>
         
                     <div class="row between">
                         <div>Available:</div>
-                        <div class="number green">{{ budget.currentAvailable }}</div>
+                        <div class="number green">+ {{ utils.formatNumber(budget.currentAvailable) }}</div>
                     </div>
                 </div>
             </div>
