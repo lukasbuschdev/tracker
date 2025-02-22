@@ -23,7 +23,7 @@ export class DialogService {
   }
 
   checkAddOrEdit(str: string): void {
-    str.includes('add') ? this.addOrEdit = 'Add' : this.addOrEdit = 'Edit';
+    this.addOrEdit = str.includes('add') ? 'Add' : 'Edit';
   }
 
   checkType(str: string): string {

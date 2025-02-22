@@ -67,6 +67,14 @@ button {
   align-items: center;
 }
 
+.w-100 {
+  width: 100%;
+}
+
+.w-50 {
+  width: 100%;
+}
+
 .logo {
   height: 50px;
   width: 50px;
@@ -231,16 +239,21 @@ input[type="number"] {
   background-color: $wine;
 }
 
+.txt-wine {
+  color: $wine;
+  background-color: $wine;
+}
+
 .gray {
   color: $gray;
   background-color: $gray;
 }
 
-.red {
+.txt-red {
   color: $red !important;
 }
 
-.green {
+.txt-green {
   color: $green !important;
 }
 

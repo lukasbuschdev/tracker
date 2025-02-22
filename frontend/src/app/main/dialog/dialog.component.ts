@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { DialogService } from '../../services/dialog.service';
 
 @Component({
-  selector: 'app-add-dialog',
+  selector: 'app-dialog',
   imports: [],
-  templateUrl: './add-dialog.component.html',
-  styleUrl: './add-dialog.component.scss'
+  templateUrl: './dialog.component.html',
+  styleUrl: './dialog.component.scss'
 })
-export class AddDialogComponent implements OnInit {
+export class DialogComponent implements OnInit {
   isOpen: boolean = false;
   isDropdownOpened: boolean = false;
   selectableCategories: string[] = ['Transportation', 'Food', 'Rent']
@@ -24,6 +24,7 @@ export class AddDialogComponent implements OnInit {
 
   closeDialog(): void {
     this.dialog.closeDialog();
+    this.selectedCategory = 'Select category';
   }
 
   getData(name: string, amount: string): void {
@@ -42,5 +43,9 @@ export class AddDialogComponent implements OnInit {
 
   selectCategory(category: string): void {
     this.selectedCategory = category;
+  }
+
+  formatLabel(str: string): string {
+    return str.charAt(0).toLocaleUpperCase() + str.slice(1);
   }
 }

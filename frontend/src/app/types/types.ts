@@ -5,3 +5,10 @@ export type BudgetOrCategory = {
     used: number,
     currentAvailable: number
 }
+
+export type Expense = {
+    id: string,
+    name: string,
+    category: string,
+    amount: number
+}

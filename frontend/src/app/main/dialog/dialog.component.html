@@ -5,11 +5,17 @@
                 <h2>{{ dialog.addOrEdit }} {{ dialog.type }}</h2>
             </div>
     
-            <div class="input-container column gap-20 center" [class.gap-40]="dialog.type === 'expense'">
-                <input type="text" #name>
+            <div class="input-container column gap-30 center">
+                <div class="column gap-10 align-center w-100">
+                    <label>{{ formatLabel(dialog.type) }} name</label>
+                    <input id="name" type="text" #name [placeholder]="'Enter ' + dialog.type + ' name...'">
+                </div>
                 @if(dialog.type === 'expense') {
                     <div class="dropdown" [class.active]="isDropdownOpened">
-                        <div (click)="toggleCategories($event)" class="dropdown-btn data">{{ selectedCategory }}</div>
+                        <div class="column gap-10 align-center w-100">
+                            <label>Category</label>
+                            <div (click)="toggleCategories($event)" class="dropdown-btn data left">{{ selectedCategory }}</div>
+                        </div>
                         <ul class="dropdown-menu frequency">
                             @for(category of selectableCategories; track category) {
                                 <li (click)="selectCategory(category); toggleCategories($event)">
@@ -19,7 +25,10 @@
                         </ul>
                     </div>
                 }
-                <input type="number" #amount>
+                <div class="column gap-5 align-center w-100">
+                    <label>{{ formatLabel(dialog.type) }} amount</label>
+                    <input type="number" #amount [placeholder]="'Enter amount...'">
+                </div>
             </div>
             
             <div class="button-container row right gap-10">

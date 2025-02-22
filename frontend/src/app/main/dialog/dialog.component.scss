@@ -24,23 +24,58 @@
     .input-container {
         width: 100%;
 
+        label {
+            width: 50%;
+            max-width: 350px;
+            color: $wine;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
         input {
             width: 50%;
             max-width: 350px;
-            padding: 10px 15px;
+            padding: 15px 20px;
             border: 1px solid $gray;
             border-radius: 999px;
+            font-size: 1rem;
         }
 
         .dropdown {
             width: 100%;
             display: flex;
             justify-content: center;
-
+            
             .dropdown-btn {
                 width: 50%;
                 max-width: 350px;
             }
+            
+            ul {
+                width: 50%;
+                max-width: 350px;
+                left: unset;
+            }
+        }
+    }
+}
+
+@media(max-width: 800px) {
+    label {
+        width: 100% !important;
+    }
+
+    input {
+        width: 100% !important;
+    }
+
+    .dropdown {
+        .dropdown-btn {
+            width: 100% !important;
+        }
+        
+        ul {
+            width: 100% !important;
         }
     }
 }

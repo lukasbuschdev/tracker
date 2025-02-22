@@ -1,7 +1,9 @@
 <div class="section-container column gap-20" (click)="closeBudgtes()">
     <div class="heading-container between align-center">
         <h1>Expenses</h1>
-        <div class="btn-primary" (click)="openDialog('add-expense')">+ Add</div>
+        <div class="btn-primary" (click)="openDialog('add-expense')">
+            <span>+ Add</span>
+        </div>
     </div>
 
     <div class="content-container column gap-30">
@@ -24,7 +26,7 @@
 
             <div class="row gap-15 align-center">
                 <h4>Current available:</h4>
-                <span class="number green">+ 2550.00</span>
+                <span class="number txt-green">+ {{ utils.formatNumber(currentAvailable) }}</span>
             </div>
         </div>
         @if(isFilterVisible) {
@@ -65,14 +67,16 @@
                 <div class="line wine"></div>
             </div>
 
-            <div class="column gap-5 content">
-                <div class="row between header gap-15">
-                    <div>Bus ticket</div>
-                    <div>Transportation</div>
-                    <div class="number red">- 5.20</div>
-                </div>
-
-                <div class="line gray"></div>
+            <div class="column gap-5" (click)="openDialog('edit-expense')">
+                @for (expense of expenses; track $index) {
+                    <div class="row between header gap-15 single-expense">
+                        <div>{{ expense.name }}</div>
+                        <div>{{ expense.category }}</div>
+                        <div class="number txt-red">- {{ utils.formatNumber(expense.amount) }}</div>
+                    </div>
+    
+                    <div class="line gray"></div>
+                }
             </div>
         </div>
     </div>

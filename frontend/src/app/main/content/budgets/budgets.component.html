@@ -3,13 +3,13 @@
         <h1>Budgets</h1>
 
         <div class="row align-center gap-10">
-            <div class="btn-primary row gap-5 align-center" [class.isInactive]="activeBudgetId == ''" (click)="editBudget($event)">
+            <div class="btn-primary row gap-5 align-center" [class.isInactive]="activeBudgetId == ''" (click)="openDialog('edit-budget')">
                 <img src="img/edit.svg">
-                <span (click)="openDialog('edit-budget')">Edit</span>
+                <span>Edit</span>
             </div>
 
-            <div class="btn-primary">
-                <span (click)="openDialog('add-budget')">+ Add</span>
+            <div class="btn-primary" (click)="openDialog('add-budget')">
+                <span>+ Add</span>
             </div>
         </div>
     </div>
@@ -19,18 +19,18 @@
             <div class="column between budget-container" (click)="toggleActiveBudget($event, budget.id)" [class.isActiveBudget]="activeBudgetId === budget.id">
                 <div class="row between">
                     <div class="name">{{ budget.name }}:</div>
-                    <div class="number green">+ {{ utils.formatNumber(budget.generalAvailable) }}</div>
+                    <div class="number txt-green">+ {{ utils.formatNumber(budget.generalAvailable) }}</div>
                 </div>
                 
                 <div class="column between gap-15 information">
                     <div class="row between">
                         <div>Used:</div>
-                        <div class="number red">- {{ utils.formatNumber(budget.used) }}</div>
+                        <div class="number txt-red">- {{ utils.formatNumber(budget.used) }}</div>
                     </div>
         
                     <div class="row between">
                         <div>Available:</div>
-                        <div class="number green">+ {{ utils.formatNumber(budget.currentAvailable) }}</div>
+                        <div class="number txt-green">+ {{ utils.formatNumber(budget.currentAvailable) }}</div>
                     </div>
                 </div>
             </div>
