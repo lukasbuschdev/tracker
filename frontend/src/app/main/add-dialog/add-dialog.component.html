@@ -1,0 +1,31 @@
+@if(isOpen) {
+    <div class="backdrop center" (click)="closeCategories(); closeDialog()">
+        <div class="card column between" (click)="$event.stopPropagation()">
+            <div class="heading">
+                <h2>{{ dialog.addOrEdit }} {{ dialog.type }}</h2>
+            </div>
+    
+            <div class="input-container column gap-20 center" [class.gap-40]="dialog.type === 'expense'">
+                <input type="text" #name>
+                @if(dialog.type === 'expense') {
+                    <div class="dropdown" [class.active]="isDropdownOpened">
+                        <div (click)="toggleCategories($event)" class="dropdown-btn data">{{ selectedCategory }}</div>
+                        <ul class="dropdown-menu frequency">
+                            @for(category of selectableCategories; track category) {
+                                <li (click)="selectCategory(category); toggleCategories($event)">
+                                    <span>{{ category }}</span>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+                <input type="number" #amount>
+            </div>
+            
+            <div class="button-container row right gap-10">
+                <div class="btn-secondary" (click)="closeDialog()">Cancel</div>
+                <div class="btn-primary" (click)="getData(name.value, amount.value)">{{ dialog.addOrEdit }}</div>
+            </div>
+        </div>
+    </div>
+}

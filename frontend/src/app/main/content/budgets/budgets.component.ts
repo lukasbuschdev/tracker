@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { BudgetOrCategory } from '../../../types/types';
 import { UtilsService } from '../../../services/utils.service';
+import { DialogService } from '../../../services/dialog.service';
 
 @Component({
   selector: 'app-budgets',
@@ -28,7 +29,7 @@ export class BudgetsComponent {
     }
   ];
 
-  constructor(public utils: UtilsService) { }
+  constructor(public utils: UtilsService, private dialog: DialogService) { }
 
   toggleActiveBudget(event: MouseEvent, budgetId: string): void {
     event.stopPropagation();
@@ -42,5 +43,9 @@ export class BudgetsComponent {
 
   editBudget(event: MouseEvent): void {
     event.stopPropagation();
+  }
+
+  openDialog(str: string): void {
+    this.dialog.openDialog(str);
   }
 }

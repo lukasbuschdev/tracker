@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { DialogService } from '../../../services/dialog.service';
 
 @Component({
   selector: 'app-expenses',
@@ -11,6 +12,8 @@ export class ExpensesComponent {
   isDropdownOpened: boolean = false;
   selectableBudgets: string[] = ['Income', 'Savings', 'Whatever'];
   selectedBudget: string = 'Income';
+
+  constructor(private dialog: DialogService) { }
 
   toggleFilter(): void {
     this.isFilterVisible = !this.isFilterVisible;
@@ -27,5 +30,9 @@ export class ExpensesComponent {
 
   selectBudget(budget: string): void {
     this.selectedBudget = budget;
+  }
+
+  openDialog(str: string): void {
+    this.dialog.openDialog(str);
   }
 }

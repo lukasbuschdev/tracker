@@ -5,11 +5,11 @@
         <div class="row align-center gap-10">
             <div class="btn-primary row gap-5 align-center" [class.isInactive]="activeBudgetId == ''" (click)="editBudget($event)">
                 <img src="img/edit.svg">
-                <span>Edit</span>
+                <span (click)="openDialog('edit-budget')">Edit</span>
             </div>
 
             <div class="btn-primary">
-                <span>+ Add</span>
+                <span (click)="openDialog('add-budget')">+ Add</span>
             </div>
         </div>
     </div>
