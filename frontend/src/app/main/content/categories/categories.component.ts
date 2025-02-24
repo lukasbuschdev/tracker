@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { BudgetOrCategory } from '../../../types/types';
 import { UtilsService } from '../../../services/utils.service';
 import { DialogService } from '../../../services/dialog.service';
+import { DataService } from '../../../services/data.service';
 
 @Component({
   selector: 'app-categories',
@@ -11,35 +11,10 @@ import { DialogService } from '../../../services/dialog.service';
 })
 export class CategoriesComponent {
   isDropdownOpened: boolean = false;
-  selectableBudgets: string[] = ['Income', 'Savings', 'Whatever'];
-  selectedBudget: string = 'Income';
   isActiveCategory: boolean = false;
   activeCategoryId: string = '';
-  categories: BudgetOrCategory[] = [
-    {
-      id: '0',
-      name: "Transportation",
-      generalAvailable: 270.00,
-      used: 71.40,
-      currentAvailable: 198.60
-    },
-    {
-      id: '1',
-      name: "Food",
-      generalAvailable: 320.00,
-      used: 172.50,
-      currentAvailable: 147.50
-    },
-    {
-      id: '2',
-      name: "Rent",
-      generalAvailable: 720.00,
-      used: 720.00,
-      currentAvailable: 0.00
-    }
-  ];
 
-  constructor(public utils: UtilsService, private dialog: DialogService) { }
+  constructor(public utils: UtilsService, private dialog: DialogService, public data: DataService) { }
 
   toggleActiveCategory(event: MouseEvent, categoryId: string): void {
     event.stopPropagation();
@@ -65,7 +40,7 @@ export class CategoriesComponent {
   }
 
   selectBudget(budget: string): void {
-    this.selectedBudget = budget;
+    this.data.selectedBudget = budget;
   }
 
   openDialog(str: string): void {

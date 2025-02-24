@@ -37,48 +37,62 @@ export type Database = {
       budgets: {
         Row: {
           categories: {
+            id: string
             name: string
             amount: number
+            used: number
+            recreate: boolean
           }[]
-          created: string
+          created: Date
           expenses: {
             name: string
+            category: string
             amount: number
           }[]
           id: string
           name: string | null
           recreate: boolean
           userId: string
+          amount: number
+          used: number
         }
         Insert: {
           categories: {
+            id: string,
             name: string
             amount: number
+            used: number
+            recreate: boolean
           }[]
-          created?: string
+          created?: Date
           expenses: {
             name: string
+            category: string
             amount: number
           }[]
           id?: string
           name: string | null
           recreate?: boolean
           userId: string
+          amount: number
+          used: number
         }
         Update: {
           categories?: {
             name?: string
             amount?: number
+            used?: number
+            recreate?: boolean
           }[]
-          created?: string
           expenses?: {
             name?: string
+            category?: string
             amount?: number
           }[]
-          id?: string
           name?: string | null
           recreate?: boolean
-          userId?: string
+          amount?: number
+          used?: number
         }
         Relationships: []
       }

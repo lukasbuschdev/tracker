@@ -10,9 +10,9 @@
         <div class="select-budget-container row gap-15 align-center">
             <h4>Active Budget:</h4>
             <div class="dropdown" [class.active]="isDropdownOpened">
-                <div (click)="toggleBudgets($event)" class="dropdown-btn data">{{ selectedBudget }}</div>
+                <div (click)="toggleBudgets($event)" class="dropdown-btn data">{{ data.selectedBudget }}</div>
                 <ul class="dropdown-menu frequency">
-                    @for(budget of selectableBudgets; track budget) {
+                    @for(budget of data.selectableBudgets; track budget) {
                         <li (click)="selectBudget(budget); toggleBudgets($event)">
                             <span>{{ budget }}</span>
                         </li>
@@ -26,7 +26,7 @@
 
             <div class="row gap-15 align-center">
                 <h4>Current available:</h4>
-                <span class="number txt-green">+ {{ utils.formatNumber(currentAvailable) }}</span>
+                <span class="number txt-green">+ {{ utils.formatNumber(data.currentAvailable) }}</span>
             </div>
         </div>
         @if(isFilterVisible) {
@@ -68,7 +68,7 @@
             </div>
 
             <div class="column gap-5" (click)="openDialog('edit-expense')">
-                @for (expense of expenses; track $index) {
+                @for (expense of data.expenses; track $index) {
                     <div class="row between header gap-15 single-expense">
                         <div>{{ expense.name }}</div>
                         <div>{{ expense.category }}</div>

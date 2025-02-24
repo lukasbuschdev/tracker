@@ -15,11 +15,11 @@
     </div>
 
     <div class="content-container column gap-20">
-        @for(budget of budgets; track budget.id) {
+        @for(budget of data.budgets; track budget.id) {
             <div class="column between budget-container" (click)="toggleActiveBudget($event, budget.id)" [class.isActiveBudget]="activeBudgetId === budget.id">
                 <div class="row between">
                     <div class="name">{{ budget.name }}:</div>
-                    <div class="number txt-green">+ {{ utils.formatNumber(budget.generalAvailable) }}</div>
+                    <div class="number txt-green">+ {{ utils.formatNumber(budget.amount) }}</div>
                 </div>
                 
                 <div class="column between gap-15 information">
@@ -30,7 +30,7 @@
         
                     <div class="row between">
                         <div>Available:</div>
-                        <div class="number txt-green">+ {{ utils.formatNumber(budget.currentAvailable) }}</div>
+                        <div class="number txt-green">+ {{ utils.formatNumber(data.currentAvailable) }}</div>
                     </div>
                 </div>
             </div>

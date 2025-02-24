@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { UtilsService } from '../../../services/utils.service';
+import { DataService } from '../../../services/data.service';
 
 @Component({
   selector: 'app-reports',
@@ -9,10 +10,8 @@ import { UtilsService } from '../../../services/utils.service';
 })
 export class ReportsComponent {
   isDropdownOpened: boolean = false;
-  selectableBudgets: string[] = ['Income', 'Savings', 'Whatever'];
-  selectedBudget: string = 'Income';
 
-  constructor(public utils: UtilsService) { }
+  constructor(public utils: UtilsService, public data: DataService) { }
 
   toggleBudgets(event: MouseEvent): void {
     event.stopPropagation();
@@ -24,6 +23,6 @@ export class ReportsComponent {
   }
 
   selectBudget(budget: string): void {
-    this.selectedBudget = budget;
+    this.data.selectedBudget = budget;
   }
 }

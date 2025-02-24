@@ -18,9 +18,9 @@
         <div class="select-budget-container row gap-15 align-center">
             <h4>Active Budget:</h4>
             <div class="dropdown" [class.active]="isDropdownOpened">
-                <div (click)="toggleBudgets($event)" class="dropdown-btn data">{{ selectedBudget }}</div>
+                <div (click)="toggleBudgets($event)" class="dropdown-btn data">{{ data.selectedBudget }}</div>
                 <ul class="dropdown-menu frequency">
-                    @for(budget of selectableBudgets; track budget) {
+                    @for(budget of data.selectableBudgets; track budget) {
                         <li (click)="selectBudget(budget); toggleBudgets($event)">
                             <span>{{ budget }}</span>
                         </li>
@@ -29,11 +29,11 @@
             </div>
         </div>
 
-        @for(category of categories; track category.id) {
+        @for(category of data.categories; track category.id) {
             <div class="column between category-container" (click)="toggleActiveCategory($event, category.id)" [class.isActiveCategory]="activeCategoryId === category.id">
                 <div class="row between">
                     <div class="name">{{ category.name }}:</div>
-                    <div class="number txt-green">+ {{ utils.formatNumber(category.generalAvailable) }}</div>
+                    <div class="number txt-green">+ {{ utils.formatNumber(category.amount) }}</div>
                 </div>
                 
                 <div class="column between gap-15 information">
@@ -44,7 +44,7 @@
         
                     <div class="row between">
                         <div>Available:</div>
-                        <div class="number txt-green">+ {{ utils.formatNumber(category.currentAvailable) }}</div>
+                        <div class="number txt-green">+ {{ utils.formatNumber(category.amount - category.used) }}</div>
                     </div>
                 </div>
             </div>

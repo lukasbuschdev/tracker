@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { BudgetOrCategory } from '../../../types/types';
 import { UtilsService } from '../../../services/utils.service';
 import { DialogService } from '../../../services/dialog.service';
+import { DataService } from '../../../services/data.service';
 
 @Component({
   selector: 'app-budgets',
@@ -12,24 +12,8 @@ import { DialogService } from '../../../services/dialog.service';
 export class BudgetsComponent {
   isActiveBudget: boolean = false;
   activeBudgetId: string = '';
-  budgets: BudgetOrCategory[] = [
-    {
-      id: '0',
-      name: "Income",
-      generalAvailable: 3270.00,
-      used: 760.00,
-      currentAvailable: 2550.00
-    },
-    {
-      id: '1',
-      name: "Savings",
-      generalAvailable: 13270.00,
-      used: 1760.00,
-      currentAvailable: 12550.00
-    }
-  ];
 
-  constructor(public utils: UtilsService, private dialog: DialogService) { }
+  constructor(public utils: UtilsService, private dialog: DialogService, public data: DataService) { }
 
   toggleActiveBudget(event: MouseEvent, budgetId: string): void {
     event.stopPropagation();
