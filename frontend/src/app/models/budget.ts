@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { typeBudget, typeCategory, typeExpense } from "../types/types";
+import { typeBudget, typeCategory, typeExpense, UpdateData, UploadData } from "../types/types";
 import { firstValueFrom } from "rxjs";
 
 export class Budget {
@@ -10,8 +10,6 @@ export class Budget {
     amount: number;
     used: number;
     recreate: boolean;
-    categories: typeCategory[];
-    expenses: typeExpense[];
 
     static http: HttpClient
 
@@ -23,21 +21,24 @@ export class Budget {
         this.amount = data.amount;
         this.used = data.used ?? 0;
         this.recreate = data.recreate;
-        this.categories = data.categories ?? [];
-        this.expenses = data.expenses ?? [];
     }
 
-    static async create(data: Omit<typeBudget, 'id' | 'created'>) {
+    static async create(data: UploadData<typeBudget>) {
         const receivedData = await firstValueFrom(this.http.post<typeBudget>('/api/budgets', data));
-
         return new Budget(receivedData);
     }
 
     static async get(userId: string) {
-        const receivedData = await firstValueFrom(this.http.get<typeBudget[]>(`/api/budgets/${userId}`));
-
+        const receivedData = await firstValueFrom(this.http.get<typeBudget[]>(`/api/budgets/${ userId }`));
         return receivedData.map(budget => new Budget(budget));
     }
 
+    static delete(budgetId: string) {
+        return firstValueFrom(this.http.delete<void>(`/api/budgets/${ budgetId }`)); 
+    }
 
+    static async patch(budgetId: string, data: UpdateData<typeBudget>) {
+        const receivedData = await firstValueFrom(this.http.patch<typeBudget>(`/api/budgets/${ budgetId }`, data));
+        return new Budget(receivedData);
+    }
 }

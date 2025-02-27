@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { typeBudget, typeCategory, typeExpense } from '../types/types';
 
 @Injectable({
   providedIn: 'root'
@@ -24,13 +23,12 @@ export class DataService {
     }
   ];
 
-  expenses: typeExpense[] = [
+  expenses = [
     {
       id: '0',
       name: 'Bus ticket',
       category: 'Transportation',
       amount: 5.20,
-      created: 1740425857730,
       recreate: false
     },
     {
@@ -38,7 +36,6 @@ export class DataService {
       name: 'Lunch',
       category: 'Food',
       amount: 12.70,
-      created: 1740425857730,
       recreate: false
     },
     {
@@ -46,7 +43,6 @@ export class DataService {
       name: 'Rent',
       category: 'Rent',
       amount: 720,
-      created: 1740425857730,
       recreate: false
     },
     {
@@ -54,7 +50,6 @@ export class DataService {
       name: 'Snack',
       category: 'Food',
       amount: 3.20,
-      created: 1740425857730,
       recreate: false
     },
     {
@@ -62,12 +57,11 @@ export class DataService {
       name: 'Train ticket',
       category: 'Transportation',
       amount: 6.80,
-      created: 1740425857730,
       recreate: false
     }
   ];
 
-  categories: typeCategory[] = [
+  categories = [
     {
       id: '0',
       name: "Transportation",

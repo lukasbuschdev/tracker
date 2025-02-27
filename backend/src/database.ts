@@ -1,6 +1,9 @@
 import { createClient } from '@supabase/supabase-js'
 import { Database } from './supabase.js';
 
+export type Tables = Database['public']['Tables'];
+type Update<Key extends keyof Tables> = Tables[Key]['Update'];
+
 export class Supabase {
     supabaseUrl = 'https://ewkvopmxfjtsiwghbipw.supabase.co';
     supabaseKey;
@@ -11,29 +14,37 @@ export class Supabase {
         this.supabase = createClient<Database>(this.supabaseUrl, this.supabaseKey);
     }
 
-    async uploadBudget(uploadData: any) {
-        const { data, error } = await this.supabase.from('budgets').insert(uploadData).select('*').single();
-        return { data, error };
+
+    //UPLOAD
+
+    async uploadData(uploadData: any, table: keyof Tables) {
+        return this.supabase.from(table).insert(uploadData).select('*').single();
     }
 
-    async uploadUser(uploadData: any) {
-        const { data, error } = await this.supabase.from('users').insert(uploadData).select('*').single();
-        return { data, error };
-    }
 
-    async getBudgets(userId: string) {
-        const { data, error } = await this.supabase.from('budgets').select('*').eq('userId', userId);
-        return { data, error };
-    }
+    //GET
 
-    async getUser(userId: string) {
-        const { data, error } = await this.supabase.from('users').select('*').eq('id', userId).single();
-        return { data, error };
-    }
-
-    async getUserByEmailOrUsername(emailOrName: string, password: string) {
+    getUserByEmailOrUsername(emailOrName: string, password: string) {
         const column = emailOrName.includes('@') ? 'email' : 'name';
-        const { data, error } = await this.supabase.from('users').select('*').eq(column, emailOrName).eq('password', password).single();
-        return { data, error }; 
+        return this.supabase.from('users').select('*').eq(column, emailOrName).eq('password', password).single();
+    }
+
+    getData(id: string, table: keyof Tables, idColumn: string, isSingle: boolean = false) {
+        const query = this.supabase.from(table).select('*').eq(idColumn, id);
+        return (isSingle ? query.single() : query);
+    }
+
+
+    // DELETE
+
+    deleteData(id: string, table: keyof Tables) {
+        return this.supabase.from(table).delete().eq('id', id);
+    }
+
+
+    //PATCH
+
+    patchData<Table extends keyof Tables>(id: string, table: Table, updateData: Update<Table>) {
+        return this.supabase.from(table).update(updateData as any).eq('id', id as any).select('*').single();
     }
 }

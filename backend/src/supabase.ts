@@ -36,70 +36,112 @@ export type Database = {
     Tables: {
       budgets: {
         Row: {
-          categories: {
-            id: string
-            name: string
-            amount: number
-            used: number
-            recreate: boolean
-          }[]
-          created: Date
-          expenses: {
-            name: string
-            category: string
-            amount: number
-          }[]
-          id: string
-          name: string | null
-          recreate: boolean
-          userId: string
           amount: number
+          created: string
+          id: string
+          name: string
+          recreate: boolean
+          used: number
+          userId: string
+        }
+        Insert: {
+          amount: number
+          created?: string
+          id?: string
+          name: string
+          recreate?: boolean
+          used?: number
+          userId: string
+        }
+        Update: {
+          amount?: number
+          name?: string
+          recreate?: boolean
+          used?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "budgets_userId_fkey"
+            columns: ["userId"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      categories: {
+        Row: {
+          amount: number
+          budgetId: string
+          created: string
+          id: string
+          name: string
+          recreate: boolean
           used: number
         }
         Insert: {
-          categories: {
-            id: string,
-            name: string
-            amount: number
-            used: number
-            recreate: boolean
-          }[]
-          created?: Date
-          expenses: {
-            name: string
-            category: string
-            amount: number
-          }[]
-          id?: string
-          name: string | null
-          recreate?: boolean
-          userId: string
           amount: number
-          used: number
-        }
-        Update: {
-          categories?: {
-            name?: string
-            amount?: number
-            used?: number
-            recreate?: boolean
-          }[]
-          expenses?: {
-            name?: string
-            category?: string
-            amount?: number
-          }[]
-          name?: string | null
-          recreate?: boolean
-          amount?: number
+          budgetId: string
+          created?: string
+          id?: string
+          name: string
+          recreate: boolean
           used?: number
         }
-        Relationships: []
+        Update: {
+          amount?: number
+          name?: string
+          recreate?: boolean
+          used?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "categories_budgetId_fkey"
+            columns: ["budgetId"]
+            isOneToOne: false
+            referencedRelation: "budgets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      expenses: {
+        Row: {
+          amount: number
+          budgetId: string | null
+          category: string
+          created: string
+          id: string
+          name: string
+          recreate: boolean
+        }
+        Insert: {
+          amount: number
+          budgetId?: string | null
+          category: string
+          created?: string
+          id?: string
+          name: string
+          recreate: boolean
+        }
+        Update: {
+          amount?: number
+          category?: string
+          name?: string
+          recreate?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "expenses_budgetId_fkey"
+            columns: ["budgetId"]
+            isOneToOne: false
+            referencedRelation: "budgets"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       users: {
         Row: {
           created: string
-          currency: string
           email: string
           id: string
           name: string
@@ -107,14 +149,12 @@ export type Database = {
         }
         Insert: {
           created?: string
-          currency: string
           email: string
           id?: string
           name: string
           password: string
         }
         Update: {
-          currency?: string
           email?: string
           name?: string
           password?: string
