@@ -29,8 +29,8 @@
                     </div>
         
                     <div class="row between">
-                        <div>Available:</div>
-                        <div class="number txt-green">+ {{ utils.formatNumber(data.currentAvailable) }}</div>
+                        <div>Current available:</div>
+                        <div class="number txt-green">+ {{ utils.formatNumber(budget.amount - budget.used) }}</div>
                     </div>
                 </div>
             </div>

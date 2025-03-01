@@ -1,93 +1,38 @@
 import { Injectable } from '@angular/core';
+import { Budget } from '../models/budget';
+import { BehaviorSubject } from 'rxjs';
+import { Expense } from '../models/expense';
+import { CategoriesComponent } from '../main/content/categories/categories.component';
+import { Category } from '../models/category';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-  budgets = [
-    {
-      id: '0',
-      name: "Income",
-      amount: 3270.00,
-      used: 760.00,
-      userId: 'jerf8743',
-      recreate: false
-    },
-    {
-      id: '1',
-      name: "Savings",
-      amount: 13270.00,
-      used: 1760.00,
-      userId: 'jerf8743',
-      recreate: false
+
+  currentUserId: string = 'c9122b3f-9c14-4693-ab50-359278e857cf'; //ID Lukas
+  // currentUserId: string = '564eddf1-873b-44a6-91c0-1cc81defb1a2'; //ID Olaf
+  
+  budgets: Budget[] = [];
+  expenses: Expense[] = [];
+  categories: Category[] = [];
+  selectedBudget: Budget | null = null;
+  currentAvailable: number = 0;
+
+  constructor() {
+    this.getData();
+  }
+
+  async getData(): Promise<void> {
+    try {
+      this.budgets = await Budget.get(this.currentUserId);
+      if(!this.budgets.length) return;
+      this.selectedBudget = this.budgets[0];
+      this.currentAvailable = this.selectedBudget.amount - this.selectedBudget.used;
+      this.expenses = await Expense.get(this.selectedBudget.id);
+      this.categories = await Category.get(this.selectedBudget.id);
+    } catch (error) {
+      console.error(error)
     }
-  ];
-
-  expenses = [
-    {
-      id: '0',
-      name: 'Bus ticket',
-      category: 'Transportation',
-      amount: 5.20,
-      recreate: false
-    },
-    {
-      id: '1',
-      name: 'Lunch',
-      category: 'Food',
-      amount: 12.70,
-      recreate: false
-    },
-    {
-      id: '2',
-      name: 'Rent',
-      category: 'Rent',
-      amount: 720,
-      recreate: false
-    },
-    {
-      id: '3',
-      name: 'Snack',
-      category: 'Food',
-      amount: 3.20,
-      recreate: false
-    },
-    {
-      id: '4',
-      name: 'Train ticket',
-      category: 'Transportation',
-      amount: 6.80,
-      recreate: false
-    }
-  ];
-
-  categories = [
-    {
-      id: '0',
-      name: "Transportation",
-      amount: 270.00,
-      used: 71.40,
-      recreate: false
-    },
-    {
-      id: '1',
-      name: "Food",
-      amount: 320.00,
-      used: 172.50,
-      recreate: false
-    },
-    {
-      id: '2',
-      name: "Rent",
-      amount: 720.00,
-      used: 720.00,
-      recreate: false
-    }
-  ];
-
-  selectableBudgets: string[] = ['Income', 'Savings', 'Whatever'];
-  selectedBudget: string = 'Income';
-  currentAvailable: number = 2550;
-
-
+  }
 }

@@ -7,77 +7,79 @@
     </div>
 
     <div class="content-container column gap-30">
-        <div class="select-budget-container row gap-15 align-center">
-            <h4>Active Budget:</h4>
-            <div class="dropdown" [class.active]="isDropdownOpened">
-                <div (click)="toggleBudgets($event)" class="dropdown-btn data">{{ data.selectedBudget }}</div>
-                <ul class="dropdown-menu frequency">
-                    @for(budget of data.selectableBudgets; track budget) {
-                        <li (click)="selectBudget(budget); toggleBudgets($event)">
-                            <span>{{ budget }}</span>
-                        </li>
+        @if(data.selectedBudget) {
+            <div class="select-budget-container row gap-15 align-center">
+                <h4>Active Budget:</h4>
+                <div class="dropdown" [class.active]="isDropdownOpened">
+                    <div (click)="toggleBudgets($event)" class="dropdown-btn data">{{ data.selectedBudget.name }}</div>
+                    <ul class="dropdown-menu frequency">
+                        @for(budget of data.budgets; track budget) {
+                            <li (click)="selectBudget(budget); toggleBudgets($event)">
+                                <span>{{ budget.name }}</span>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row between">
+                <div class="btn-secondary" (click)="toggleFilter()">Filter</div>
+
+                <div class="row gap-15 align-center">
+                    <h4>Current available:</h4>
+                    <span class="number txt-green">+ {{ utils.formatNumber(data.selectedBudget.amount - data.selectedBudget.used) }}</span>
+                </div>
+            </div>
+            @if(isFilterVisible) {
+                <div class="row align-center between filter-container gap-10">
+                    <div class="row gap-5 text-search">
+                        <input type="text" placeholder="Name...">
+                        <input type="text" placeholder="Category...">
+                    </div>
+
+                    <div class="row gap-5 number-search">
+                        <input type="number" placeholder="Min.">
+                        <input type="number" placeholder="Max.">
+                    </div>
+
+                    <div class="btn-secondary">
+                        <span>Apply</span>
+                    </div>
+                </div>
+            }
+
+            <div class="column table gap-20">
+                <div class="column gap-10">
+                    <div class="row between header gap-15">
+                        <div class="row between align-center">
+                            <h4>Name</h4>
+                            <img src="img/sort.svg">
+                        </div>
+                        <div class="row between align-center">
+                            <h4>Category</h4>
+                            <img src="img/sort.svg">
+                        </div>
+                        <div class="row between align-center">
+                            <h4>Amount</h4>
+                            <img src="img/sort.svg">
+                        </div>
+                    </div>
+                
+                    <div class="line wine"></div>
+                </div>
+
+                <div class="column gap-5" (click)="openDialog('edit-expense')">
+                    @for (expense of data.expenses; track $index) {
+                        <div class="row between header gap-15 single-expense">
+                            <div>{{ expense.name }}</div>
+                            <div>{{ expense.category }}</div>
+                            <div class="number txt-red">- {{ utils.formatNumber(expense.amount) }}</div>
+                        </div>
+                    
+                        <div class="line gray"></div>
                     }
-                </ul>
-            </div>
-        </div>
-
-        <div class="row between">
-            <div class="btn-secondary" (click)="toggleFilter()">Filter</div>
-
-            <div class="row gap-15 align-center">
-                <h4>Current available:</h4>
-                <span class="number txt-green">+ {{ utils.formatNumber(data.currentAvailable) }}</span>
-            </div>
-        </div>
-        @if(isFilterVisible) {
-            <div class="row align-center between filter-container gap-10">
-                <div class="row gap-5 text-search">
-                    <input type="text" placeholder="Name...">
-                    <input type="text" placeholder="Category...">
-                </div>
-
-                <div class="row gap-5 number-search">
-                    <input type="number" placeholder="Min.">
-                    <input type="number" placeholder="Max.">
-                </div>
-
-                <div class="btn-secondary">
-                    <span>Apply</span>
                 </div>
             </div>
         }
-
-        <div class="column table gap-20">
-            <div class="column gap-10">
-                <div class="row between header gap-15">
-                    <div class="row between align-center">
-                        <h4>Name</h4>
-                        <img src="img/sort.svg">
-                    </div>
-                    <div class="row between align-center">
-                        <h4>Category</h4>
-                        <img src="img/sort.svg">
-                    </div>
-                    <div class="row between align-center">
-                        <h4>Amount</h4>
-                        <img src="img/sort.svg">
-                    </div>
-                </div>
-    
-                <div class="line wine"></div>
-            </div>
-
-            <div class="column gap-5" (click)="openDialog('edit-expense')">
-                @for (expense of data.expenses; track $index) {
-                    <div class="row between header gap-15 single-expense">
-                        <div>{{ expense.name }}</div>
-                        <div>{{ expense.category }}</div>
-                        <div class="number txt-red">- {{ utils.formatNumber(expense.amount) }}</div>
-                    </div>
-    
-                    <div class="line gray"></div>
-                }
-            </div>
-        </div>
     </div>
 </div>

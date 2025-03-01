@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { UtilsService } from '../../../services/utils.service';
 import { DialogService } from '../../../services/dialog.service';
 import { DataService } from '../../../services/data.service';
+import { Budget } from '../../../models/budget';
 
 @Component({
   selector: 'app-categories',
@@ -39,7 +40,7 @@ export class CategoriesComponent {
     this.isDropdownOpened = false;
   }
 
-  selectBudget(budget: string): void {
+  selectBudget(budget: Budget): void {
     this.data.selectedBudget = budget;
   }
 

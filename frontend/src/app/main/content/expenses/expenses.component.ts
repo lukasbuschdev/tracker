@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { DialogService } from '../../../services/dialog.service';
 import { UtilsService } from '../../../services/utils.service';
 import { DataService } from '../../../services/data.service';
+import { Budget } from '../../../models/budget';
 
 @Component({
   selector: 'app-expenses',
@@ -28,7 +29,7 @@ export class ExpensesComponent {
     this.isDropdownOpened = false;
   }
 
-  selectBudget(budget: string): void {
+  selectBudget(budget: Budget): void {
     this.data.selectedBudget = budget;
   }
 

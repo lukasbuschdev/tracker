@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
 import { MainComponent } from './main/main.component';
 import { Budget } from './models/budget';
-import { typeBudget } from './types/types';
 import { User } from './models/user';
 import { Expense } from './models/expense';
 import { Category } from './models/category';
@@ -20,10 +19,10 @@ export class AppComponent implements OnInit {
   http = inject(HttpClient);
 
   budget = {
-    name: 'Income',
-    userId: '39478gkjshdf9',
-    amount: 1000,
-    used: 350,
+    name: 'Transportation',
+    userId: 'c9122b3f-9c14-4693-ab50-359278e857cf',
+    amount: 250,
+    used: 250,
     recreate: false,
   }
 
@@ -47,16 +46,12 @@ export class AppComponent implements OnInit {
   }
 
   expense = {
-    name: 'Leberkas Semmel',
-    category: 'Food',
-    amount: 5.70,
+    name: 'Rent',
+    category: 'Rent',
+    amount: 750,
     recreate: false,
     budgetId: this.budgetId
   }
-
-  id: string = 'c9122b3f-9c14-4693-ab50-359278e857cf'; //ID Lukas
-  // id: string = '564eddf1-873b-44a6-91c0-1cc81defb1a2'; //ID Olaf
-
 
 
   constructor() {
@@ -67,6 +62,6 @@ export class AppComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-
+    // console.log(await Expense.create(this.expense))
   }
 }
