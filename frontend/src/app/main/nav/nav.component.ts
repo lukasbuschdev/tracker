@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-nav',
@@ -10,7 +11,12 @@ import { RouterModule } from '@angular/router';
 export class NavComponent {
   activeNav: string = 'dashboard';
 
-  setActive(nav: string): void {
+  constructor(private data: DataService) {}
+
+  async setActive(nav: string): Promise<void> {
     this.activeNav = nav;
+
+    if(this.activeNav === 'expenses') return await this.data.getExpenses();
+    if(this.activeNav === 'categories') return await this.data.getCategories(); 
   }
 }

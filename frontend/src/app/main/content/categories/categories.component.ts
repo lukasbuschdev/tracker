@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UtilsService } from '../../../services/utils.service';
 import { DialogService } from '../../../services/dialog.service';
 import { DataService } from '../../../services/data.service';
@@ -21,6 +21,7 @@ export class CategoriesComponent {
     event.stopPropagation();
     if(this.activeCategoryId === categoryId) return this.closeCategory();
     this.activeCategoryId = categoryId;
+    this.data.clickedCategory = this.data.categories.filter(category => category.id === this.activeCategoryId)[0];
   }
 
   closeCategory(): void {
@@ -42,6 +43,7 @@ export class CategoriesComponent {
 
   selectBudget(budget: Budget): void {
     this.data.selectedBudget = budget;
+    this.data.getCategories();
   }
 
   openDialog(str: string): void {

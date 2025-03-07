@@ -13,6 +13,7 @@ import { Budget } from '../../../models/budget';
 export class ExpensesComponent {
   isFilterVisible: boolean = false;
   isDropdownOpened: boolean = false;
+  selectedExpenseId: string = '';
 
   constructor(private dialog: DialogService, public utils: UtilsService, public data: DataService) { }
 
@@ -31,9 +32,16 @@ export class ExpensesComponent {
 
   selectBudget(budget: Budget): void {
     this.data.selectedBudget = budget;
+    this.data.getExpenses();
+    this.data.getCategories();
   }
 
-  openDialog(str: string): void {
-    this.dialog.openDialog(str);
+  openDialog(str: string, expenseId?: string, category?: string): void {
+    this.dialog.openDialog(str, category);
+
+    if(!expenseId) return;
+
+    this.selectedExpenseId = expenseId; 
+    this.data.clickedExpense = this.data.expenses.filter(expense => expense.id === this.selectedExpenseId)[0];
   }
 }

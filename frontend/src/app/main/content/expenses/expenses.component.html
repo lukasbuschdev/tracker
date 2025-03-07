@@ -68,9 +68,9 @@
                     <div class="line wine"></div>
                 </div>
 
-                <div class="column gap-5" (click)="openDialog('edit-expense')">
+                <div class="column gap-5">
                     @for (expense of data.expenses; track $index) {
-                        <div class="row between header gap-15 single-expense">
+                        <div class="row between header gap-15 single-expense" (click)="openDialog('edit-expense', expense.id, expense.category)">
                             <div>{{ expense.name }}</div>
                             <div>{{ expense.category }}</div>
                             <div class="number txt-red">- {{ utils.formatNumber(expense.amount) }}</div>

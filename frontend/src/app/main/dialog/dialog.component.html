@@ -8,13 +8,23 @@
             <div class="input-container column gap-30 center">
                 <div class="column gap-10 align-center w-100">
                     <label>{{ formatLabel(dialog.type) }} name</label>
-                    <input id="name" type="text" #name [placeholder]="'Enter ' + dialog.type + ' name...'">
+                    <input id="name" type="text" #inputName [ngModel]="
+                        dialog.addOrEdit === 'Edit'
+                          ? dialog.type === 'budget'
+                            ? data.clickedBudget?.name
+                            : dialog.type === 'category'
+                            ? data.clickedCategory?.name
+                            : data.clickedExpense?.name
+                          : null
+                        " [placeholder]="'Enter ' + dialog.type + ' name...'">
                 </div>
                 @if(dialog.type === 'expense') {
                     <div class="dropdown" [class.active]="isDropdownOpened">
                         <div class="column gap-10 align-center w-100">
                             <label>Category</label>
-                            <div (click)="toggleCategories($event)" class="dropdown-btn data left">{{ selectedCategory }}</div>
+                            <div (click)="toggleCategories($event)" class="dropdown-btn data left">
+                                {{ dialog.addOrEdit === 'Edit' ? dialog.category : selectedCategory }}
+                            </div>
                         </div>
                         <ul class="dropdown-menu frequency">
                             @for(category of selectableCategories; track category) {
@@ -27,13 +37,21 @@
                 }
                 <div class="column gap-5 align-center w-100">
                     <label>{{ formatLabel(dialog.type) }} amount</label>
-                    <input type="number" #amount [placeholder]="'Enter amount...'">
+                    <input type="number" #amount [ngModel]="
+                        dialog.addOrEdit === 'Edit'
+                          ? dialog.type === 'budget'
+                            ? data.clickedBudget?.amount
+                            : dialog.type === 'category'
+                            ? data.clickedCategory?.amount
+                            : data.clickedExpense?.amount
+                          : null
+                        " [placeholder]="'Enter amount...'">
                 </div>
             </div>
             
             <div class="button-container row right gap-10">
                 <div class="btn-secondary" (click)="closeDialog()">Cancel</div>
-                <div class="btn-primary" (click)="getData(name.value, amount.value)">{{ dialog.addOrEdit }}</div>
+                <div class="btn-primary" (click)="getData(inputName.value, amount.value)">{{ dialog.addOrEdit }}</div>
             </div>
         </div>
     </div>

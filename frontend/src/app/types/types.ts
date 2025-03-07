@@ -35,5 +35,10 @@ export type typeUser = {
     password: string
 }
 
+export type typeDialogData = {
+    name: string,
+    amount: number
+}
+
 export type UploadData<Type> = Omit<Type, 'id' | 'created'>;
 export type UpdateData<Type> = Partial<UploadData<Type>>;

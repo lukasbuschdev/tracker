@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Budget } from '../models/budget';
-import { BehaviorSubject } from 'rxjs';
 import { Expense } from '../models/expense';
-import { CategoriesComponent } from '../main/content/categories/categories.component';
 import { Category } from '../models/category';
 
 @Injectable({
@@ -18,6 +16,9 @@ export class DataService {
   categories: Category[] = [];
   selectedBudget: Budget | null = null;
   currentAvailable: number = 0;
+  clickedBudget: Budget | null = null; 
+  clickedCategory: Category | null = null;
+  clickedExpense: Expense | null = null;
 
   constructor() {
     this.getData();
@@ -27,12 +28,23 @@ export class DataService {
     try {
       this.budgets = await Budget.get(this.currentUserId);
       if(!this.budgets.length) return;
+
       this.selectedBudget = this.budgets[0];
       this.currentAvailable = this.selectedBudget.amount - this.selectedBudget.used;
-      this.expenses = await Expense.get(this.selectedBudget.id);
-      this.categories = await Category.get(this.selectedBudget.id);
+      await this.getExpenses();
+      await this.getCategories();
     } catch (error) {
       console.error(error)
     }
+  }
+
+  async getExpenses(): Promise<void> {
+    if(!this.selectedBudget) return;
+    this.expenses = await Expense.get(this.selectedBudget.id);
+  }
+
+  async getCategories(): Promise<void> {
+    if(!this.selectedBudget) return;
+    this.categories = await Category.get(this.selectedBudget.id);
   }
 }
