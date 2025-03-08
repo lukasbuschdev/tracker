@@ -44,6 +44,7 @@ export class CategoriesComponent {
   selectBudget(budget: Budget): void {
     this.data.selectedBudget = budget;
     this.data.getCategories();
+    this.data.getExpenses();
   }
 
   openDialog(str: string): void {

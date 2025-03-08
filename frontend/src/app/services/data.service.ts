@@ -41,10 +41,12 @@ export class DataService {
   async getExpenses(): Promise<void> {
     if(!this.selectedBudget) return;
     this.expenses = await Expense.get(this.selectedBudget.id);
+    // console.log(this.expenses)
   }
 
   async getCategories(): Promise<void> {
     if(!this.selectedBudget) return;
     this.categories = await Category.get(this.selectedBudget.id);
+    // console.log(this.categories)
   }
 }

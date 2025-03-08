@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DialogService } from '../../services/dialog.service';
 import { DataService } from '../../services/data.service';
 import { Budget } from '../../models/budget';
-import { typeDialogData } from '../../types/types';
+import { typeDialogData, typeExpense } from '../../types/types';
 import { Category } from '../../models/category';
 import { Expense } from '../../models/expense';
 import { CommonModule } from '@angular/common';
@@ -146,11 +146,33 @@ export class DialogComponent implements OnInit {
     }
 
     if(!this.data.clickedCategory) return;
+    const clickedCategoryName = this.data.clickedCategory.name;
 
     const editedCategory = await Category.patch(this.data.clickedCategory.id, categoryData);
     this.data.categories = this.data.categories.map(category => {
       return category.id === editedCategory.id ? { ...category, ...editedCategory } : category;
     });
+
+    this.updateExpenses(dialogData, clickedCategoryName);
+  }
+
+  async updateExpenses(dialogData: typeDialogData, clickedCategoryName: string): Promise<void> {
+    const relatedExpenses = this.data.expenses.filter(expense => {
+      return expense.category === clickedCategoryName ? expense : '';
+    });
+
+    const editedExpenses = await Promise.all(
+      relatedExpenses.map(expense => {
+        expense.category = dialogData.name;
+        return Expense.patch(expense.id, expense);
+      })
+    );
+
+    editedExpenses.forEach(editedExpense => {
+      this.data.expenses = this.data.expenses.map(expense => {
+        return expense.id === editedExpense.id ? { ...expense, ...editedExpense } : expense;
+      });
+    })
   }
 
   async editExpense(dialogData: typeDialogData): Promise<void> {
