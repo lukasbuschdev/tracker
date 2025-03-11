@@ -27,7 +27,7 @@
 
                 <div class="row gap-15 align-center">
                     <h4>Current available:</h4>
-                    <span class="number txt-green">+ {{ utils.formatNumber(data.selectedBudget.amount - data.selectedBudget.used) }}</span>
+                    <span class="number txt-green">+ {{ utils.formatNumber(calculateCurrentAvailable()) }}</span>
                 </div>
             </div>
             @if(isFilterVisible) {

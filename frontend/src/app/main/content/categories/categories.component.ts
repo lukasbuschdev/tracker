@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { UtilsService } from '../../../services/utils.service';
 import { DialogService } from '../../../services/dialog.service';
 import { DataService } from '../../../services/data.service';
 import { Budget } from '../../../models/budget';
+import { Category } from '../../../models/category';
 
 @Component({
   selector: 'app-categories',
@@ -14,6 +15,7 @@ export class CategoriesComponent {
   isDropdownOpened: boolean = false;
   isActiveCategory: boolean = false;
   activeCategoryId: string = '';
+  availableInSelectedBudget: number = 0;
 
   constructor(public utils: UtilsService, private dialog: DialogService, public data: DataService) { }
 
@@ -44,10 +46,25 @@ export class CategoriesComponent {
   selectBudget(budget: Budget): void {
     this.data.selectedBudget = budget;
     this.data.getCategories();
-    this.data.getExpenses();
   }
 
   openDialog(str: string): void {
     this.dialog.openDialog(str);
+  }
+
+  calculateAvailableBudget(): number {
+    if(!this.data.selectedBudget) return 0;
+
+    const categoriesAmounts = this.data.categories.map(category => category.amount);
+
+    return this.availableInSelectedBudget = this.data.selectedBudget?.amount - categoriesAmounts.reduce((acc, curr) => acc + curr, 0);
+  }
+
+  calculateCategoryUsed(category: Category): number {
+    const expenses = this.data.expenses.filter(expense => expense.category === category.name);
+    const expensesAmount = expenses.map(expense => expense?.amount);
+    const categoryAmountUsed = expensesAmount.reduce((acc, curr) => acc + curr, 0);
+
+    return categoryAmountUsed;
   }
 }

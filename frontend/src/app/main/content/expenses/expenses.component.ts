@@ -44,4 +44,11 @@ export class ExpensesComponent {
     this.selectedExpenseId = expenseId; 
     this.data.clickedExpense = this.data.expenses.filter(expense => expense.id === this.selectedExpenseId)[0];
   }
+
+  calculateCurrentAvailable(): number {
+    const allExpenses = this.data.expenses.map(expense => expense.amount);
+    const expensesAmount = allExpenses.reduce((acc, curr) => acc + curr, 0);
+
+    return this.data.currentAvailable - expensesAmount;
+  }
 }

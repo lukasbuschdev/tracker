@@ -28,3 +28,11 @@
         font-weight: 600;
     }
 }
+
+
+@media(max-width: 1000px) {
+    .select-budget-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+}

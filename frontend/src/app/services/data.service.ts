@@ -33,6 +33,7 @@ export class DataService {
       this.currentAvailable = this.selectedBudget.amount - this.selectedBudget.used;
       await this.getExpenses();
       await this.getCategories();
+      console.log('GETTING DATA')
     } catch (error) {
       console.error(error)
     }
@@ -42,11 +43,13 @@ export class DataService {
     if(!this.selectedBudget) return;
     this.expenses = await Expense.get(this.selectedBudget.id);
     // console.log(this.expenses)
+    console.log('GETTING EXPENSES')
   }
 
   async getCategories(): Promise<void> {
     if(!this.selectedBudget) return;
     this.categories = await Category.get(this.selectedBudget.id);
     // console.log(this.categories)
+    console.log('GETTING CATEGORIES')
   }
 }

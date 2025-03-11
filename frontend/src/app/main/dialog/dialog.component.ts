@@ -136,6 +136,8 @@ export class DialogComponent implements OnInit {
     this.data.budgets = this.data.budgets.map(budget => {
       return budget.id === editedBudget.id ? { ...budget, ...editedBudget } : budget;
     });
+
+    this.data.getData();
   }
 
   async editCategory(dialogData: typeDialogData): Promise<void> {
