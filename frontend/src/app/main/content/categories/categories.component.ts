@@ -23,7 +23,7 @@ export class CategoriesComponent {
     event.stopPropagation();
     if(this.activeCategoryId === categoryId) return this.closeCategory();
     this.activeCategoryId = categoryId;
-    this.data.clickedCategory = this.data.categories.filter(category => category.id === this.activeCategoryId)[0];
+    this.data.clickedCategory = this.data.categoriesArray.filter(category => category.id === this.activeCategoryId)[0];
   }
 
   closeCategory(): void {
@@ -55,13 +55,13 @@ export class CategoriesComponent {
   calculateAvailableBudget(): number {
     if(!this.data.selectedBudget) return 0;
 
-    const categoriesAmounts = this.data.categories.map(category => category.amount);
+    const categoriesAmounts = this.data.categoriesArray.map(category => category.amount);
 
     return this.availableInSelectedBudget = this.data.selectedBudget?.amount - categoriesAmounts.reduce((acc, curr) => acc + curr, 0);
   }
 
   calculateCategoryUsed(category: Category): number {
-    const expenses = this.data.expenses.filter(expense => expense.category === category.name);
+    const expenses = this.data.expensesArray.filter(expense => expense.category === category.name);
     const expensesAmount = expenses.map(expense => expense?.amount);
     const categoryAmountUsed = expensesAmount.reduce((acc, curr) => acc + curr, 0);
 

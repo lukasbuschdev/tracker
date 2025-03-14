@@ -15,7 +15,7 @@
     </div>
 
     <div class="content-container column gap-20">
-        @for(budget of data.budgets; track budget.id) {
+        @for(budget of data.budgetsArray; track budget.id) {
             <div class="column between budget-container" (click)="toggleActiveBudget($event, budget.id)" [class.isActiveBudget]="activeBudgetId === budget.id">
                 <div class="row between">
                     <div class="name">{{ budget.name }}:</div>

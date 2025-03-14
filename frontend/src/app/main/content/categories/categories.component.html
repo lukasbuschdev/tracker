@@ -21,7 +21,7 @@
                 <div class="dropdown" [class.active]="isDropdownOpened">
                     <div (click)="toggleBudgets($event)" class="dropdown-btn data">{{ data.selectedBudget?.name }}</div>
                     <ul class="dropdown-menu frequency">
-                        @for(budget of data.budgets; track budget) {
+                        @for(budget of data.budgetsArray; track budget) {
                             <li (click)="selectBudget(budget); toggleBudgets($event)">
                                 <span>{{ budget.name }}</span>
                             </li>
@@ -36,7 +36,7 @@
             </div>
         </div>
 
-        @for(category of data.categories; track category.id) {
+        @for(category of data.categoriesArray; track category.id) {
             <div class="column between category-container" (click)="toggleActiveCategory($event, category.id)" [class.isActiveCategory]="activeCategoryId === category.id">
                 <div class="row between">
                     <div class="name">{{ category.name }}:</div>

@@ -1,6 +1,6 @@
 import '@fontsource/montserrat';
 import { HttpClient } from '@angular/common/http';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MainComponent } from './main/main.component';
 import { Budget } from './models/budget';
 import { User } from './models/user';
@@ -13,7 +13,7 @@ import { Category } from './models/category';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'frontend';
   
   http = inject(HttpClient);
@@ -59,9 +59,5 @@ export class AppComponent implements OnInit {
     User.http = this.http;
     Expense.http = this.http;
     Category.http = this.http;
-  }
-
-  async ngOnInit(): Promise<void> {
-    // console.log(await Expense.create(this.expense))
   }
 }

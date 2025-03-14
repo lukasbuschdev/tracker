@@ -23,7 +23,7 @@
                         <div class="column gap-10 align-center w-100">
                             <label>Category</label>
                             <div (click)="toggleCategories($event)" class="dropdown-btn data left">
-                                {{ dialog.addOrEdit === 'Edit' ? dialog.category : selectedCategory }}
+                                {{ dialog.addOrEdit === 'Edit' ? dialog.category : data.selectedCategory }}
                             </div>
                         </div>
                         <ul class="dropdown-menu frequency">
@@ -51,6 +51,7 @@
             
             <div class="button-container row right gap-10">
                 <div class="btn-secondary" (click)="closeDialog()">Cancel</div>
+                <div class="btn-secondary d-none" [class.active]="dialog.addOrEdit === 'Edit'" (click)="data.deleteData()">Delete</div>
                 <div class="btn-primary" (click)="getData(inputName.value, amount.value)">{{ dialog.addOrEdit }}</div>
             </div>
         </div>
