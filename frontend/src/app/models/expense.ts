@@ -23,21 +23,21 @@ export class Expense {
         this.budgetId = data.budgetId;
     }
 
-    static async create(data: UploadData<typeExpense>) {
+    public static async create(data: UploadData<typeExpense>) {
         const receivedData = await firstValueFrom(this.http.post<typeExpense>('/api/expenses', data));
         return new Expense(receivedData);
     }
 
-    static async get(budgetId: string) {
+    public static async get(budgetId: string) {
         const receivedData = await firstValueFrom(this.http.get<typeExpense[]>(`/api/expenses/${ budgetId }`));
         return receivedData.map(expense => new Expense(expense));
     }
 
-    static delete(expenseId: string) {
+    public static delete(expenseId: string) {
         return firstValueFrom(this.http.delete<void>(`/api/expenses/${ expenseId }`));
     }
 
-    static async patch(expenseId: string, data: UpdateData<typeExpense>) {
+    public static async patch(expenseId: string, data: UpdateData<typeExpense>) {
         const receivedData = await firstValueFrom(this.http.patch<typeExpense>(`/api/expenses/${ expenseId }`, data));
         return new Expense(receivedData);
     }

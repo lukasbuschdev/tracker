@@ -21,21 +21,21 @@ export class Category {
         this.budgetId = data.budgetId;
     }
 
-    static async create(data: UploadData<typeCategory>) {
+    public static async create(data: UploadData<typeCategory>) {
         const receivedData = await firstValueFrom(this.http.post<typeCategory>('/api/categories', data));
         return new Category(receivedData);
     }
 
-    static async get(budgetId: string) {
+    public static async get(budgetId: string) {
         const receivedData = await firstValueFrom(this.http.get<typeCategory[]>(`/api/categories/${ budgetId }`));
         return receivedData.map(category => new Category(category));
     }
 
-    static delete(categoryId: string) {
+    public static delete(categoryId: string) {
         return firstValueFrom(this.http.delete<void>(`/api/categories/${ categoryId }`));
     }
 
-    static async patch(categoryId: string, data: UpdateData<typeCategory>) {
+    public static async patch(categoryId: string, data: UpdateData<typeCategory>) {
         const receivedData = await firstValueFrom(this.http.patch<typeCategory>(`/api/categories/${ categoryId }`, data));
         return new Category(receivedData);
     }

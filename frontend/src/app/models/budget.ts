@@ -23,21 +23,21 @@ export class Budget {
         this.recreate = data.recreate;
     }
 
-    static async create(data: UploadData<typeBudget>) {
+    public static async create(data: UploadData<typeBudget>) {
         const receivedData = await firstValueFrom(this.http.post<typeBudget>('/api/budgets', data));
         return new Budget(receivedData);
     }
 
-    static async get(userId: string) {
+    public static async get(userId: string) {
         const receivedData = await firstValueFrom(this.http.get<typeBudget[]>(`/api/budgets/${ userId }`));
         return receivedData.map(budget => new Budget(budget));
     }
 
-    static delete(budgetId: string) {
+    public static delete(budgetId: string) {
         return firstValueFrom(this.http.delete<void>(`/api/budgets/${ budgetId }`)); 
     }
 
-    static async patch(budgetId: string, data: UpdateData<typeBudget>) {
+    public static async patch(budgetId: string, data: UpdateData<typeBudget>) {
         const receivedData = await firstValueFrom(this.http.patch<typeBudget>(`/api/budgets/${ budgetId }`, data));
         return new Budget(receivedData);
     }

@@ -19,21 +19,21 @@ export class User {
         this.password = data.password;
     }
 
-    static async create(data: UploadData<typeUser>) {
+    public static async create(data: UploadData<typeUser>) {
         const receivedData = await firstValueFrom(this.http.post<typeUser>('/api/users', data));
         return new User(receivedData);
     }
 
-    static async get(userId: string) {
+    public static async get(userId: string) {
         const receivedData = await firstValueFrom(this.http.get<typeUser>(`/api/users/${ userId }`));
         return new User(receivedData);
     }
 
-    static delete(userId: string) {
+    public static delete(userId: string) {
         return firstValueFrom(this.http.delete<void>(`/api/users/${ userId }`));
     }
 
-    static async patch(userId: string, data: UpdateData<typeUser>) {
+    public static async patch(userId: string, data: UpdateData<typeUser>) {
         const receivedData = await firstValueFrom(this.http.patch<typeUser>(`/api/users/${ userId }`, data));
         return new User(receivedData);
     }
