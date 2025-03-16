@@ -51,7 +51,7 @@
             
             <div class="button-container row right gap-10">
                 <div class="btn-secondary" (click)="closeDialog()">Cancel</div>
-                <div class="btn-secondary d-none" [class.active]="dialog.addOrEdit === 'Edit'" (click)="data.deleteData()">Delete</div>
+                <div class="btn-secondary d-none" [class.active]="dialog.addOrEdit === 'Edit'" (click)="deleteCategory()">Delete</div>
                 <div class="btn-primary" (click)="getData(inputName.value, amount.value)">{{ dialog.addOrEdit }}</div>
             </div>
         </div>

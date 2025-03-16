@@ -5,14 +5,15 @@ import { Category } from '../models/category';
 import { DialogService } from './dialog.service';
 import { typeDialogData } from '../types/types';
 import { BehaviorSubject } from 'rxjs';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  currentUserId: string = 'c9122b3f-9c14-4693-ab50-359278e857cf'; //ID Lukas
-  // currentUserId: string = '564eddf1-873b-44a6-91c0-1cc81defb1a2'; //ID Olaf
+  // currentUserId: string = 'c9122b3f-9c14-4693-ab50-359278e857cf'; //ID Lukas
+  currentUserId: string = '564eddf1-873b-44a6-91c0-1cc81defb1a2'; //ID Olaf
 
   private budgetsSubject = new BehaviorSubject<Budget[]>([]);
   // public budgets$: Observable<Budget[]> = this.budgetsSubject.asObservable();
@@ -113,6 +114,7 @@ export class DataService {
     const newBudget = await Budget.create(budget);
     const currentBudgets = this.budgetsSubject.value;
     this.budgetsSubject.next([...currentBudgets, newBudget]);
+    this.selectedBudget = newBudget;
   }
 
   private async createCategory(dialogData: typeDialogData): Promise<void> {
@@ -275,7 +277,7 @@ export class DataService {
 
   public deleteData() {
     if(this.dialog.type === 'budget') return this.deleteBudget(this.clickedBudget?.id);
-    if(this.dialog.type === 'category') return this.deleteCategory(this.clickedCategory);
+    if(this.dialog.type === 'category') return this.dialog.openConfirmationDialog('category');
     return this.deleteExpense(this.clickedExpense);
   }
 
@@ -299,7 +301,7 @@ export class DataService {
     this.expensesSubject.next(updatedExpenses);
   }
 
-  private async deleteCategory(selectedCategory: Category | null): Promise<void> {
+  public async deleteCategory(selectedCategory: Category | null): Promise<void> {
     if(!selectedCategory) return;
 
     await Category.delete(selectedCategory.id);
@@ -308,7 +310,6 @@ export class DataService {
     this.categoriesSubject.next(updatedCategories);
 
     await this.deleteExpensesOfCategory(selectedCategory);
-    this.dialog.closeDialog();
   }
 
   private async deleteExpensesOfCategory(category: Category): Promise<void> {
@@ -332,5 +333,11 @@ export class DataService {
 
     this.updateUsed();
     this.dialog.closeDialog();
+  }
+
+  public async deleteAccount(): Promise<void> {
+    console.log('ACCOUNT DELETED!')
+    await User.delete(this.currentUserId);
+    this.dialog.closeConfirmationDialog();
   }
 }

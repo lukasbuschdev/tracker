@@ -57,4 +57,8 @@ export class DialogComponent implements OnInit {
   formatLabel(str: string): string {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
+
+  deleteCategory() {
+    this.data.deleteData();
+  }
 }

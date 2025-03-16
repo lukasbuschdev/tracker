@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { DataService } from './data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,10 +9,14 @@ export class DialogService {
   isCategory: boolean = false;
   addOrEdit: string = '';
   type: string = '';
+  confirmationType: string = '';
   category: string = 'Select category';
   
   private _isVisible = new BehaviorSubject<boolean>(false);
   isVisible$ = this._isVisible.asObservable();
+
+  private _isConfirmationVisible = new BehaviorSubject<boolean>(false);
+  isConfirmationVisible$ = this._isConfirmationVisible.asObservable();
 
   openDialog(str: string, cat?: string): void {
     this._isVisible.next(true);
@@ -19,8 +24,18 @@ export class DialogService {
     this.checkType(str);
   }
 
+  openConfirmationDialog(str: string): void {
+    this.closeDialog();
+    this.confirmationType = str;
+    this._isConfirmationVisible.next(true);
+  }
+
   closeDialog(): void {
     this._isVisible.next(false);
+  }
+
+  closeConfirmationDialog(): void {
+    this._isConfirmationVisible.next(false);
   }
 
   checkAddOrEdit(str: string, cat?: string): void {
