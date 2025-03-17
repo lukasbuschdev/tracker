@@ -49,3 +49,43 @@ nav {
     font-weight: 600;
     background-color: $wine-hover;
 }
+
+@media(max-width: 800px) {
+    nav {
+        width: 100%;
+        height: fit-content;
+        max-width: unset;
+        padding: unset;
+
+        .nav-links-container {
+            flex-direction: row;
+
+            .nav-row {
+                height: 80px;
+
+                span {
+                    font-size: 1rem;
+                }
+            }
+        }
+
+        .legal-privacy-container {
+            display: none;
+        }
+    }
+}
+
+@media(max-width: 650px) {
+    .nav-links-container .nav-row {
+        justify-content: center;
+
+        img {
+            height: 30px;
+            width: 30px;
+        }
+
+        span {
+            display: none;
+        }
+    }
+}

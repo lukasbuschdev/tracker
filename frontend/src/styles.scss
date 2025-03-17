@@ -403,6 +403,10 @@ input[type="number"] {
 }
 
 @media(max-width: 800px) {
+  .section-container  {
+    height: 100%;
+  }
+
   label {
       width: 100% !important;
   }
