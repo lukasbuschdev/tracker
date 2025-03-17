@@ -357,6 +357,7 @@ input[type="number"] {
   height: 70vh;
   width: 90%;
   max-width: 700px;
+  max-height: 500px;
   background-color: $white;
   border: none;
   border-radius: 20px;
@@ -408,6 +409,7 @@ input[type="number"] {
 
   input {
       width: 100% !important;
+      padding: 10px 20px !important;
   }
 
   .dropdown {
@@ -418,5 +420,14 @@ input[type="number"] {
       ul {
           width: 100% !important;
       }
+  }
+}
+
+@media(max-width: 400px) {
+  .card {
+      padding: 25px 20px;
+  }
+  .button-container {
+      justify-content: center;
   }
 }

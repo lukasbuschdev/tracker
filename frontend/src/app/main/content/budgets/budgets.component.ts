@@ -28,10 +28,6 @@ export class BudgetsComponent {
     this.activeBudgetId = '';
   }
 
-  editBudget(event: MouseEvent): void {
-    event.stopPropagation();
-  }
-
   openDialog(str: string): void {
     this.dialog.openDialog(str);
   }

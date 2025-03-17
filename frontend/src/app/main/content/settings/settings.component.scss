@@ -16,3 +16,13 @@
     left: unset;
     right: 0;
 }
+
+.edit {
+    height: 20px;
+    width: 20px;
+    object-fit: contain;
+    
+    &:hover {
+        cursor: pointer;
+    }
+}

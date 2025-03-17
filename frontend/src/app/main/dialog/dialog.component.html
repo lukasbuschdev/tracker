@@ -6,53 +6,73 @@
             </div>
     
             <div class="input-container column gap-30 center">
-                <div class="column gap-10 align-center w-100">
-                    <label>{{ formatLabel(dialog.type) }} name</label>
-                    <input id="name" type="text" #inputName [ngModel]="
-                        dialog.addOrEdit === 'Edit'
-                          ? dialog.type === 'budget'
-                            ? data.clickedBudget?.name
-                            : dialog.type === 'category'
-                            ? data.clickedCategory?.name
-                            : data.clickedExpense?.name
-                          : null
-                        " [placeholder]="'Enter ' + dialog.type + ' name...'">
-                </div>
-                @if(dialog.type === 'expense') {
-                    <div class="dropdown" [class.active]="isDropdownOpened">
-                        <div class="column gap-10 align-center w-100">
-                            <label>Category</label>
-                            <div (click)="toggleCategories($event)" class="dropdown-btn data left">
-                                {{ dialog.addOrEdit === 'Edit' ? dialog.category : data.selectedCategory }}
+                @if(dialog.type !== 'settings') {
+                    <div class="column gap-10 align-center w-100">
+                        <label>{{ formatLabel(dialog.type) }} name</label>
+                        <input id="name" type="text" #inputName [ngModel]="
+                            dialog.addOrEdit === 'Edit'
+                              ? dialog.type === 'budget'
+                                ? data.clickedBudget?.name
+                                : dialog.type === 'category'
+                                ? data.clickedCategory?.name
+                                : data.clickedExpense?.name
+                              : null
+                            " [placeholder]="'Enter ' + dialog.type + ' name...'">
+                    </div>
+                    @if(dialog.type === 'expense') {
+                        <div class="dropdown" [class.active]="isDropdownOpened">
+                            <div class="column gap-10 align-center w-100">
+                                <label>Category</label>
+                                <div (click)="toggleCategories($event)" class="dropdown-btn data left">
+                                    {{ dialog.addOrEdit === 'Edit' ? dialog.category : data.selectedCategory }}
+                                </div>
                             </div>
+                            <ul class="dropdown-menu frequency">
+                                @for(category of selectableCategories; track category) {
+                                    <li (click)="selectCategory(category); toggleCategories($event)">
+                                        <span>{{ category }}</span>
+                                    </li>
+                                }
+                            </ul>
                         </div>
-                        <ul class="dropdown-menu frequency">
-                            @for(category of selectableCategories; track category) {
-                                <li (click)="selectCategory(category); toggleCategories($event)">
-                                    <span>{{ category }}</span>
-                                </li>
-                            }
-                        </ul>
+                    }
+                    <div class="column gap-5 align-center w-100">
+                        <label>{{ formatLabel(dialog.type) }} amount</label>
+                        <input type="number" #amount [ngModel]="
+                            dialog.addOrEdit === 'Edit'
+                              ? dialog.type === 'budget'
+                                ? data.clickedBudget?.amount
+                                : dialog.type === 'category'
+                                ? data.clickedCategory?.amount
+                                : data.clickedExpense?.amount
+                              : null
+                            " [placeholder]="'Enter amount...'">
+                    </div>
+                } @else {
+                    <div class="row between setting-name gap-10 align-center w-100">
+                        <span>Username:</span>
+                        <input class="settings-input" id="name" type="text" #inputName [ngModel]="data.currentUser?.name" [placeholder]="'Enter username...'">
+                    </div>
+                    <div class="row between align-center w-100">
+                        <span>Email:</span>
+                        <div class="btn-secondary">
+                            <span>change</span>
+                        </div>
+                    </div>
+                    <div class="row between align-center w-100">
+                        <span>Password:</span>
+                        <div class="btn-secondary">
+                            <span>change</span>
+                        </div>
                     </div>
                 }
-                <div class="column gap-5 align-center w-100">
-                    <label>{{ formatLabel(dialog.type) }} amount</label>
-                    <input type="number" #amount [ngModel]="
-                        dialog.addOrEdit === 'Edit'
-                          ? dialog.type === 'budget'
-                            ? data.clickedBudget?.amount
-                            : dialog.type === 'category'
-                            ? data.clickedCategory?.amount
-                            : data.clickedExpense?.amount
-                          : null
-                        " [placeholder]="'Enter amount...'">
-                </div>
             </div>
             
             <div class="button-container row right gap-10">
                 <div class="btn-secondary" (click)="closeDialog()">Cancel</div>
-                <div class="btn-secondary d-none" [class.active]="dialog.addOrEdit === 'Edit'" (click)="deleteCategory()">Delete</div>
-                <div class="btn-primary" (click)="getData(inputName.value, amount.value)">{{ dialog.addOrEdit }}</div>
+                <div class="btn-secondary d-none" [class.active]="dialog.addOrEdit === 'Edit' && dialog.type !== 'settings'" (click)="deleteCategory()">Delete</div>
+                <div class="btn-primary d-none" [class.active]="dialog.type !== 'settings'" (click)="getData(inputName.nativeElement.value, amount.nativeElement.value)">{{ dialog.addOrEdit }}</div>
+                <div class="btn-primary d-none" [class.active]="dialog.type == 'settings'"  (click)="getSettingsData(inputName.nativeElement.value)">Edit</div>
             </div>
         </div>
     </div>

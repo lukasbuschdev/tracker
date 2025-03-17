@@ -12,17 +12,12 @@ import { User } from '../models/user';
 })
 export class DataService {
 
-  // currentUserId: string = 'c9122b3f-9c14-4693-ab50-359278e857cf'; //ID Lukas
-  currentUserId: string = '564eddf1-873b-44a6-91c0-1cc81defb1a2'; //ID Olaf
+  public currentUserId: string = 'c9122b3f-9c14-4693-ab50-359278e857cf'; //ID Lukas
+  public currentUser: User | null = null;
 
   private budgetsSubject = new BehaviorSubject<Budget[]>([]);
-  // public budgets$: Observable<Budget[]> = this.budgetsSubject.asObservable();
-
   private categoriesSubject = new BehaviorSubject<Category[]>([]);
-  // public categories$: Observable<Category[]> = this.categoriesSubject.asObservable();
-
   private expensesSubject = new BehaviorSubject<Expense[]>([]);
-  // public expenses$: Observable<Expense[]> = this.expensesSubject.asObservable();
 
 
   public get budgetsArray() {
@@ -45,9 +40,18 @@ export class DataService {
   clickedExpense: Expense | null = null;
 
   constructor(private dialog: DialogService) {
+    this.getUser();
     this.getData();
   }
 
+
+  private async getUser(): Promise<void> {
+    try {
+      this.currentUser = await User.get(this.currentUserId); 
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   private async getData(): Promise<void> {
     try {
@@ -264,6 +268,15 @@ export class DataService {
     this.calculateCurrentAvailable();
   }
 
+  public async editUser(name: string): Promise<void> {
+    const userData = {
+      name: name
+    } 
+
+    await User.patch(this.currentUserId, userData);
+    await this.getUser();
+  }
+
 
 
 
@@ -336,7 +349,6 @@ export class DataService {
   }
 
   public async deleteAccount(): Promise<void> {
-    console.log('ACCOUNT DELETED!')
     await User.delete(this.currentUserId);
     this.dialog.closeConfirmationDialog();
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { DialogService } from '../../services/dialog.service';
 import { DataService } from '../../services/data.service';
 import { typeDialogData } from '../../types/types';
@@ -16,7 +16,11 @@ export class DialogComponent implements OnInit {
   isDropdownOpened: boolean = false;
   selectableCategories: string[] = [];
 
+
   constructor(public dialog: DialogService, public data: DataService) { }
+
+  @ViewChild('inputName') inputName!: ElementRef<HTMLInputElement>;
+  @ViewChild('amount') amount!: ElementRef<HTMLInputElement>;
 
   ngOnInit(): void {
     this.dialog.isVisible$.subscribe(state => {
@@ -36,6 +40,11 @@ export class DialogComponent implements OnInit {
     }
     
     this.dialog.addOrEdit === 'Add' ? this.data.addData(dialogData) : this.data.editData(dialogData);
+    this.closeDialog();
+  }
+
+  getSettingsData(name: string): void {
+    this.data.editUser(name);
     this.closeDialog();
   }
 

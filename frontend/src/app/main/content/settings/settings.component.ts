@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { DialogService } from '../../../services/dialog.service';
+import { DataService } from '../../../services/data.service';
 
 @Component({
   selector: 'app-settings',
@@ -12,7 +13,7 @@ export class SettingsComponent {
   selectableLanguages: string[] = ['English', 'Español', 'Deutsch'];
   selectedLanguage: string = 'English';
 
-  constructor(private dialog: DialogService) { }
+  constructor(private dialog: DialogService, public data: DataService) { }
 
   toggleLanguages(event: MouseEvent): void {
     event.stopPropagation();
@@ -29,5 +30,9 @@ export class SettingsComponent {
 
   deleteAccount(str: string): void {
     this.dialog.openConfirmationDialog(str);
+  }
+
+  openDialog(str: string): void {
+    this.dialog.openDialog(str);
   }
 }

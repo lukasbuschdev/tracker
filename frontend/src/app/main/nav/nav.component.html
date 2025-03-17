@@ -4,10 +4,6 @@
             <img src="img/dashboard.svg">
             <span>Dashboard</span>
         </div>
-        <div class="row gap-15 nav-row align-center" [class.isActive]="activeNav === 'expenses'" (click)="setActive('expenses')" routerLink="/expenses" routerLinkActive="isActive">
-            <img src="img/expenses.svg">
-            <span>Expenses</span>
-        </div>
         <div class="row gap-15 nav-row align-center" [class.isActive]="activeNav === 'budgets'" (click)="setActive('budgets')" routerLink="/budgets" routerLinkActive="isActive">
             <img src="img/budgets.svg">
             <span>Budgets</span>
@@ -16,9 +12,9 @@
             <img src="img/categories.svg">
             <span>Categories</span>
         </div>
-        <div class="row gap-15 nav-row align-center" [class.isActive]="activeNav === 'reports'" (click)="setActive('reports')" routerLink="/reports" routerLinkActive="isActive">
-            <img src="img/reports.svg">
-            <span>Reports</span>
+        <div class="row gap-15 nav-row align-center" [class.isActive]="activeNav === 'expenses'" (click)="setActive('expenses')" routerLink="/expenses" routerLinkActive="isActive">
+            <img src="img/expenses.svg">
+            <span>Expenses</span>
         </div>
     </div>
 

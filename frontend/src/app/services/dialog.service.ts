@@ -47,6 +47,7 @@ export class DialogService {
   checkType(str: string): string {
     if(str.includes('expense')) return this.type = 'expense';
     if(str.includes('budget')) return this.type = 'budget';
-    return this.type = 'category';
+    if(str.includes('category')) return this.type = 'category';
+    return this.type = 'settings';
   }
 }
