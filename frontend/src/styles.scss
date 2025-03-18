@@ -78,11 +78,12 @@ button {
 .logo {
   height: 50px;
   width: 50px;
+  object-fit: contain;
 }
 
 h1 {
   color: $wine;
-  font-size: min(14vmin, 2.5rem);
+  font-size: min(14vmin, 3rem);
   font-weight: 600;
 }
 
@@ -377,7 +378,7 @@ input[type="number"] {
       input {
           width: 50%;
           max-width: 350px;
-          padding: 15px 20px;
+          padding: 10px 20px;
           border: 1px solid $gray;
           border-radius: 999px;
           font-size: 1rem;
@@ -399,6 +400,38 @@ input[type="number"] {
               left: unset;
           }
       }
+  }
+}
+
+.content-container section {
+  height: 100%;
+  width: 100%;
+
+  .links span {
+      color: $wine;
+      font-weight: 600;
+
+      &:hover {
+          cursor: pointer;
+          filter: brightness(1.6);
+      }
+  }
+}
+
+.access {
+  width: 100%;
+  max-width: 500px;
+  height: fit-content;
+  max-height: 500px;
+  box-shadow: 5px 5px 10px $gray;
+
+  input {
+    width: 100%;
+    max-width: 350px;
+    padding: 10px 20px;
+    border: 1px solid $gray;
+    border-radius: 999px;
+    font-size: 1rem;
   }
 }
 
@@ -431,6 +464,7 @@ input[type="number"] {
   .card {
       padding: 25px 20px;
   }
+
   .button-container {
       justify-content: center;
   }

@@ -53,6 +53,22 @@ app.get(`/api/:table/:id`, async (req, res) => {
     }
 });
 
+app.get(`/api/users`, async (req, res) => {
+    try {
+        const emailOrName = req.query.emailOrName as string;
+        const password = req.query.password as string;
+        console.log(emailOrName)
+        console.log(password)
+
+        const { data, error } = await supabase.getUserByEmailOrUsername(emailOrName, password);
+
+        if(error) return statusError(res, error, 404);
+
+        res.send(data);
+    } catch (error) {
+        statusError(res, error);
+    }
+});
 
 // DELETE
 

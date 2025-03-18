@@ -1,0 +1,10 @@
+@use 'variables' as *;
+
+.link {
+    color: $wine;
+
+    &:hover {
+        cursor: pointer;
+        filter: brightness(1.6);
+    }
+}

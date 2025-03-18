@@ -1,0 +1,33 @@
+section {
+    height: 100vh;
+    width: 100%;
+    padding: 10px 30px;
+
+    .header {
+        height: 80px;
+        
+        .logo {
+            height: unset;
+            width: 20vw;
+            max-width: 100px;
+        }
+    
+        .help {
+            height: 40px;
+            width: 40px;
+            
+    
+        }
+    }
+
+    .content-container {
+        height: calc(100% - 80px);
+    }
+
+}
+
+@media(max-width: 400px) {
+    section {
+        padding: 3% 2vh;
+    }
+}

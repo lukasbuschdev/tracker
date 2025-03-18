@@ -1,1 +1,19 @@
-<p>access works!</p>
+<section>
+    <div class="header row between">
+        <div class="center">
+            <img class="logo" src="img/logo.svg">
+        </div>
+        <div class="row gap-20 align-center">
+            <div class="btn-primary" [routerLink]="router.url === '/login' ? '/signup' : '/login'">
+                <span>{{ router.url === '/login' ? 'Signup' : 'Login' }}</span>
+            </div>
+            <div class="center help btn-primary" routerLink="/access-help">
+                <span>?</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-container">
+        <router-outlet></router-outlet>
+    </div>
+</section>
