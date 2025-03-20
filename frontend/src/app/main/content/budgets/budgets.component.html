@@ -1,4 +1,4 @@
-<div class="section-container column gap-50" (click)="closeBudget()">
+<div class="section-container column gap-30" (click)="closeBudget()">
     <div class="heading-container between">
         <h1>Budgets</h1>
 
@@ -15,25 +15,31 @@
     </div>
 
     <div class="content-container column gap-20">
-        @for(budget of data.budgetsArray; track budget.id) {
-            <div class="column between budget-container" (click)="toggleActiveBudget($event, budget.id)" [class.isActiveBudget]="activeBudgetId === budget.id">
-                <div class="row between">
-                    <div class="name">{{ budget.name }}:</div>
-                    <div class="number txt-green">+ {{ utils.formatNumber(budget.amount) }}</div>
-                </div>
-                
-                <div class="column between gap-15 information">
-                    <div class="row between">
-                        <div>Used:</div>
-                        <div class="number txt-red">- {{ utils.formatNumber(budget.used) }}</div>
-                    </div>
-        
-                    <div class="row between">
-                        <div>Current available:</div>
-                        <div class="number txt-green">+ {{ utils.formatNumber(budget.amount - budget.used) }}</div>
-                    </div>
-                </div>
+        @if(!data.budgetsArray.length) {
+            <div class="center no-budgets-message-container center">
+                <h4>{{ 'You have no budgets yet' }}</h4>
             </div>
+        } @else {
+            @for(budget of data.budgetsArray; track budget.id) {
+                <div class="column between budget-container" (click)="toggleActiveBudget($event, budget.id)" [class.isActiveBudget]="activeBudgetId === budget.id">
+                    <div class="row between">
+                        <div class="name">{{ budget.name }}:</div>
+                        <div class="number txt-green">+ {{ utils.formatNumber(budget.amount) }}</div>
+                    </div>
+                    
+                    <div class="column between gap-15 information">
+                        <div class="row between">
+                            <div>Used:</div>
+                            <div class="number txt-red">- {{ utils.formatNumber(budget.used) }}</div>
+                        </div>
+            
+                        <div class="row between">
+                            <div>Current available:</div>
+                            <div class="number txt-green">+ {{ utils.formatNumber(budget.amount - budget.used) }}</div>
+                        </div>
+                    </div>
+                </div>
+            }
         }
     </div>
 </div>

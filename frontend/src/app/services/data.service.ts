@@ -12,7 +12,7 @@ import { User } from '../models/user';
 })
 export class DataService {
 
-  public currentUserId: string = 'c9122b3f-9c14-4693-ab50-359278e857cf'; //ID Lukas
+  public currentUserId: string = '';
   public currentUser: User | null = null;
 
   private budgetsSubject = new BehaviorSubject<Budget[]>([]);
@@ -39,13 +39,16 @@ export class DataService {
   clickedCategory: Category | null = null;
   clickedExpense: Expense | null = null;
 
-  constructor(private dialog: DialogService) {
-    this.getUser();
-    this.getData();
+  constructor(private dialog: DialogService) { }
+
+  public async init(): Promise<void> {
+    await this.getData();
   }
 
 
   private async getUser(): Promise<void> {
+    if(!this.currentUser || this.currentUserId) return;
+
     try {
       this.currentUser = await User.get(this.currentUserId); 
     } catch (error) {
@@ -54,6 +57,8 @@ export class DataService {
   }
 
   private async getData(): Promise<void> {
+    if(!this.currentUser || !this.currentUserId) return;
+
     try {
       const budgets = await Budget.get(this.currentUserId);
       if(!budgets.length) return;
@@ -73,14 +78,12 @@ export class DataService {
     if(!this.selectedBudget) return;
     const categories = await Category.get(this.selectedBudget.id);
     this.categoriesSubject.next(categories);
-    // console.log(this.categoriesSubject.value)
   }
   
   public async getExpenses(): Promise<void> {
     if(!this.selectedBudget) return;
     const expenses = await Expense.get(this.selectedBudget.id);
     this.expensesSubject.next(expenses);
-    // console.log(this.expensesSubject.value)
   }
 
 
@@ -90,6 +93,15 @@ export class DataService {
     const expensesAmount = allExpenses.reduce((acc, curr) => acc + curr, 0);
 
     return this.selectedBudget.amount - expensesAmount;
+  }
+
+  public logout(): void {
+    this.currentUser = null;
+    this.currentUserId = '';
+    this.budgetsSubject.next([]);
+    this.categoriesSubject.next([]);
+    this.expensesSubject.next([]);
+    this.selectedBudget = null;
   }
 
 

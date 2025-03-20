@@ -150,6 +150,23 @@ input[type="number"] {
   -ms-appearance: none !important;
 }
 
+.checkbox {
+  height: 15px;
+  width: 15px;
+  object-fit: contain;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.error-message {
+  min-height: 1rem;
+  font-size: 0.8rem;
+  color: $red;
+  text-align: center;
+}
+
 
 // CONTENT CONTAINER
 
@@ -433,6 +450,11 @@ input[type="number"] {
     border-radius: 999px;
     font-size: 1rem;
   }
+}
+
+.no-budgets-message-container {
+  height: 90%;
+  width: 100%;
 }
 
 @media(max-width: 800px) {

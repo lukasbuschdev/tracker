@@ -12,5 +12,4 @@ import { ConfirmationDialogComponent } from "./confirmation-dialog/confirmation-
   styleUrl: './main.component.scss'
 })
 export class MainComponent {
-
 }

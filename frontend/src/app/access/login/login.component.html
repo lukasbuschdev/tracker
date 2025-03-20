@@ -5,26 +5,39 @@
         </div>
 
         <div class="column gap-20 center">
-            <input type="text" placeholder="Email or username...">
-            <input type="text" placeholder="Password...">
-            
-            <div class="row gap-15">
-                <img src="">
-                <span>Remember me</span>
+            <div class="column gap-10 center">
+                <div class="column gap-20 center">
+                    <input type="text" [(ngModel)]="emailOrName" placeholder="Email or username...">
+                    <input type="password" [(ngModel)]="password" placeholder="Password...">
+                    
+                    <div class="row gap-10 align-center">
+                        <img class="checkbox" [src]="isChecked ? 'img/checkbox-checked.svg' : 'img/checkbox-unchecked.svg'" (click)="toggleIsChecked()">
+                        <span>Remember me</span>
+                    </div>
+                </div>
+                
+                <div class="center">
+                    <span class="error-message">{{ loginAttempted && !isUserFound ? 'Email, username or password is wrong!' : '' }}</span>
+                </div>
             </div>
-        </div>
-
-        <div class="links row gap-15">
-            <span routerLink="/access-legal-notice">Legal notice</span>
-            <span routerLink="/access-privacy-policy">Privacy policy</span>
-        </div>
-
-        <div class="button-container row gap-10">
-            <div class="btn-primary">
-                <span>Login</span>
+    
+            <div class="column links gap-10">
+                <div class="row gap-15">
+                    <span routerLink="/access-legal-notice">Legal notice</span>
+                    <span routerLink="/access-privacy-policy">Privacy policy</span>
+                </div>
+                <div class="center">
+                    <span routerLink="/reset-password">Forgot password</span>
+                </div>
             </div>
-            <div class="btn-secondary">
-                <span>Guest</span>
+    
+            <div class="button-container row gap-10">
+                <div class="btn-primary" (click)="checkLogin(emailOrName, password)">
+                    <span>Login</span>
+                </div>
+                <div class="btn-secondary" (click)="checkLogin('Guest', 'Guest123!')">
+                    <span>Guest</span>
+                </div>
             </div>
         </div>
     </div>
