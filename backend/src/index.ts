@@ -57,8 +57,6 @@ app.get(`/api/users`, async (req, res) => {
     try {
         const emailOrName = req.query.emailOrName as string;
         const password = req.query.password as string;
-        console.log(emailOrName)
-        console.log(password)
 
         const { data, error } = await supabase.getUserByEmailOrUsername(emailOrName, password);
 

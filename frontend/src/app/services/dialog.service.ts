@@ -11,6 +11,12 @@ export class DialogService {
   type: string = '';
   confirmationType: string = '';
   category: string = 'Select category';
+  addOrEditRequestMade: boolean = false;
+  isInputInvalid: boolean = false;
+  isAmountZero: boolean = false;
+  isAmountTooLittle: boolean = false;
+  isAmountTooBig: boolean = false;
+  isCategorySelected: boolean = false;
   
   private _isVisible = new BehaviorSubject<boolean>(false);
   isVisible$ = this._isVisible.asObservable();
@@ -32,6 +38,7 @@ export class DialogService {
 
   closeDialog(): void {
     this._isVisible.next(false);
+    this.resetFlags();
   }
 
   closeConfirmationDialog(): void {
@@ -49,5 +56,29 @@ export class DialogService {
     if(str.includes('budget')) return this.type = 'budget';
     if(str.includes('category')) return this.type = 'category';
     return this.type = 'settings';
+  }
+
+  resetFlags(): void {
+    this.addOrEditRequestMade = false;
+    this.isAmountZero = false;
+    this.isAmountTooLittle = false;
+    this.isAmountTooBig = false;
+    this.isInputInvalid = false;
+    this.isCategorySelected = false;
+  }
+
+  setAmountTooBig(): void {
+    this.isAmountTooBig = true;
+    this.isInputInvalid = true;
+  }
+
+  setAmountTooLittle(): void {
+    this.isAmountTooLittle = true;
+    this.isInputInvalid = true;
+  }
+
+  setAmountZero(): void {
+    this.isAmountZero = true;
+    this.isInputInvalid = true;
   }
 }

@@ -5,7 +5,7 @@
                 <h2>{{ dialog.addOrEdit }} {{ dialog.type }}</h2>
             </div>
     
-            <div class="input-container column gap-30 center">
+            <div class="input-container column gap-10 center">
                 @if(dialog.type !== 'settings') {
                     <div class="column gap-10 align-center w-100">
                         <label>{{ formatLabel(dialog.type) }} name</label>
@@ -18,6 +18,15 @@
                                 : data.clickedExpense?.name
                               : null
                             " [placeholder]="'Enter ' + dialog.type + ' name...'">
+                        @if(dialog.addOrEditRequestMade && !nameRegex.test(inputName.value)) {
+                            <div class="error-message">
+                                <span>{{ 'Only uppercase, lowercase and digits allowed!' }}</span>
+                            </div>
+                        } @else {
+                            <div class="error-message">
+                                <span></span>
+                            </div>
+                        }
                     </div>
                     @if(dialog.type === 'expense') {
                         <div class="dropdown" [class.active]="isDropdownOpened">
@@ -35,6 +44,19 @@
                                 }
                             </ul>
                         </div>
+                        @if(dialog.addOrEditRequestMade && dialog.addOrEdit === 'Edit' && dialog.category === 'Select category') {
+                            <div class="error-message">
+                                <span>{{ 'You must select a category!' }}</span>
+                            </div>
+                        } @else if(dialog.addOrEditRequestMade && dialog.addOrEdit === 'Add' && data.selectedCategory === 'Select category') {
+                            <div class="error-message">
+                                <span>{{ 'You must select a category!' }}</span>
+                            </div>
+                        } @else {
+                            <div class="error-message">
+                                <span></span>
+                            </div>
+                        }
                     }
                     <div class="column gap-5 align-center w-100">
                         <label>{{ formatLabel(dialog.type) }} amount</label>
@@ -47,6 +69,23 @@
                                 : data.clickedExpense?.amount
                               : null
                             " [placeholder]="'Enter amount...'">
+                        @if(dialog.addOrEditRequestMade && dialog.isAmountZero) {
+                            <div class="error-message">
+                                <span>{{ 'Amount must be bigger than 0!' }}</span>
+                            </div>
+                        } @else if(dialog.addOrEditRequestMade && dialog.isAmountTooLittle) {
+                            <div class="error-message">
+                                <span>{{ 'Amount too little!' }}</span>
+                            </div>
+                        } @else if(dialog.addOrEditRequestMade && dialog.isAmountTooBig) {
+                            <div class="error-message">
+                                <span>{{ 'Amount too big!' }}</span>
+                            </div>
+                        } @else {
+                            <div class="error-message">
+                                <span></span>
+                            </div>
+                        }
                     </div>
                 } @else {
                     <div class="row between setting-name gap-10 align-center w-100">
