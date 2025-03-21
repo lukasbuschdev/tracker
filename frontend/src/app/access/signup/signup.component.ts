@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -9,14 +9,17 @@ import { RouterModule } from '@angular/router';
 })
 export class SignupComponent {
   isChecked: boolean = false;
+  isSignupSuccessful: boolean = false;
   name: string = '';
   email: string = '';
   password: string = '';
   repeatedPassword: string = '';
   signupAttemptMade: boolean = false;
-  nameRegex: RegExp = /^(?=.{4,})[A-Za-z0-9 ]+$/;
+  nameRegex: RegExp = /^(?=.{3,})[A-Za-z0-9 ]+$/;
   emailRegex: RegExp = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
   passwordRegex: RegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.,!?&§@+\-\/\\]).+$/;
+
+  router = inject(Router);
 
   toggleIsChecked() {
     this.isChecked = !this.isChecked;
@@ -24,11 +27,13 @@ export class SignupComponent {
 
   checkSignup(name: string, email: string, password: string, repeatedPassword: string): void {
     this.signupAttemptMade = true;
-    const isCorrectInput = this.testInputs(name, email, password, repeatedPassword);
+    this.isSignupSuccessful = this.testInputs(name, email, password, repeatedPassword);
 
-    if(!isCorrectInput) return;
-
+    if(!this.isSignupSuccessful) return;
     
+    setTimeout(() => {
+      this.router.navigateByUrl('/login');
+    }, 3000);
   }
 
   testInputs(name: string, email: string, password: string, repeatedPassword: string): boolean {
@@ -36,6 +41,6 @@ export class SignupComponent {
     this.emailRegex.test(email) && 
     this.passwordRegex.test(password) &&
     repeatedPassword === password && 
-    this.isChecked ? true : false;
+    this.isChecked;
   }
 }

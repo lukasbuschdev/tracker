@@ -1,4 +1,5 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reset-password',
@@ -13,11 +14,16 @@ export class ResetPasswordComponent {
 
   @ViewChild('email') email!: ElementRef<HTMLInputElement>; 
 
+  router = inject(Router);
+
   checkReset(email: string): void {
     this.resetAttemptMade = true;
     if(!this.emailRegex.test(email)) return;
     
     this.resetMailSent = true;
-    console.log('Reset request made!')
+    
+    setTimeout(() => {
+      this.router.navigateByUrl('/login');
+    }, 3000);
   }
 }

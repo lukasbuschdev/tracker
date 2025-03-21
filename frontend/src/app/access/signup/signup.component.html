@@ -4,71 +4,77 @@
             <h2>Signup</h2>
         </div>
 
-        <div class="column gap-10 center">
-            <div class="column gap-5 center">
-                <div class="column center gap-5 input-error-container">
-                    <input #name type="text" placeholder="Username...">
-                    @if(signupAttemptMade && name.value.length < 1) {
-                        <span class="error-message">{{ 'Enter a name!' }}</span>
-                    } @else if(signupAttemptMade && name.value.length >= 1 && name.value.length < 3) {
-                        <span class="error-message">{{ 'Name too short!' }}</span>
-                    } @else {
-                        <span class="error-message"></span>
-                    }
-                </div>
-                <div class="column center gap-5 input-error-container">
-                    <input #email type="text" placeholder="Email...">
-                    @if(signupAttemptMade && email.value.length < 1) {
-                        <span class="error-message">{{ 'Enter an email!' }}</span>
-                    } @else if(signupAttemptMade && !emailRegex.test(email.value)) {
-                        <span class="error-message">{{ 'Invalid email!' }}</span>
-                    } @else {
-                        <span class="error-message"></span>
-                    }
-                </div>
-                <div class="column center gap-5 input-error-container">
-                    <input #password type="password" placeholder="Password...">
-                    @if(signupAttemptMade && password.value.length < 1) {
-                        <span class="error-message">{{ 'Enter a password!' }}</span>
-                    } @else if(signupAttemptMade && password.value.length < 6) {
-                        <span class="error-message">{{ 'Password too short!' }}</span>
-                    } @else if(signupAttemptMade && !passwordRegex.test(password.value)) {
-                        <span class="error-message">{{ 'Password requires uppercase, lowercase, digit, and special char!' }}</span>
-                    } @else {
-                        <span class="error-message"></span>
-                    }
-                </div>
-                <div class="column center gap-5 input-error-container">
-                    <input #repeatedPassword type="password" placeholder="Repeat password...">
-                    @if(signupAttemptMade && repeatedPassword.value !== password.value) {
-                        <span class="error-message">{{ 'Passwords do not match!' }}</span>
-                    } @else {
-                        <span class="error-message"></span>
-                    }
-                </div>
-                
-                <div class="column gap-10 center input-error-container">
-                    <div class="row gap-10 align-center">
-                        <img class="checkbox" [src]="isChecked ? 'img/checkbox-checked.svg' : 'img/checkbox-unchecked.svg'" (click)="toggleIsChecked()">
-                        <span>I accept <span class="link" routerLink="access-privacy-policy">privacy policy</span></span>
+        @if(!isSignupSuccessful) {
+            <div class="column gap-10 center">
+                <div class="column gap-5 center">
+                    <div class="column center gap-5 input-error-container">
+                        <input #name type="text" placeholder="Username...">
+                        @if(signupAttemptMade && name.value.length < 1) {
+                            <span class="error-message">{{ 'Enter a name!' }}</span>
+                        } @else if(signupAttemptMade && name.value.length >= 1 && name.value.length < 3) {
+                            <span class="error-message">{{ 'Name too short!' }}</span>
+                        } @else {
+                            <span class="error-message"></span>
+                        }
                     </div>
-                    @if(signupAttemptMade && !isChecked) {
-                        <span class="error-message">{{ 'Please accept the privacy policy!' }}</span>
-                    } @else {
-                        <span class="error-message"></span>
-                    }
+                    <div class="column center gap-5 input-error-container">
+                        <input #email type="text" placeholder="Email...">
+                        @if(signupAttemptMade && email.value.length < 1) {
+                            <span class="error-message">{{ 'Enter an email!' }}</span>
+                        } @else if(signupAttemptMade && !emailRegex.test(email.value)) {
+                            <span class="error-message">{{ 'Invalid email!' }}</span>
+                        } @else {
+                            <span class="error-message"></span>
+                        }
+                    </div>
+                    <div class="column center gap-5 input-error-container">
+                        <input #password type="password" placeholder="Password...">
+                        @if(signupAttemptMade && password.value.length < 1) {
+                            <span class="error-message">{{ 'Enter a password!' }}</span>
+                        } @else if(signupAttemptMade && password.value.length < 6) {
+                            <span class="error-message">{{ 'Password too short!' }}</span>
+                        } @else if(signupAttemptMade && !passwordRegex.test(password.value)) {
+                            <span class="error-message">{{ 'Password requires uppercase, lowercase, digit, and special char!' }}</span>
+                        } @else {
+                            <span class="error-message"></span>
+                        }
+                    </div>
+                    <div class="column center gap-5 input-error-container">
+                        <input #repeatedPassword type="password" placeholder="Repeat password...">
+                        @if(signupAttemptMade && repeatedPassword.value !== password.value) {
+                            <span class="error-message">{{ 'Passwords do not match!' }}</span>
+                        } @else {
+                            <span class="error-message"></span>
+                        }
+                    </div>
+                    
+                    <div class="column gap-10 center input-error-container">
+                        <div class="row gap-10 align-center">
+                            <img class="checkbox" [src]="isChecked ? 'img/checkbox-checked.svg' : 'img/checkbox-unchecked.svg'" (click)="toggleIsChecked()">
+                            <span>I accept <span class="link" routerLink="access-privacy-policy">privacy policy</span></span>
+                        </div>
+                        @if(signupAttemptMade && !isChecked) {
+                            <span class="error-message">{{ 'Please accept the privacy policy!' }}</span>
+                        } @else {
+                            <span class="error-message"></span>
+                        }
+                    </div>
+                </div>
+        
+                <div class="links row gap-15">
+                    <span routerLink="/access-legal-notice">Legal notice</span>
+                </div>
+        
+                <div class="button-container row gap-10">
+                    <div class="btn-primary" (click)="checkSignup(name.value, email.value, password.value, repeatedPassword.value)">
+                        <span>Signup</span>
+                    </div>
                 </div>
             </div>
-    
-            <div class="links row gap-15">
-                <span routerLink="/access-legal-notice">Legal notice</span>
+        } @else {
+            <div class="confirmation-message align-center">
+                <h4>{{ 'A verification link has been send too your email.' }}</h4>
             </div>
-    
-            <div class="button-container row gap-10">
-                <div class="btn-primary" (click)="checkSignup(name.value, email.value, password.value, repeatedPassword.value)">
-                    <span>Signup</span>
-                </div>
-            </div>
-        </div>
+        }
     </div>
 </section>
