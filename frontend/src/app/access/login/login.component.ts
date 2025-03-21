@@ -35,10 +35,10 @@ export class LoginComponent implements OnInit {
   async checkLogin(emailOrName: string, password: string): Promise<void> {
     const hashedPassword = await this.utils.sha256(password);
     this.loginAttempted = true;
+    this.isUserFound = true;
     
     try {
       const user = await User.getUserWithEmailOrNameAndPassword(emailOrName, hashedPassword);
-      this.isUserFound = true;
 
       if(this.isChecked && emailOrName !== 'Guest') {
         this.saveCredentialsToLocalStorage(emailOrName, password);
@@ -51,6 +51,7 @@ export class LoginComponent implements OnInit {
     } catch (error) {
       console.error(error)
       this.isUserFound = false;
+      this.isChecked = false;
     }
 
     this.emailOrName = '';
