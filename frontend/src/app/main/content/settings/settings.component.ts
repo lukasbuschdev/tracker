@@ -13,9 +13,8 @@ import { TranslatePipe } from '../../../pipe/translate.pipe';
 export class SettingsComponent {
   isDropdownOpened: boolean = false;
   selectableLanguages: string[] = ['English', 'Español', 'Deutsch', 'Français', 'Italiano'];
-  selectedLanguage: string = 'English';
 
-  constructor(private dialog: DialogService, public data: DataService, private language: LanguageService) { }
+  constructor(private dialog: DialogService, public data: DataService, public language: LanguageService) { }
 
   toggleLanguages(event: MouseEvent): void {
     event.stopPropagation();
@@ -27,9 +26,11 @@ export class SettingsComponent {
   }
 
   selectLanguage(language: string): void {
-    this.selectedLanguage = language;
+    this.language.selectedLanguage = language;
     if(language === 'English') return this.language.changeLanguage('en');
     if(language === 'Español') return this.language.changeLanguage('es');
+    if(language === 'Français') return this.language.changeLanguage('fr');
+    if(language === 'Italiano') return this.language.changeLanguage('it');
     this.language.changeLanguage('de');
   }
 

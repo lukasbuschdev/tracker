@@ -20,6 +20,7 @@ export class DataService {
   private categoriesSubject = new BehaviorSubject<Category[]>([]);
   private expensesSubject = new BehaviorSubject<Expense[]>([]);
 
+
   public get budgetsArray() {
     return this.budgetsSubject.value;
   }

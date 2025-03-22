@@ -8,6 +8,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class LanguageService {
   private currentLang: BehaviorSubject<string> = new BehaviorSubject<string>('en');
   private translations: any = {};
+  public selectedLanguage: string = 'English';
 
   constructor(private http: HttpClient) {
     const savedLang = localStorage.getItem('selectedLang') || 'en';
@@ -35,16 +36,29 @@ export class LanguageService {
    * Loads the language JSON file from languages/ folder.
    */
   private loadLanguage(lang: string): void {
-    console.log('Loading language')
     this.http.get(`languages/${lang}.json`).subscribe({
       next: translations => {
         this.translations = translations;
-        console.log(this.translations)
+        this.setLanguageString(lang);
       },
       error: err => {
         console.error(`Could not load ${lang} language file`, err);
       }
     });
+  }
+
+  private setLanguageString(lang: string): void {
+    if(lang === 'en') {
+      this.selectedLanguage = 'English';
+    } else if(lang === 'es') {
+      this.selectedLanguage = 'Español';
+    } else if(lang === 'de') {
+      this.selectedLanguage = 'Deutsch';
+    } else if(lang === 'fr') {
+      this.selectedLanguage = 'Français';
+    } else {
+      this.selectedLanguage = 'Italiano';
+    }
   }
 
   /**
