@@ -68,7 +68,7 @@ button {
 }
 
 .w-100 {
-  width: 100%;
+  width: 100% !important;
 }
 
 .w-50 {
@@ -167,6 +167,7 @@ input[type="number"] {
 .section-container {
   height: calc(100vh - 80px);
   width: 100%;
+  max-width: 1440px;
   padding: 20px 30px;
 
   .heading-container {

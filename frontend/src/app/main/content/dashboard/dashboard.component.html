@@ -24,16 +24,16 @@
     
         <div class="content-container column gap-30">
             <div class="row content-row between">
-                <div class="sub-container">
+                <div class="chart-container center w-50">
                     <canvas baseChart [data]="chart.firstPieChartData" [type]="chart.firstPieChartType" [options]="chart.firstPieChartOptions"></canvas>
                 </div>
-                <div class="sub-container">
+                <div class="chart-container center w-50">
                     <canvas baseChart [data]="chart.secondPieChartData" [type]="chart.secondPieChartType" [options]="chart.secondPieChartOptions"></canvas>
                 </div>
             </div>
     
-            <div class="row content-row gap-30 align-center">
-                <div class="sub-container upper">
+            <div class="row content-row gap-30 align-center center">
+                <div class="w-100 center">
                     <div class="info-container column gap-10">
                         <div class="row between">
                             <div class="name">{{ 'Budget amount' }}:</div>
