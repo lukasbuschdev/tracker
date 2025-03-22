@@ -1,22 +1,23 @@
-<div class="section-container column gap-30" (click)="closeCategory(); closeBudgtes()">
+<div class="section-container column gap-30 fade-in-up" (click)="closeCategory(); closeBudgtes()">
     <div class="heading-container between">
-        <h1>Categories</h1>
+        <h1>{{ 'Categories' }}</h1>
 
         <div class="row align-center gap-10">
-            <div class="btn-primary row gap-5 align-center" [class.isInactive]="activeCategoryId == ''" (click)="openDialog('edit-category')">
+            <div class="btn-primary row gap-10 align-center" [class.isInactive]="activeCategoryId == ''" (click)="openDialog('edit-category')">
                 <img src="img/edit.svg">
-                <span>Edit</span>
+                <span>{{ 'Edit' }}</span>
             </div>
 
              @if(data.budgetsArray.length) {
-                 <div class="btn-primary" (click)="openDialog('add-category')">
-                     <span>+ Add</span>
+                 <div class="btn-primary row gap-10" (click)="openDialog('add-category')">
+                     <span>+</span>
+                     <span>{{ 'Add' }}</span>
                  </div>
              }
         </div>
     </div>
 
-    <div class="content-container column gap-30">
+    <div class="content-container column gap-25">
         @if(!data.budgetsArray.length) {
             <div class="center no-budgets-message-container center">
                 <h4>{{ 'You must create a budget first' }}</h4>
@@ -28,12 +29,12 @@
         } @else {
             <div class="select-budget-container row between">
                 <div class="row gap-15 align-center">
-                    <h4>Active Budget:</h4>
+                    <h4>{{ 'Active Budget' }}:</h4>
                     <div class="dropdown" [class.active]="isDropdownOpened">
                         <div (click)="toggleBudgets($event)" class="dropdown-btn data">{{ data.selectedBudget?.name }}</div>
                         <ul class="dropdown-menu frequency">
                             @for(budget of data.budgetsArray; track budget) {
-                                <li (click)="selectBudget(budget); toggleBudgets($event)">
+                                <li (click)="data.selectBudget(budget); toggleBudgets($event)">
                                     <span>{{ budget.name }}</span>
                                 </li>
                             }
@@ -42,7 +43,7 @@
                 </div>
 
                 <div class="row gap-15 align-center">
-                    <h4>Available for new categories: </h4>
+                    <h4>{{ 'Available for new categories' }}: </h4>
                     <div class="txt-green number">+ {{utils.formatNumber(calculateAvailableBudget())}}</div>
                 </div>
             </div>
@@ -56,12 +57,12 @@
                     
                     <div class="column between gap-15 information">
                         <div class="row between">
-                            <div>Used:</div>
+                            <div>{{ 'Used' }}:</div>
                             <div class="number txt-red">- {{ utils.formatNumber(calculateCategoryUsed(category)) }}</div>
                         </div>
             
                         <div class="row between">
-                            <div>Available:</div>
+                            <div>{{ 'Available' }}:</div>
                             <div class="number txt-green">+ {{ utils.formatNumber(category.amount - calculateCategoryUsed(category)) }}</div>
                         </div>
                     </div>

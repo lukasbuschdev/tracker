@@ -15,8 +15,10 @@ export class NavComponent {
 
   async setActive(nav: string): Promise<void> {
     this.activeNav = nav;
+    this.data.selectBudget(this.data.selectedBudget!)
 
     if(this.activeNav === 'expenses') return await this.data.getExpenses();
-    if(this.activeNav === 'categories') return await this.data.getCategories(); 
+    if(this.activeNav === 'categories') return await this.data.getCategories();
+    
   }
 }

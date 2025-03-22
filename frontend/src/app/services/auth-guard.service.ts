@@ -13,8 +13,10 @@ export class AuthGuardService implements CanActivate {
   router = inject(Router);
   data = inject(DataService);
 
-  canActivate(): boolean {
-    if(this.data.currentUser) {
+  async canActivate(): Promise<boolean> {
+    await this.data.getLoggedUserFromLocalStorage();
+
+    if(this.data.currentUser && this.data.isLoggedIn) {
       return true;
     } else {
       this.router.navigateByUrl('/login');

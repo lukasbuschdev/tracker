@@ -1,17 +1,63 @@
-<div class="section-container column gap-20">
+<div class="section-container column gap-20 fade-in-up">
     <div class="heading-container">
-        <h1>Dashboard</h1>
+        <h1>{{ 'Dashboard' }}</h1>
     </div>
 
-    <div class="content-container column">
-        <div class="row content-row">
-            <div class="sub-container"></div>
-            <div class="sub-container"></div>
+    @if(!data.budgetsArray.length) {
+        <div class="center no-budgets-message-container center">
+            <h4>{{ 'You have no budgets yet' }}</h4>
         </div>
-
-        <div class="row content-row">
-            <div class="sub-container"></div>
-            <div class="sub-container"></div>
+    } @else {
+        <div class="row gap-15 align-center">
+            <h4>{{ 'Active Budget' }}:</h4>
+            <div class="dropdown" [class.active]="isDropdownOpened">
+                <div (click)="toggleBudgets($event)" class="dropdown-btn data">{{ data.selectedBudget?.name }}</div>
+                <ul class="dropdown-menu frequency">
+                    @for(budget of data.budgetsArray; track budget) {
+                        <li (click)="data.selectBudget(budget); toggleBudgets($event)">
+                            <span>{{ budget.name }}</span>
+                        </li>
+                    }
+                </ul>
+            </div>
         </div>
-    </div>
+    
+        <div class="content-container column gap-30">
+            <div class="row content-row between">
+                <div class="sub-container">
+                    <canvas baseChart [data]="chart.firstPieChartData" [type]="chart.firstPieChartType" [options]="chart.firstPieChartOptions"></canvas>
+                </div>
+                <div class="sub-container">
+                    <canvas baseChart [data]="chart.secondPieChartData" [type]="chart.secondPieChartType" [options]="chart.secondPieChartOptions"></canvas>
+                </div>
+            </div>
+    
+            <div class="row content-row gap-30 align-center">
+                <div class="sub-container upper">
+                    <div class="info-container column gap-10">
+                        <div class="row between">
+                            <div class="name">{{ 'Budget amount' }}:</div>
+                            <div class="number txt-green">+ {{ data.selectedBudget ? utils.formatNumber(data.selectedBudget.amount) : '0' }}</div>
+                        </div>
+                        <div class="row between">
+                            <div class="name">{{ 'Budget amount available' }}:</div>
+                            <div class="number txt-green">+ {{ data.selectedBudget ? utils.formatNumber(data.selectedBudget.amount - data.selectedBudget.used) : '0' }}</div>
+                        </div>
+                        <div class="row between">
+                            <div class="name">{{ 'Budget amount used' }}:</div>
+                            <div class="number txt-red">- {{ data.selectedBudget ? utils.formatNumber(data.selectedBudget.used) : '0' }}</div>
+                        </div>
+                        <div class="row between">
+                            <div class="name">{{ 'Categories count' }}:</div>
+                            <div class="number">{{ data.categoriesArray.length }}</div>
+                        </div>
+                        <div class="row between">
+                            <div class="name">{{ 'Expenses count' }}:</div>
+                            <div class="number">{{ data.expensesArray.length }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 </div>

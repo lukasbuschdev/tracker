@@ -1,15 +1,16 @@
-<div class="section-container column gap-30" (click)="closeBudget()">
+<div class="section-container column gap-30 fade-in-up" (click)="closeBudget()">
     <div class="heading-container between">
-        <h1>Budgets</h1>
+        <h1>{{ 'Budgets' }}</h1>
 
         <div class="row align-center gap-10">
-            <div class="btn-primary row gap-5 align-center" [class.isInactive]="activeBudgetId == ''" (click)="openDialog('edit-budget')">
+            <div class="btn-primary row gap-10 align-center" [class.isInactive]="activeBudgetId == ''" (click)="openDialog('edit-budget')">
                 <img src="img/edit.svg">
-                <span>Edit</span>
+                <span>{{ 'Edit' }}</span>
             </div>
 
-            <div class="btn-primary" (click)="openDialog('add-budget')">
-                <span>+ Add</span>
+            <div class="btn-primary row gap-10" (click)="openDialog('add-budget')">
+                <span>+</span>
+                <span>{{ 'Add' }}</span>
             </div>
         </div>
     </div>
@@ -29,12 +30,12 @@
                     
                     <div class="column between gap-15 information">
                         <div class="row between">
-                            <div>Used:</div>
+                            <div>{{ 'Used' }}:</div>
                             <div class="number txt-red">- {{ utils.formatNumber(budget.used) }}</div>
                         </div>
             
                         <div class="row between">
-                            <div>Current available:</div>
+                            <div>{{ 'Current available' }}:</div>
                             <div class="number txt-green">+ {{ utils.formatNumber(budget.amount - budget.used) }}</div>
                         </div>
                     </div>

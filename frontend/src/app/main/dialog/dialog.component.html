@@ -1,6 +1,6 @@
 @if(isOpen) {
     <div class="backdrop center" (click)="closeCategories(); closeDialog()">
-        <div class="card column between" (click)="$event.stopPropagation()">
+        <div class="card column between fade-in-right" (click)="$event.stopPropagation()">
             <div class="heading">
                 <h2>{{ dialog.addOrEdit }} {{ dialog.type }}</h2>
             </div>
@@ -88,20 +88,17 @@
                         }
                     </div>
                 } @else {
-                    <div class="row between setting-name gap-10 align-center w-100">
-                        <span>Username:</span>
-                        <input class="settings-input" id="name" type="text" #inputName [ngModel]="data.currentUser?.name" [placeholder]="'Enter username...'">
-                    </div>
-                    <div class="row between align-center w-100">
-                        <span>Email:</span>
-                        <div class="btn-secondary">
-                            <span>change</span>
+                    <div class="column gap-30 w-100">
+                        <div class="row between setting-name align-center w-100">
+                            <span>Username:</span>
+                            <input class="settings-input" id="name" type="text" #inputName [ngModel]="data.currentUser?.name" [placeholder]="'Enter username...'">
                         </div>
-                    </div>
-                    <div class="row between align-center w-100">
-                        <span>Password:</span>
-                        <div class="btn-secondary">
-                            <span>change</span>
+    
+                        <div class="row between align-center w-100">
+                            <span>Password:</span>
+                            <div class="btn-secondary">
+                                <span>change</span>
+                            </div>
                         </div>
                     </div>
                 }

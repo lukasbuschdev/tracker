@@ -30,12 +30,6 @@ export class ExpensesComponent {
     this.isDropdownOpened = false;
   }
 
-  selectBudget(budget: Budget): void {
-    this.data.selectedBudget = budget;
-    this.data.getExpenses();
-    this.data.getCategories();
-  }
-
   openDialog(str: string, expenseId?: string, category?: string): void {
     this.dialog.openDialog(str, category);
 

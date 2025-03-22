@@ -43,11 +43,6 @@ export class CategoriesComponent {
     this.isDropdownOpened = false;
   }
 
-  selectBudget(budget: Budget): void {
-    this.data.selectedBudget = budget;
-    this.data.getCategories();
-  }
-
   openDialog(str: string): void {
     this.dialog.openDialog(str);
   }

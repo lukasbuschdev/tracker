@@ -109,18 +109,21 @@ export class DialogComponent implements OnInit {
     const amountUsedInCategory = this.calculateCategoryUsed();
     const allCategoriesAmount = this.calculateAllCategoriesAmount(amount);
 
+    if(this.dialog.addOrEdit === 'Add') {
+      if(amount > availableForCategories) {
+        this.dialog.setAmountTooBig();
+        return;
+      }
+    }
+
     if((this.data.selectedBudget!.amount - allCategoriesAmount) < 0) {
       this.dialog.setAmountTooBig();
+      return;
     }
     
     if(amount < amountUsedInCategory) {
       this.dialog.setAmountTooLittle();
-    }
-
-    if(this.dialog.addOrEdit === 'Add') {
-      if(amount > availableForCategories) {
-        this.dialog.setAmountTooBig();
-      }
+      return;
     }
   }
   
@@ -142,15 +145,18 @@ export class DialogComponent implements OnInit {
     if(this.dialog.addOrEdit === 'Add') {
       if(expensesAmount > 0) {
         this.dialog.setAmountTooBig();
+        return;
       }
 
       if(!selectedCategory) return;
       if(amount > selectedCategory?.amount) {
         this.dialog.setAmountTooBig();
+        return;
       }
     } else {
       if((expensesAmountClickedExpense - categoryOfExpense.amount) > 0) {
         this.dialog.setAmountTooBig();
+        return;
       }
     }
   }

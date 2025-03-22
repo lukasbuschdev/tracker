@@ -14,11 +14,11 @@ export class DataService {
 
   public currentUserId: string = '';
   public currentUser: User | null = null;
+  public isLoggedIn: boolean = false;
 
   private budgetsSubject = new BehaviorSubject<Budget[]>([]);
   private categoriesSubject = new BehaviorSubject<Category[]>([]);
   private expensesSubject = new BehaviorSubject<Expense[]>([]);
-
 
   public get budgetsArray() {
     return this.budgetsSubject.value;
@@ -32,12 +32,12 @@ export class DataService {
     return this.expensesSubject.value;
   }
 
-  selectedBudget: Budget | null = null;
-  selectedCategory: string = 'Select category';
+  public selectedBudget: Budget | null = null;
+  public selectedCategory: string = 'Select category';
 
-  clickedBudget: Budget | null = null; 
-  clickedCategory: Category | null = null;
-  clickedExpense: Expense | null = null;
+  public clickedBudget: Budget | null = null; 
+  public clickedCategory: Category | null = null;
+  public clickedExpense: Expense | null = null;
 
   constructor(private dialog: DialogService) { }
 
@@ -47,7 +47,7 @@ export class DataService {
 
 
   private async getUser(): Promise<void> {
-    if(!this.currentUser || this.currentUserId) return;
+    if(!this.currentUser || !this.currentUserId) return;
 
     try {
       this.currentUser = await User.get(this.currentUserId); 
@@ -56,8 +56,19 @@ export class DataService {
     }
   }
 
+  public async getLoggedUserFromLocalStorage(): Promise<void> {
+    const storedUserString = localStorage.getItem('loggedUser');
+    if(!storedUserString) return;
+    
+    const loggedUser = JSON.parse(storedUserString);
+
+    this.currentUserId = loggedUser.id;
+    this.isLoggedIn = loggedUser.isLoggedIn;
+    this.currentUser = await User.get(this.currentUserId);
+  }
+
   private async getData(): Promise<void> {
-    if(!this.currentUser || !this.currentUserId) return;
+    if(!this.currentUserId) return;
 
     try {
       const budgets = await Budget.get(this.currentUserId);
@@ -86,7 +97,6 @@ export class DataService {
     this.expensesSubject.next(expenses);
   }
 
-
   public calculateCurrentAvailable(): number {
     if(!this.selectedBudget) return 0;
     const allExpenses = this.expensesSubject.value.map(expense => expense.amount);
@@ -95,9 +105,26 @@ export class DataService {
     return this.selectedBudget.amount - expensesAmount;
   }
 
+  public getAllCategoriesData(): { name: string[], amount: number[] } {
+    const allCategoriesNames = this.categoriesArray.map(category => category.name);
+    const allCategoriesAmounts = this.categoriesArray.map(category => category.amount);
+
+    return {
+      name: allCategoriesNames,
+      amount: allCategoriesAmounts
+    }
+  }
+
+  public selectBudget(budget: Budget): void {
+    this.selectedBudget = this.budgetsArray.find(dataBudget => dataBudget.id === budget.id) || null;
+    this.getCategories();
+    this.getExpenses();
+  }
+
   public logout(): void {
     this.currentUser = null;
     this.currentUserId = '';
+    this.isLoggedIn = false;
     this.budgetsSubject.next([]);
     this.categoriesSubject.next([]);
     this.expensesSubject.next([]);

@@ -1,11 +1,41 @@
 @use 'variables' as *;
 
 .content-row {
-    height: 50%;
+    height: fit-content;
     width: 100%;
 
     .sub-container {
         height: 100%;
         width: 50%;
+        max-width: 1440px;
     }
+
+    .sub-container.upper:first-of-type {
+        width: 100%;
+        height: fit-content;
+    }
+
+    .first-canvas canvas {
+        height: fit-content;
+        width: 100%;
+    }
+
+    .second-canvas {
+        height: 100%;
+        width: 50%;
+    }
+
+    .canvas-container {
+        canvas {
+            width: 50%;
+        }
+    }
+}
+
+.info-container {
+    width: 100%;
+    height: fit-content;
+    border: 1px solid #bbbbbb;
+    border-radius: 20px;
+    padding: 15px 20px;
 }

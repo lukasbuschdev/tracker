@@ -39,19 +39,22 @@ export class LoginComponent implements OnInit {
     
     try {
       const user = await User.getUserWithEmailOrNameAndPassword(emailOrName, hashedPassword);
+      this.data.isLoggedIn = true;
+      this.data.currentUser = user;
+      this.data.currentUserId = user.id;
 
       if(this.isChecked && emailOrName !== 'Guest') {
         this.saveCredentialsToLocalStorage(emailOrName, password);
       }
 
-      this.data.currentUser = user;
-      this.data.currentUserId = user.id;
+      this.saveLoggedUserToLocalStorage(user.id);
       await this.data.init();
       this.router.navigateByUrl('/dashboard');
     } catch (error) {
       console.error(error)
       this.isUserFound = false;
       this.isChecked = false;
+      this.data.isLoggedIn = false;
     }
 
     this.emailOrName = '';
@@ -59,24 +62,35 @@ export class LoginComponent implements OnInit {
   }
 
   saveCredentialsToLocalStorage(emailOrName: string, password: string): void {
-    const user = {
+    const remeberMeUser = {
       emailOrName: emailOrName,
       password: password,
-      isChecked: this.isChecked
+      isChecked: this.isChecked,
+      isLoggedIn: this.data.isLoggedIn
     }
 
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('remeberMeUser', JSON.stringify(remeberMeUser));
   }
 
   getCredentialsFromLocalStorage(): void {
-    const storedUserString = localStorage.getItem('user');
+    const storedUserString = localStorage.getItem('remeberMeUser');
     if(!storedUserString) return;
     this.existsStoredUser = true;
     
-    const user = JSON.parse(storedUserString);
+    const remeberMeUser = JSON.parse(storedUserString);
 
-    this.emailOrName = user.emailOrName;
-    this.password = user.password;
-    this.isChecked = user.isChecked;
+    this.emailOrName = remeberMeUser.emailOrName;
+    this.password = remeberMeUser.password;
+    this.isChecked = remeberMeUser.isChecked;
+    this.data.isLoggedIn = remeberMeUser.isLoggedIn;
+  }
+
+  saveLoggedUserToLocalStorage(id: string): void {
+    const loggedUser = {
+      id: id,
+      isLoggedIn: this.data.isLoggedIn
+    }
+
+    localStorage.setItem('loggedUser', JSON.stringify(loggedUser));
   }
 }
