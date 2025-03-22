@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { UtilsService } from '../../../services/utils.service';
 import { DialogService } from '../../../services/dialog.service';
 import { DataService } from '../../../services/data.service';
-import { Budget } from '../../../models/budget';
 import { Category } from '../../../models/category';
+import { TranslatePipe } from '../../../pipe/translate.pipe';
 
 @Component({
   selector: 'app-categories',
-  imports: [],
+  imports: [TranslatePipe],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss'
 })

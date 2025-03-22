@@ -2,23 +2,23 @@
     <div class="backdrop center" (click)="closeDialog()">
         <div class="card column between confirmation-card" (click)="$event.stopPropagation()">
             <div class="heading">
-                <h2>Attention</h2>
+                <h2>{{ 'attention' | translate }}</h2>
             </div>
 
             @if(dialog.confirmationType === 'category') {
                 <div class="center">
-                    <h4>Deleting this category will also remove all associated expenses.</h4>
+                    <h4>{{ 'confirmation-message-1' | translate }}</h4>
                 </div>
             }
             @if(dialog.confirmationType === 'account') {
                 <div class="center">
-                    <h4>This action will permanently delete your account.</h4>
+                    <h4>{{ 'confirmation-message-2' | translate }}</h4>
                 </div>
             }
             
             <div class="button-container row right gap-10">
-                <div class="btn-secondary" (click)="closeDialog()">Cancel</div>
-                <div class="btn-primary" (click)="deleteData()">Delete</div>
+                <div class="btn-secondary" (click)="closeDialog()">{{ 'cancel' | translate }}</div>
+                <div class="btn-primary" (click)="deleteData()">{{ 'delete' | translate }}</div>
             </div>
         </div>
     </div>

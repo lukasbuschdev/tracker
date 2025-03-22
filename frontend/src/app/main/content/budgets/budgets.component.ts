@@ -4,10 +4,11 @@ import { DialogService } from '../../../services/dialog.service';
 import { DataService } from '../../../services/data.service';
 import { CommonModule } from '@angular/common';
 import { Budget } from '../../../models/budget';
+import { TranslatePipe } from '../../../pipe/translate.pipe';
 
 @Component({
   selector: 'app-budgets',
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
   templateUrl: './budgets.component.html',
   styleUrl: './budgets.component.scss'
 })

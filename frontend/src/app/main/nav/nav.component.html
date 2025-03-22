@@ -2,28 +2,28 @@
     <div class="column nav-links-container">
         <div class="row gap-15 nav-row align-center" [class.isActive]="activeNav === 'dashboard'" (click)="setActive('dashboard')" routerLink="/dashboard" routerLinkActive="isActive">
             <img src="img/dashboard.svg">
-            <span>Dashboard</span>
+            <span>{{ 'dashboard' | translate }}</span>
         </div>
         <div class="row gap-15 nav-row align-center" [class.isActive]="activeNav === 'budgets'" (click)="setActive('budgets')" routerLink="/budgets" routerLinkActive="isActive">
             <img src="img/budgets.svg">
-            <span>Budgets</span>
+            <span>{{'budgets' | translate }}</span>
         </div>
         <div class="row gap-15 nav-row align-center" [class.isActive]="activeNav === 'categories'" (click)="setActive('categories')" routerLink="/categories" routerLinkActive="isActive">
             <img src="img/categories.svg">
-            <span>Categories</span>
+            <span>{{'categories' | translate }}</span>
         </div>
         <div class="row gap-15 nav-row align-center" [class.isActive]="activeNav === 'expenses'" (click)="setActive('expenses')" routerLink="/expenses" routerLinkActive="isActive">
             <img src="img/expenses.svg">
-            <span>Expenses</span>
+            <span>{{'expenses' | translate }}</span>
         </div>
     </div>
 
     <div class="column gap-20 legal-privacy-container">
         <div class="left">
-            <span routerLink="/legal-notice" routerLinkActive="isActive">Legal notice</span>
+            <span routerLink="/legal-notice" routerLinkActive="isActive">{{'legal-notice' | translate }}</span>
         </div>
         <div class="left">
-            <span routerLink="/privacy-policy" routerLinkActive="isActive">Privacy policy</span>
+            <span routerLink="/privacy-policy" routerLinkActive="isActive">{{'privacy-policy' | translate }}</span>
         </div>
     </div>
 </nav>

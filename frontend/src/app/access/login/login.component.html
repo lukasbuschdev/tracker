@@ -1,42 +1,46 @@
 <section class="center">
     <div class="card access column gap-30 center fade-in-up">
         <div class="center">
-            <h2>Login</h2>
+            <h2>{{ 'login' | translate }}</h2>
         </div>
 
         <div class="column gap-20 center">
             <div class="column gap-10 center">
                 <div class="column gap-20 center">
-                    <input type="text" [(ngModel)]="emailOrName" placeholder="Email or username...">
-                    <input type="password" [(ngModel)]="password" placeholder="Password...">
+                    <input type="text" [(ngModel)]="emailOrName" [placeholder]="'placeholder-email-or-username' | translate ">
+                    <input type="password" [(ngModel)]="password" [placeholder]="'placeholder-password' | translate">
                     
                     <div class="row gap-10 align-center">
                         <img class="checkbox" [src]="isChecked ? 'img/checkbox-checked.svg' : 'img/checkbox-unchecked.svg'" (click)="toggleIsChecked()">
-                        <span>Remember me</span>
+                        <span>{{ 'remember-me' | translate }}</span>
                     </div>
                 </div>
                 
                 <div class="center">
-                    <span class="error-message">{{ loginAttempted && !isUserFound ? 'Email, username or password is wrong!' : '' }}</span>
+                    @if(loginAttempted && !isUserFound) {
+                        <span class="error-message">{{ 'login-invalid' | translate }}</span>
+                    } @else {
+                        <span class="error-message"></span>
+                    }
                 </div>
             </div>
     
             <div class="column links gap-10">
                 <div class="row gap-15">
-                    <span routerLink="/access-legal-notice">Legal notice</span>
-                    <span routerLink="/access-privacy-policy">Privacy policy</span>
+                    <span routerLink="/access-legal-notice">{{ 'legal-notice' | translate }}</span>
+                    <span routerLink="/access-privacy-policy">{{ 'privacy-policy' | translate }}</span>
                 </div>
                 <div class="center">
-                    <span routerLink="/reset-password">Forgot password</span>
+                    <span routerLink="/reset-password">{{ 'forgot-password' | translate }}</span>
                 </div>
             </div>
     
             <div class="button-container row gap-10">
                 <div class="btn-primary" (click)="checkLogin(emailOrName, password)">
-                    <span>Login</span>
+                    <span>{{ 'login' | translate }}</span>
                 </div>
                 <div class="btn-secondary" (click)="checkLogin('Guest', 'Guest123!')">
-                    <span>Guest</span>
+                    <span>{{ 'guest' | translate }}</span>
                 </div>
             </div>
         </div>

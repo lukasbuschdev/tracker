@@ -2,13 +2,13 @@
     <div class="backdrop center" (click)="closeCategories(); closeDialog()">
         <div class="card column between fade-in-right" (click)="$event.stopPropagation()">
             <div class="heading">
-                <h2>{{ dialog.addOrEdit }} {{ dialog.type }}</h2>
+                <h2>{{ (dialog.addOrEdit.toLowerCase() + '-' + dialog.type.toLowerCase()) | translate }}</h2>
             </div>
     
             <div class="input-container column gap-10 center">
                 @if(dialog.type !== 'settings') {
                     <div class="column gap-10 align-center w-100">
-                        <label>{{ formatLabel(dialog.type) }} name</label>
+                        <label>{{ dialog.type + '-' + 'name' | translate }}</label>
                         <input id="name" type="text" #inputName [ngModel]="
                             dialog.addOrEdit === 'Edit'
                               ? dialog.type === 'budget'
@@ -17,10 +17,10 @@
                                 ? data.clickedCategory?.name
                                 : data.clickedExpense?.name
                               : null
-                            " [placeholder]="'Enter ' + dialog.type + ' name...'">
+                            " [placeholder]="'placeholder-enter-name' | translate">
                         @if(dialog.addOrEditRequestMade && !nameRegex.test(inputName.value)) {
                             <div class="error-message">
-                                <span>{{ 'Only uppercase, lowercase and digits allowed!' }}</span>
+                                <span>{{ 'name-requirements' | translate }}</span>
                             </div>
                         } @else {
                             <div class="error-message">
@@ -31,7 +31,7 @@
                     @if(dialog.type === 'expense') {
                         <div class="dropdown" [class.active]="isDropdownOpened">
                             <div class="column gap-10 align-center w-100">
-                                <label>Category</label>
+                                <label>{{ 'category' | translate }}</label>
                                 <div (click)="toggleCategories($event)" class="dropdown-btn data left">
                                     {{ dialog.addOrEdit === 'Edit' ? dialog.category : data.selectedCategory }}
                                 </div>
@@ -46,11 +46,11 @@
                         </div>
                         @if(dialog.addOrEditRequestMade && dialog.addOrEdit === 'Edit' && dialog.category === 'Select category') {
                             <div class="error-message">
-                                <span>{{ 'You must select a category!' }}</span>
+                                <span>{{ 'must-select-category' | translate }}</span>
                             </div>
                         } @else if(dialog.addOrEditRequestMade && dialog.addOrEdit === 'Add' && data.selectedCategory === 'Select category') {
                             <div class="error-message">
-                                <span>{{ 'You must select a category!' }}</span>
+                                <span>{{ 'must-select-category' | translate }}</span>
                             </div>
                         } @else {
                             <div class="error-message">
@@ -59,7 +59,7 @@
                         }
                     }
                     <div class="column gap-5 align-center w-100">
-                        <label>{{ formatLabel(dialog.type) }} amount</label>
+                        <label>{{ dialog.type + '-' + 'amount' | translate }}</label>
                         <input type="number" #amount [ngModel]="
                             dialog.addOrEdit === 'Edit'
                               ? dialog.type === 'budget'
@@ -68,18 +68,18 @@
                                 ? data.clickedCategory?.amount
                                 : data.clickedExpense?.amount
                               : null
-                            " [placeholder]="'Enter amount...'">
+                            " [placeholder]="'enter-amount' | translate">
                         @if(dialog.addOrEditRequestMade && dialog.isAmountZero) {
                             <div class="error-message">
-                                <span>{{ 'Amount must be bigger than 0!' }}</span>
+                                <span>{{ 'must-be-bigger-than-0' | translate }}</span>
                             </div>
                         } @else if(dialog.addOrEditRequestMade && dialog.isAmountTooLittle) {
                             <div class="error-message">
-                                <span>{{ 'Amount too little!' }}</span>
+                                <span>{{ 'amount-too-little' | translate }}</span>
                             </div>
                         } @else if(dialog.addOrEditRequestMade && dialog.isAmountTooBig) {
                             <div class="error-message">
-                                <span>{{ 'Amount too big!' }}</span>
+                                <span>{{ 'amount-too-big' | translate }}</span>
                             </div>
                         } @else {
                             <div class="error-message">
@@ -90,14 +90,14 @@
                 } @else {
                     <div class="column gap-30 w-100">
                         <div class="row between setting-name align-center w-100">
-                            <span>Username:</span>
-                            <input class="settings-input" id="name" type="text" #inputName [ngModel]="data.currentUser?.name" [placeholder]="'Enter username...'">
+                            <span>{{ 'username' | translate }}:</span>
+                            <input class="settings-input" id="name" type="text" #inputName [ngModel]="data.currentUser?.name" [placeholder]="'enter-username' | translate">
                         </div>
     
                         <div class="row between align-center w-100">
-                            <span>Password:</span>
+                            <span>{{ 'password' | translate }}:</span>
                             <div class="btn-secondary">
-                                <span>change</span>
+                                <span>{{ 'change' | translate }}</span>
                             </div>
                         </div>
                     </div>
@@ -105,10 +105,10 @@
             </div>
             
             <div class="button-container row right gap-10">
-                <div class="btn-secondary" (click)="closeDialog()">Cancel</div>
-                <div class="btn-secondary d-none" [class.active]="dialog.addOrEdit === 'Edit' && dialog.type !== 'settings'" (click)="deleteCategory()">Delete</div>
-                <div class="btn-primary d-none" [class.active]="dialog.type !== 'settings'" (click)="getData(inputName.nativeElement.value, amount.nativeElement.value)">{{ dialog.addOrEdit }}</div>
-                <div class="btn-primary d-none" [class.active]="dialog.type == 'settings'"  (click)="getSettingsData(inputName.nativeElement.value)">Edit</div>
+                <div class="btn-secondary" (click)="closeDialog()">{{ 'cancel' | translate }}</div>
+                <div class="btn-secondary d-none" [class.active]="dialog.addOrEdit === 'Edit' && dialog.type !== 'settings'" (click)="deleteCategory()">{{ 'delete' | translate}}</div>
+                <div class="btn-primary d-none" [class.active]="dialog.type !== 'settings'" (click)="getData(inputName.nativeElement.value, amount.nativeElement.value)">{{ dialog.addOrEdit | translate }}</div>
+                <div class="btn-primary d-none" [class.active]="dialog.type == 'settings'"  (click)="getSettingsData(inputName.nativeElement.value)">{{ 'edit' | translate }}</div>
             </div>
         </div>
     </div>

@@ -1,17 +1,17 @@
 <div class="section-container column gap-30 fade-in-up" (click)="closeCategory(); closeBudgtes()">
     <div class="heading-container between">
-        <h1>{{ 'Categories' }}</h1>
+        <h1>{{ 'categories' | translate }}</h1>
 
         <div class="row align-center gap-10">
             <div class="btn-primary row gap-10 align-center" [class.isInactive]="activeCategoryId == ''" (click)="openDialog('edit-category')">
                 <img src="img/edit.svg">
-                <span>{{ 'Edit' }}</span>
+                <span>{{ 'edit' | translate }}</span>
             </div>
 
              @if(data.budgetsArray.length) {
                  <div class="btn-primary row gap-10" (click)="openDialog('add-category')">
                      <span>+</span>
-                     <span>{{ 'Add' }}</span>
+                     <span>{{ 'add' | translate }}</span>
                  </div>
              }
         </div>
@@ -20,16 +20,16 @@
     <div class="content-container column gap-25">
         @if(!data.budgetsArray.length) {
             <div class="center no-budgets-message-container center">
-                <h4>{{ 'You must create a budget first' }}</h4>
+                <h4>{{ 'create-budget-first' | translate }}</h4>
             </div>
         } @else if(!data.categoriesArray.length) {
             <div class="center no-budgets-message-container center">
-                <h4>{{ 'You have no categories yet' }}</h4>
+                <h4>{{ 'no-categories-yet' | translate }}</h4>
             </div>
         } @else {
             <div class="select-budget-container row between">
                 <div class="row gap-15 align-center">
-                    <h4>{{ 'Active Budget' }}:</h4>
+                    <h4>{{ 'active-budget' | translate }}:</h4>
                     <div class="dropdown" [class.active]="isDropdownOpened">
                         <div (click)="toggleBudgets($event)" class="dropdown-btn data">{{ data.selectedBudget?.name }}</div>
                         <ul class="dropdown-menu frequency">
@@ -43,7 +43,7 @@
                 </div>
 
                 <div class="row gap-15 align-center">
-                    <h4>{{ 'Available for new categories' }}: </h4>
+                    <h4>{{ 'available-for-new-categories' | translate }}: </h4>
                     <div class="txt-green number">+ {{utils.formatNumber(calculateAvailableBudget())}}</div>
                 </div>
             </div>
@@ -57,12 +57,12 @@
                     
                     <div class="column between gap-15 information">
                         <div class="row between">
-                            <div>{{ 'Used' }}:</div>
+                            <div>{{ 'used' | translate }}:</div>
                             <div class="number txt-red">- {{ utils.formatNumber(calculateCategoryUsed(category)) }}</div>
                         </div>
             
                         <div class="row between">
-                            <div>{{ 'Available' }}:</div>
+                            <div>{{ 'available' | translate }}:</div>
                             <div class="number txt-green">+ {{ utils.formatNumber(category.amount - calculateCategoryUsed(category)) }}</div>
                         </div>
                     </div>

@@ -3,13 +3,13 @@ import { BaseChartDirective } from 'ng2-charts';
 import { ChartService } from '../../../services/chart.service';
 import { DataService } from '../../../services/data.service';
 import { UtilsService } from '../../../services/utils.service';
-import { Budget } from '../../../models/budget';
 import { Chart, registerables } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { TranslatePipe } from '../../../pipe/translate.pipe';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [BaseChartDirective],
+  imports: [BaseChartDirective, TranslatePipe],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
@@ -23,9 +23,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     Chart.register(...registerables, ChartDataLabels);
-    
-    if(!this.data.currentUserId) return;
-    this.data.init();
   }
   
   toggleBudgets(event: MouseEvent): void {

@@ -1,16 +1,16 @@
 <div class="section-container column gap-30 fade-in-up" (click)="closeBudget()">
     <div class="heading-container between">
-        <h1>{{ 'Budgets' }}</h1>
+        <h1>{{ 'budgets' | translate }}</h1>
 
         <div class="row align-center gap-10">
             <div class="btn-primary row gap-10 align-center" [class.isInactive]="activeBudgetId == ''" (click)="openDialog('edit-budget')">
                 <img src="img/edit.svg">
-                <span>{{ 'Edit' }}</span>
+                <span>{{ 'edit' | translate }}</span>
             </div>
 
             <div class="btn-primary row gap-10" (click)="openDialog('add-budget')">
                 <span>+</span>
-                <span>{{ 'Add' }}</span>
+                <span>{{ 'add' | translate }}</span>
             </div>
         </div>
     </div>
@@ -18,7 +18,7 @@
     <div class="content-container column gap-20">
         @if(!data.budgetsArray.length) {
             <div class="center no-budgets-message-container center">
-                <h4>{{ 'You have no budgets yet' }}</h4>
+                <h4>{{ 'no-budgets-yet' | translate }}</h4>
             </div>
         } @else {
             @for(budget of data.budgetsArray; track budget.id) {
@@ -30,12 +30,12 @@
                     
                     <div class="column between gap-15 information">
                         <div class="row between">
-                            <div>{{ 'Used' }}:</div>
+                            <div>{{ 'used' | translate }}:</div>
                             <div class="number txt-red">- {{ utils.formatNumber(budget.used) }}</div>
                         </div>
             
                         <div class="row between">
-                            <div>{{ 'Current available' }}:</div>
+                            <div>{{ 'current-available' | translate }}:</div>
                             <div class="number txt-green">+ {{ utils.formatNumber(budget.amount - budget.used) }}</div>
                         </div>
                     </div>

@@ -3,10 +3,11 @@ import { DialogService } from '../../../services/dialog.service';
 import { UtilsService } from '../../../services/utils.service';
 import { DataService } from '../../../services/data.service';
 import { Budget } from '../../../models/budget';
+import { TranslatePipe } from '../../../pipe/translate.pipe';
 
 @Component({
   selector: 'app-expenses',
-  imports: [],
+  imports: [TranslatePipe],
   templateUrl: './expenses.component.html',
   styleUrl: './expenses.component.scss'
 })

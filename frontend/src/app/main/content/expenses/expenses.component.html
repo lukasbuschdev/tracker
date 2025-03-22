@@ -1,11 +1,11 @@
 <div class="section-container column gap-30 fade-in-up" (click)="closeBudgtes()">
     <div class="heading-container between align-center">
-        <h1>Expenses</h1>
+        <h1>{{'expenses' | translate }}</h1>
         
         @if(data.categoriesArray.length) {
             <div class="btn-primary row gap-10" (click)="openDialog('add-expense')">
                 <span>+</span>
-                <span>Add</span>
+                <span>{{ 'add' | translate }}</span>
             </div>
         }
     </div>
@@ -13,20 +13,20 @@
     <div class="content-container column gap-25">
         @if(!data.budgetsArray.length) {
             <div class="center no-budgets-message-container center">
-                <h4>{{ 'You must create a budget and a category first' }}</h4>
+                <h4>{{ 'create-budget-and-category-first' | translate }}</h4>
             </div>
         } @else if(!data.categoriesArray.length) {
             <div class="center no-budgets-message-container center">
-                <h4>{{ 'You have no categories yet' }}</h4>
+                <h4>{{ 'no-categories-yet' | translate }}</h4>
             </div>
         } @else if(!data.expensesArray.length) {
             <div class="center no-budgets-message-container center">
-                <h4>{{ 'You have no expenses yet' }}</h4>
+                <h4>{{ 'no-expenses-yet' | translate }}</h4>
             </div>
         } @else {
             @if(data.selectedBudget) {
                 <div class="select-budget-container row gap-15 align-center">
-                    <h4>Active Budget:</h4>
+                    <h4>{{'active-budget' | translate }}:</h4>
                     <div class="dropdown" [class.active]="isDropdownOpened">
                         <div (click)="toggleBudgets($event)" class="dropdown-btn data">{{ data.selectedBudget.name }}</div>
                         <ul class="dropdown-menu frequency">
@@ -43,11 +43,11 @@
                     <!-- <div class="btn-secondary" (click)="toggleFilter()">Filter</div> -->
     
                     <div class="row gap-15 align-center">
-                        <h4>Current available:</h4>
+                        <h4>{{ 'current-available' | translate }}:</h4>
                         <span class="number txt-green">+ {{ utils.formatNumber(data.calculateCurrentAvailable()) }}</span>
                     </div>
                 </div>
-                @if(isFilterVisible) {
+                <!-- @if(isFilterVisible) {
                     <div class="row align-center between filter-container gap-10">
                         <div class="row gap-5 text-search">
                             <input type="text" placeholder="Name...">
@@ -60,24 +60,24 @@
                         </div>
     
                         <div class="btn-secondary">
-                            <span>Apply</span>
+                            <span>{{ 'Apply' | translate }}</span>
                         </div>
                     </div>
-                }
+                } -->
     
                 <div class="column table gap-20">
                     <div class="column gap-10">
                         <div class="row between header gap-15">
                             <div class="row between align-center">
-                                <h4>Name</h4>
+                                <h4>{{ 'name' | translate }}</h4>
                                 <img src="img/sort.svg">
                             </div>
                             <div class="row between align-center">
-                                <h4>Category</h4>
+                                <h4>{{'category' | translate }}</h4>
                                 <img src="img/sort.svg">
                             </div>
                             <div class="row between align-center">
-                                <h4>Amount</h4>
+                                <h4>{{'amount' | translate }}</h4>
                                 <img src="img/sort.svg">
                             </div>
                         </div>

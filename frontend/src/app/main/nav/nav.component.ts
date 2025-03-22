@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DataService } from '../../services/data.service';
+import { TranslatePipe } from '../../pipe/translate.pipe';
 
 @Component({
   selector: 'app-nav',
-  imports: [RouterModule],
+  imports: [RouterModule, TranslatePipe],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.scss'
 })
@@ -19,6 +20,5 @@ export class NavComponent {
 
     if(this.activeNav === 'expenses') return await this.data.getExpenses();
     if(this.activeNav === 'categories') return await this.data.getCategories();
-    
   }
 }

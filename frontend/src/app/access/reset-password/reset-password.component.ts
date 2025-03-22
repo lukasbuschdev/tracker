@@ -1,9 +1,10 @@
 import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslatePipe } from '../../pipe/translate.pipe';
 
 @Component({
   selector: 'app-reset-password',
-  imports: [],
+  imports: [TranslatePipe],
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.scss'
 })

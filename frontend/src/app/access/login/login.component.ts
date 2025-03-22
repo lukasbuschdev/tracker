@@ -5,10 +5,11 @@ import { Router, RouterModule } from '@angular/router';
 import { UtilsService } from '../../services/utils.service';
 import { User } from '../../models/user';
 import { DataService } from '../../services/data.service';
+import { TranslatePipe } from '../../pipe/translate.pipe';
 
 @Component({
   selector: 'app-login',
-  imports: [RouterModule, CommonModule, FormsModule],
+  imports: [RouterModule, CommonModule, FormsModule, TranslatePipe],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })

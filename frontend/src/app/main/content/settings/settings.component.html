@@ -1,17 +1,17 @@
 <div class="section-container column between fade-in-up" (click)="closeLanguages()">
     <div class="column gap-50">
-        <div class="heading-container between align-center gap-40">
-            <h1>{{ 'Settings' }}</h1>
+        <div class="heading-container between align-center">
+            <h1>{{ 'settings' | translate  }}</h1>
             <div class="row gap-10 btn-primary" (click)="openDialog('edit-settings')">
                 <img class="edit" src="img/edit.svg">
-                <span>{{ 'Edit' }}</span>
+                <span>{{ 'edit' | translate }}</span>
             </div>
         </div>
     
         <div class="content-container column between">
             <div class="column gap-50">
                 <div class="row between align-center data-row">
-                    <span>{{ 'Language' }}:</span>
+                    <span>{{ 'language' | translate }}:</span>
                     <div class="dropdown" [class.active]="isDropdownOpened">
                         <div (click)="toggleLanguages($event)" class="dropdown-btn data">{{ selectedLanguage }}</div>
                         <ul class="dropdown-menu frequency">
@@ -24,15 +24,15 @@
                     </div>
                 </div>
                 <div class="row between align-center data-row">
-                    <span>{{ 'Username' }}:</span>
+                    <span>{{ 'username' | translate }}:</span>
                     <span>{{ data.currentUser?.name }}</span>
                 </div>   
                 <div class="row between align-center data-row">
-                    <span>{{ 'Email' }}:</span>
+                    <span>{{ 'email' | translate }}:</span>
                     <span>{{ data.currentUser?.email }}</span>
                 </div>  
                 <div class="row between align-center data-row">
-                    <span>{{ 'Password' }}:</span>
+                    <span>{{ 'password' | translate }}:</span>
                     <span>*****</span>
                 </div>
             </div>
@@ -41,7 +41,7 @@
 
     <div class="right btn-container">
         <div class="btn-primary" (click)="deleteAccount('account')">
-            <span class="delete-account">{{ 'Delete Account' }}</span>
+            <span class="delete-account">{{ 'delete-account' | translate }}</span>
         </div>
     </div>
 </div>

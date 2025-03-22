@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import { TranslatePipe } from '../../pipe/translate.pipe';
 
 @Component({
   selector: 'app-signup',
-  imports: [RouterModule],
+  imports: [RouterModule, TranslatePipe],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'
 })

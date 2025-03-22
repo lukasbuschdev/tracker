@@ -1,15 +1,15 @@
 <div class="section-container column gap-20 fade-in-up">
     <div class="heading-container">
-        <h1>{{ 'Dashboard' }}</h1>
+        <h1>{{ 'dashboard' | translate }}</h1>
     </div>
 
     @if(!data.budgetsArray.length) {
         <div class="center no-budgets-message-container center">
-            <h4>{{ 'You have no budgets yet' }}</h4>
+            <h4>{{ 'no-budgets-yet' | translate }}</h4>
         </div>
     } @else {
         <div class="row gap-15 align-center">
-            <h4>{{ 'Active Budget' }}:</h4>
+            <h4>{{ 'active-budget' | translate }}:</h4>
             <div class="dropdown" [class.active]="isDropdownOpened">
                 <div (click)="toggleBudgets($event)" class="dropdown-btn data">{{ data.selectedBudget?.name }}</div>
                 <ul class="dropdown-menu frequency">
@@ -36,23 +36,23 @@
                 <div class="w-100 center">
                     <div class="info-container column gap-10">
                         <div class="row between">
-                            <div class="name">{{ 'Budget amount' }}:</div>
+                            <div class="name">{{ 'budget-amount' | translate }}:</div>
                             <div class="number txt-green">+ {{ data.selectedBudget ? utils.formatNumber(data.selectedBudget.amount) : '0' }}</div>
                         </div>
                         <div class="row between">
-                            <div class="name">{{ 'Budget amount available' }}:</div>
+                            <div class="name">{{ 'budget-amount-available' | translate }}:</div>
                             <div class="number txt-green">+ {{ data.selectedBudget ? utils.formatNumber(data.selectedBudget.amount - data.selectedBudget.used) : '0' }}</div>
                         </div>
                         <div class="row between">
-                            <div class="name">{{ 'Budget amount used' }}:</div>
+                            <div class="name">{{ 'budget-amount-used' | translate }}:</div>
                             <div class="number txt-red">- {{ data.selectedBudget ? utils.formatNumber(data.selectedBudget.used) : '0' }}</div>
                         </div>
                         <div class="row between">
-                            <div class="name">{{ 'Categories count' }}:</div>
+                            <div class="name">{{ 'categories-count' | translate }}:</div>
                             <div class="number">{{ data.categoriesArray.length }}</div>
                         </div>
                         <div class="row between">
-                            <div class="name">{{ 'Expenses count' }}:</div>
+                            <div class="name">{{ 'expenses-count' | translate }}:</div>
                             <div class="number">{{ data.expensesArray.length }}</div>
                         </div>
                     </div>
