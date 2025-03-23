@@ -86,6 +86,7 @@
     "confirmation-message-1": "¡Eliminar esta categoría también eliminará todos los gastos asociados!",
     "confirmation-message-2": "¡Esta acción eliminará permanentemente tu cuenta!",
     "category": "Categoría",
-    "amount": "Cantidad"
+    "amount": "Cantidad",
+    "help": "Ayuda"
   }
   

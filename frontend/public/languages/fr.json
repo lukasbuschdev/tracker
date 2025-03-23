@@ -86,6 +86,7 @@
     "confirmation-message-1": "Supprimer cette catégorie supprimera également toutes les dépenses associées !",
     "confirmation-message-2": "Cette action supprimera définitivement votre compte !",
     "category": "Catégorie",
-    "amount": "Montant"
+    "amount": "Montant",
+    "help": "Aide"
   }
   

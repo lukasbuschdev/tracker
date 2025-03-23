@@ -176,8 +176,31 @@ input[type="number"] {
 
   .content-container {
     height: 100%;
+    max-height: 70vh;
     width: 100%;
     overflow: auto;
+  }
+
+  .navigation {
+    li {
+        color: $wine;
+        font-weight: 600;
+        width: fit-content;
+    
+        &:hover {
+            cursor: pointer;
+            filter: brightness(1.5);
+        }
+    }
+  }
+
+  h3[routerLink] {
+    width: fit-content;
+
+    &:hover {
+        cursor: pointer;
+        filter: brightness(1.5);
+    }
   }
 }
 
@@ -490,6 +513,10 @@ input[type="number"] {
     height: 100%;
     padding: 15px 3%;
     max-height: 75vh;
+  }
+
+  .help-container {
+    max-height: calc(100vh - 80px - 80px - 100px) !important;
   }
 
   section .content-container .section-container {

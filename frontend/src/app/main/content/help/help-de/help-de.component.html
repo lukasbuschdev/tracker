@@ -1,0 +1,71 @@
+<div class="content-container column gap-30 help-container">
+    <section class="column gap-10 navigation">
+        <h3>Navigation</h3>
+        <ul>
+            <li (click)="scroll.scrollToSection('create-account')">Konto erstellen</li>
+            <li (click)="scroll.scrollToSection('dashboard')">Übersicht</li>
+            <li (click)="scroll.scrollToSection('expenses')">Ausgaben</li>
+            <li (click)="scroll.scrollToSection('budgets')">Budgets</li>
+            <li (click)="scroll.scrollToSection('categories')">Kategorien</li>
+            <li (click)="scroll.scrollToSection('settings')">Einstellungen</li>
+        </ul>
+    </section>
+    
+    <section class="column gap-10" id="create-account">
+        <h3>Konto erstellen</h3>
+        <p>Verwalte dein Konto:</p>
+        <ul>
+            <li>Ein neues Konto erstellen</li>
+            <li>Kontodetails bearbeiten</li>
+            <li>Konto löschen</li>
+        </ul>
+    </section>
+  
+    <section class="column gap-10" id="dashboard">
+        <h3 routerLink="../dashboard">Übersicht</h3>
+        <p>Die Übersicht bietet statistische Informationen pro Budget mit grafischen Darstellungen.</p>
+        <ul>
+            <li>Gesamtstatistiken anzeigen</li>
+            <li>Grafische Zusammenfassungen der Budgetleistung ansehen</li>
+        </ul>
+    </section>
+  
+    <section class="column gap-10" id="expenses">
+        <h3 routerLink="../expenses">Ausgaben</h3>
+        <p>Verwalte deine Ausgaben für jedes Budget:</p>
+        <ul>
+            <li>Eine Ausgabe erstellen (Name, Kategorie und Betrag angeben)</li>
+            <li>Eine bestehende Ausgabe bearbeiten</li>
+            <li>Eine Ausgabe löschen</li>
+        </ul>
+    </section>
+  
+    <section class="column gap-10" id="budgets">
+        <h3 routerLink="../budgets">Budgets</h3>
+        <p>Verwalte deine Budgets. Jedes Budget beinhaltet:</p>
+        <ul>
+            <li>Budgetname</li>
+            <li>Aktuell verfügbares Budget</li>
+            <li>Budgets erstellen, bearbeiten und löschen</li>
+        </ul>
+    </section>
+  
+    <section class="column gap-10" id="categories">
+        <h3 routerLink="../categories">Kategorien</h3>
+        <p>Verwalte Kategorien für jedes Budget. Jede Kategorie beinhaltet:</p>
+        <ul>
+            <li>Kategoriename</li>
+            <li>Aktuell verfügbares Budget der Kategorie</li>
+            <li>Kategorien erstellen, bearbeiten und löschen</li>
+        </ul>
+    </section>
+
+    <section class="column gap-10" id="settings">
+        <h3 routerLink="../settings">Einstellungen</h3>
+        <p>Verwalte deine Kontoeinstellungen:</p>
+        <ul>
+            <li>Kontodetails bearbeiten</li>
+            <li>Konto löschen</li>
+        </ul>
+    </section>
+</div>

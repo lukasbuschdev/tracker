@@ -1,0 +1,71 @@
+<div class="content-container column gap-30 help-container">
+    <section class="column gap-10 navigation">
+        <h3>Navigation</h3>
+        <ul>
+            <li (click)="scroll.scrollToSection('create-account')">Créer un compte</li>
+            <li (click)="scroll.scrollToSection('dashboard')">Tableau de bord</li>
+            <li (click)="scroll.scrollToSection('expenses')">Dépenses</li>
+            <li (click)="scroll.scrollToSection('budgets')">Budgets</li>
+            <li (click)="scroll.scrollToSection('categories')">Catégories</li>
+            <li (click)="scroll.scrollToSection('settings')">Paramètres</li>
+        </ul>
+    </section>
+    
+    <section class="column gap-10" id="create-account">
+        <h3>Créer un compte</h3>
+        <p>Gérez votre compte :</p>
+        <ul>
+            <li>Créer un nouveau compte</li>
+            <li>Modifier les informations de votre compte</li>
+            <li>Supprimer votre compte</li>
+        </ul>
+    </section>
+  
+    <section class="column gap-10" id="dashboard">
+        <h3 routerLink="../dashboard">Tableau de bord</h3>
+        <p>Le tableau de bord fournit des statistiques globales par budget avec des représentations graphiques.</p>
+        <ul>
+            <li>Voir les statistiques générales</li>
+            <li>Voir des résumés graphiques des performances budgétaires</li>
+        </ul>
+    </section>
+  
+    <section class="column gap-10" id="expenses">
+        <h3 routerLink="../expenses">Dépenses</h3>
+        <p>Gérez vos dépenses pour chaque budget :</p>
+        <ul>
+            <li>Créer une dépense (spécifiez le nom, la catégorie et le montant)</li>
+            <li>Modifier une dépense existante</li>
+            <li>Supprimer une dépense</li>
+        </ul>
+    </section>
+  
+    <section class="column gap-10" id="budgets">
+        <h3 routerLink="../budgets">Budgets</h3>
+        <p>Gérez vos budgets. Chaque budget comprend :</p>
+        <ul>
+            <li>Nom du budget</li>
+            <li>Budget disponible actuel</li>
+            <li>Créer, modifier et supprimer des budgets</li>
+        </ul>
+    </section>
+  
+    <section class="column gap-10" id="categories">
+        <h3 routerLink="../categories">Catégories</h3>
+        <p>Gérez les catégories pour chaque budget. Chaque catégorie comprend :</p>
+        <ul>
+            <li>Nom de la catégorie</li>
+            <li>Budget disponible actuel de la catégorie</li>
+            <li>Créer, modifier et supprimer des catégories</li>
+        </ul>
+    </section>
+
+    <section class="column gap-10" id="settings">
+        <h3 routerLink="../settings">Paramètres</h3>
+        <p>Gérez les paramètres du compte :</p>
+        <ul>
+            <li>Modifier les informations du compte</li>
+            <li>Supprimer le compte</li>
+        </ul>
+    </section>
+</div>
