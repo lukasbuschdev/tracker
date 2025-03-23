@@ -63,7 +63,10 @@
             
                         <div class="row between">
                             <div>{{ 'available' | translate }}:</div>
-                            <div class="number txt-green">+ {{ utils.formatNumber(category.amount - calculateCategoryUsed(category)) }}</div>
+                            <div class="number" [class]="(category.amount - calculateCategoryUsed(category)) > 0 ? 'txt-green' : 'txt-red'">
+                                {{ (category.amount - calculateCategoryUsed(category)) > 0 ? '+ ' : '- ' }}
+                                {{ utils.formatNumber(category.amount - calculateCategoryUsed(category)) }}
+                            </div>
                         </div>
                     </div>
                 </div>

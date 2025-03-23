@@ -84,6 +84,8 @@
     "enter-amount": "Betrag eingeben...",
     "attention": "Achtung",
     "confirmation-message-1": "Wenn du diese Kategorie löschst, werden auch alle zugehörigen Ausgaben entfernt!",
-    "confirmation-message-2": "Diese Aktion wird dein Konto dauerhaft löschen!"
+    "confirmation-message-2": "Diese Aktion wird dein Konto dauerhaft löschen!",
+    "category": "Kategorie",
+    "amount": "Betrag"
   }
   

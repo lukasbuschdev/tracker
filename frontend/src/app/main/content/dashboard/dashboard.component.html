@@ -41,7 +41,10 @@
                         </div>
                         <div class="row between">
                             <div class="name">{{ 'budget-amount-available' | translate }}:</div>
-                            <div class="number txt-green">+ {{ data.selectedBudget ? utils.formatNumber(data.selectedBudget.amount - data.selectedBudget.used) : '0' }}</div>
+                            <div class="number" [class]="data.selectedBudget && (data.selectedBudget.amount - data.selectedBudget.used) > 0 ? 'txt-green' : 'txt-red'">
+                                {{ data.selectedBudget && (data.selectedBudget.amount - data.selectedBudget.used) > 0 ? '+ ' : '- ' }}
+                                {{ data.selectedBudget ? utils.formatNumber(data.selectedBudget.amount - data.selectedBudget.used) : '0' }}
+                            </div>
                         </div>
                         <div class="row between">
                             <div class="name">{{ 'budget-amount-used' | translate }}:</div>

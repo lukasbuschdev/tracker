@@ -36,7 +36,10 @@
             
                         <div class="row between">
                             <div>{{ 'current-available' | translate }}:</div>
-                            <div class="number txt-green">+ {{ utils.formatNumber(budget.amount - budget.used) }}</div>
+                            <div class="number" [class]="(budget.amount - budget.used) > 0 ? 'txt-green' : 'txt-red'">
+                                {{ (budget.amount - budget.used) > 0 ? '+ ' : '- ' }}
+                                {{ utils.formatNumber(budget.amount - budget.used) }}
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -3,7 +3,7 @@ import { Budget } from '../models/budget';
 import { Expense } from '../models/expense';
 import { Category } from '../models/category';
 import { DialogService } from './dialog.service';
-import { typeDialogData } from '../types/types';
+import { typeDialogData, typeExpense } from '../types/types';
 import { BehaviorSubject } from 'rxjs';
 import { User } from '../models/user';
 
@@ -95,7 +95,8 @@ export class DataService {
   public async getExpenses(): Promise<void> {
     if(!this.selectedBudget) return;
     const expenses = await Expense.get(this.selectedBudget.id);
-    this.expensesSubject.next(expenses);
+    const sortedExpenses = this.sortExpensesByDate(expenses);
+    this.expensesSubject.next(sortedExpenses);
   }
 
   public calculateCurrentAvailable(): number {
@@ -114,6 +115,11 @@ export class DataService {
       name: allCategoriesNames,
       amount: allCategoriesAmounts
     }
+  }
+
+  private sortExpensesByDate(expenses: typeExpense[]): Expense[] | [] {
+    if(!expenses) return [];
+    return expenses.sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime());
   }
 
   public selectBudget(budget: Budget): void {
@@ -190,7 +196,8 @@ export class DataService {
 
     const newExpense = await Expense.create(expense);
     const currentExpenses = this.expensesSubject.value;
-    this.expensesSubject.next([...currentExpenses, newExpense]);
+    const currentExpensesSorted = this.sortExpensesByDate([...currentExpenses, newExpense]);
+    this.expensesSubject.next(currentExpensesSorted);
 
     this.updateUsed();
   }
@@ -283,8 +290,9 @@ export class DataService {
       const editedExpense = editedExpenses.find(e => e.id === expense.id);
       return editedExpense ? { ...expense, ...editedExpense } : expense;
     });
+    const updatedExpensesSorted = this.sortExpensesByDate(updatedExpenses);
     
-    this.expensesSubject.next(updatedExpenses);
+    this.expensesSubject.next(updatedExpensesSorted);
   }
 
   private async editExpense(dialogData: typeDialogData): Promise<void> {
@@ -302,8 +310,9 @@ export class DataService {
     const updatedExpenses = this.expensesSubject.value.map(expense => {
       return expense.id === editedExpense.id ? { ...expense, ...editedExpense } : expense;
     });
+    const updatedExpensesSorted = this.sortExpensesByDate(updatedExpenses);
 
-    this.expensesSubject.next(updatedExpenses);
+    this.expensesSubject.next(updatedExpensesSorted);
 
     this.calculateCurrentAvailable();
   }
@@ -349,9 +358,10 @@ export class DataService {
   private updateCategoriesAndExpenses(budgetId: string): void {
     const updatedCategories = this.categoriesArray.filter(category => category.budgetId !== budgetId);
     const updatedExpenses = this.expensesArray.filter(expense => expense.budgetId !== budgetId);
+    const updatedExpensesSorted = this.sortExpensesByDate(updatedExpenses);
 
     this.categoriesSubject.next(updatedCategories);
-    this.expensesSubject.next(updatedExpenses);
+    this.expensesSubject.next(updatedExpensesSorted);
   }
 
   public async deleteCategory(selectedCategory: Category | null): Promise<void> {
@@ -371,7 +381,8 @@ export class DataService {
     await Promise.all(promises);
 
     const updatedExpenses = this.expensesArray.filter(expense => expense.category !== category.name);
-    this.expensesSubject.next(updatedExpenses);
+    const updatedExpensesSorted = this.sortExpensesByDate(updatedExpenses);
+    this.expensesSubject.next(updatedExpensesSorted);
 
     this.updateUsed();
   }
@@ -382,7 +393,8 @@ export class DataService {
     await Expense.delete(selectedExpense.id);
 
     const updatedExpenses = this.expensesArray.filter(expense => expense.id !== selectedExpense.id);
-    this.expensesSubject.next(updatedExpenses);
+    const updatedExpensesSorted = this.sortExpensesByDate(updatedExpenses);
+    this.expensesSubject.next(updatedExpensesSorted);
 
     this.updateUsed();
     this.dialog.closeDialog();

@@ -1,4 +1,4 @@
-<div class="section-container column between fade-in-up" (click)="closeLanguages()">
+<div class="section-container column between fade-in-up" (click)="language.closeLanguages()">
     <div class="column gap-50">
         <div class="heading-container between align-center">
             <h1>{{ 'settings' | translate  }}</h1>
@@ -12,12 +12,12 @@
             <div class="column gap-50">
                 <div class="row between align-center data-row">
                     <span>{{ 'language' | translate }}:</span>
-                    <div class="dropdown" [class.active]="isDropdownOpened">
-                        <div (click)="toggleLanguages($event)" class="dropdown-btn data">{{ language.selectedLanguage }}</div>
+                    <div class="dropdown" [class.active]="language.isDropdownOpened">
+                        <div (click)="language.toggleLanguages($event)" class="dropdown-btn data">{{ language.selectedLanguage }}</div>
                         <ul class="dropdown-menu frequency">
-                            @for(language of selectableLanguages; track language) {
-                                <li (click)="selectLanguage(language); toggleLanguages($event)">
-                                    <span>{{ language }}</span>
+                            @for(selectableLanguage of language.selectableLanguages; track selectableLanguage) {
+                                <li (click)="language.selectLanguage(selectableLanguage); language.toggleLanguages($event)">
+                                    <span>{{ selectableLanguage }}</span>
                                 </li>
                             }
                         </ul>

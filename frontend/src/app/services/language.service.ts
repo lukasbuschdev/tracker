@@ -9,6 +9,8 @@ export class LanguageService {
   private currentLang: BehaviorSubject<string> = new BehaviorSubject<string>('en');
   private translations: any = {};
   public selectedLanguage: string = 'English';
+  public isDropdownOpened: boolean = false;
+  public selectableLanguages: string[] = ['English', 'Español', 'Deutsch', 'Français'];
 
   constructor(private http: HttpClient) {
     const savedLang = localStorage.getItem('selectedLang') || 'en';
@@ -54,10 +56,8 @@ export class LanguageService {
       this.selectedLanguage = 'Español';
     } else if(lang === 'de') {
       this.selectedLanguage = 'Deutsch';
-    } else if(lang === 'fr') {
-      this.selectedLanguage = 'Français';
     } else {
-      this.selectedLanguage = 'Italiano';
+      this.selectedLanguage = 'Français';
     }
   }
 
@@ -67,5 +67,26 @@ export class LanguageService {
    */
   getTranslation(key: string): string {
     return this.translations[key] || key;
+  }
+
+
+  // FOR TEMPLATE
+
+  toggleLanguages(event: MouseEvent): void {
+    event.stopPropagation();
+    this.isDropdownOpened = !this.isDropdownOpened;
+  }
+
+  closeLanguages(): void {
+    this.isDropdownOpened = false;
+  }
+
+  selectLanguage(language: string): void {
+    this.selectedLanguage = language;
+    if(language === 'English') return this.changeLanguage('en');
+    if(language === 'Español') return this.changeLanguage('es');
+    if(language === 'Français') return this.changeLanguage('fr');
+    if(language === 'Italiano') return this.changeLanguage('it');
+    this.changeLanguage('de');
   }
 }

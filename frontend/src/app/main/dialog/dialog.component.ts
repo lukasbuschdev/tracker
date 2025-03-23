@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { DialogService } from '../../services/dialog.service';
 import { DataService } from '../../services/data.service';
 import { typeDialogData } from '../../types/types';
@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Category } from '../../models/category';
 import { TranslatePipe } from '../../pipe/translate.pipe';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dialog',
@@ -20,11 +21,12 @@ export class DialogComponent implements OnInit {
   nameRegex: RegExp = /^[A-Za-z0-9 ]+$/;
   availableInSelectedBudget: number = 0;
 
-
   constructor(public dialog: DialogService, public data: DataService) { }
 
   @ViewChild('inputName') inputName!: ElementRef<HTMLInputElement>;
   @ViewChild('amount') amount!: ElementRef<HTMLInputElement>;
+
+  router = inject(Router)
 
   ngOnInit(): void {
     this.dialog.isVisible$.subscribe(state => {
@@ -77,6 +79,11 @@ export class DialogComponent implements OnInit {
 
   deleteCategory() {
     this.data.deleteData();
+  }
+
+  logoutAndResetPassword(): void {
+    this.data.logout();
+    this.router.navigateByUrl('/reset-password');
   }
 
 

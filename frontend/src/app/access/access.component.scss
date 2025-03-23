@@ -20,10 +20,28 @@ section {
         }
     }
 
+    .mobile-language {
+        display: none;
+    }
+
     .content-container {
         height: calc(100% - 80px);
     }
 
+}
+
+@media(max-width: 600px) {
+    .content-container {
+        height: calc(100% - 80px - 45px) !important;
+    }
+
+    .btn-container .data-row{
+        display: none;
+    }
+
+    .mobile-language {
+        display: flex !important;
+    }
 }
 
 @media(max-width: 400px) {

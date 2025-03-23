@@ -51,7 +51,7 @@
     "password-too-short": "¡Contraseña demasiado corta!",
     "password-requirements": "La contraseña debe incluir mayúsculas, minúsculas, un número y un carácter especial.",
     "passwords-do-not-match": "¡Las contraseñas no coinciden!",
-    "accept": "Acepto",
+    "accept": "Acepto la",
     "privacy-policy-lowercase": "política de privacidad",
     "accept-privacy-policy": "¡Por favor acepta la política de privacidad!",
     "signup-confirmation-message": "Se ha enviado un enlace de verificación a tu correo electrónico.",
@@ -84,6 +84,8 @@
     "enter-amount": "Ingresa la cantidad...",
     "attention": "Atención",
     "confirmation-message-1": "¡Eliminar esta categoría también eliminará todos los gastos asociados!",
-    "confirmation-message-2": "¡Esta acción eliminará permanentemente tu cuenta!"
+    "confirmation-message-2": "¡Esta acción eliminará permanentemente tu cuenta!",
+    "category": "Categoría",
+    "amount": "Cantidad"
   }
   

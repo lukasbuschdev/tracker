@@ -1,19 +1,46 @@
-<section>
+<section (click)="language.closeLanguages()">
     <div class="header row between">
         <div class="center">
             <img class="logo" src="img/logo.svg">
         </div>
-        <div class="row gap-20 align-center">
-            <div class="btn-primary" [routerLink]="router.url === '/login' ? '/signup' : '/login'">
-                <span>{{ router.url === '/login' ? 'Signup' : 'Login' }}</span>
+        <div class="row gap-20 align-center btn-container">
+            <div class="align-center data-row">
+                <div class="dropdown" [class.active]="language.isDropdownOpened">
+                    <div (click)="language.toggleLanguages($event)" class="dropdown-btn data">{{ language.selectedLanguage }}</div>
+                    <ul class="dropdown-menu frequency">
+                        @for(selectableLanguage of language.selectableLanguages; track selectableLanguage) {
+                            <li (click)="language.selectLanguage(selectableLanguage); language.toggleLanguages($event)">
+                                <span>{{ selectableLanguage }}</span>
+                            </li>
+                        }
+                    </ul>
+                </div>
             </div>
-            <div class="center help btn-primary" routerLink="/access-help">
-                <span>?</span>
+            <div class="row gap-20 align-center">
+                <div class="btn-primary" [routerLink]="router.url === '/login' ? '/signup' : '/login'">
+                    <span>{{ (router.url === '/login' ? 'signup' : 'login') | translate }}</span>
+                </div>
+                <div class="center help btn-primary" routerLink="/access-help">
+                    <span>?</span>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="content-container">
+    <div class="align-center data-row mobile-language w-100 right">
+        <div class="dropdown" [class.active]="language.isDropdownOpened">
+            <div (click)="language.toggleLanguages($event)" class="dropdown-btn data">{{ language.selectedLanguage }}</div>
+            <ul class="dropdown-menu frequency">
+                @for(selectableLanguage of language.selectableLanguages; track selectableLanguage) {
+                    <li (click)="language.selectLanguage(selectableLanguage); language.toggleLanguages($event)">
+                        <span>{{ selectableLanguage }}</span>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+
+    <div class="content-container" (click)="language.closeLanguages()">
         <router-outlet></router-outlet>
     </div>
 </section>

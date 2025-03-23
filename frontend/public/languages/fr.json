@@ -51,7 +51,7 @@
     "password-too-short": "Mot de passe trop court !",
     "password-requirements": "Le mot de passe doit contenir une majuscule, une minuscule, un chiffre et un caractère spécial !",
     "passwords-do-not-match": "Les mots de passe ne correspondent pas !",
-    "accept": "J'accepte",
+    "accept": "J'accepte la",
     "privacy-policy-lowercase": "politique de confidentialité",
     "accept-privacy-policy": "Veuillez accepter la politique de confidentialité !",
     "signup-confirmation-message": "Un lien de confirmation a été envoyé à votre e-mail.",
@@ -84,6 +84,8 @@
     "enter-amount": "Entrez le montant...",
     "attention": "Attention",
     "confirmation-message-1": "Supprimer cette catégorie supprimera également toutes les dépenses associées !",
-    "confirmation-message-2": "Cette action supprimera définitivement votre compte !"
+    "confirmation-message-2": "Cette action supprimera définitivement votre compte !",
+    "category": "Catégorie",
+    "amount": "Montant"
   }
   

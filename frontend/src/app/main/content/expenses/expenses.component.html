@@ -40,45 +40,28 @@
                 </div>
     
                 <div class="row start">
-                    <!-- <div class="btn-secondary" (click)="toggleFilter()">Filter</div> -->
-    
                     <div class="row gap-15 align-center">
                         <h4>{{ 'current-available' | translate }}:</h4>
-                        <span class="number txt-green">+ {{ utils.formatNumber(data.calculateCurrentAvailable()) }}</span>
+                        <span class="number" [class]="data.calculateCurrentAvailable() > 0 ? 'txt-green' : 'txt-red'">
+                            {{ data.calculateCurrentAvailable() > 0 ? '+ ' : '- ' }}
+                            {{ utils.formatNumber(data.calculateCurrentAvailable()) }}</span>
                     </div>
                 </div>
-                <!-- @if(isFilterVisible) {
-                    <div class="row align-center between filter-container gap-10">
-                        <div class="row gap-5 text-search">
-                            <input type="text" placeholder="Name...">
-                            <input type="text" placeholder="Category...">
-                        </div>
-    
-                        <div class="row gap-5 number-search">
-                            <input type="number" placeholder="Min.">
-                            <input type="number" placeholder="Max.">
-                        </div>
-    
-                        <div class="btn-secondary">
-                            <span>{{ 'Apply' | translate }}</span>
-                        </div>
-                    </div>
-                } -->
     
                 <div class="column table gap-20">
                     <div class="column gap-10">
                         <div class="row between header gap-15">
                             <div class="row between align-center">
                                 <h4>{{ 'name' | translate }}</h4>
-                                <img src="img/sort.svg">
+                                <img src="img/sort.svg" (click)="sortExpensesByName()">
                             </div>
                             <div class="row between align-center">
-                                <h4>{{'category' | translate }}</h4>
-                                <img src="img/sort.svg">
+                                <h4>{{ 'category' | translate }}</h4>
+                                <img src="img/sort.svg" (click)="sortExpensesByCategory()">
                             </div>
                             <div class="row between align-center">
-                                <h4>{{'amount' | translate }}</h4>
-                                <img src="img/sort.svg">
+                                <h4>{{ 'amount' | translate }}</h4>
+                                <img src="img/sort.svg" (click)="sortExpensesByAmount()">
                             </div>
                         </div>
                     

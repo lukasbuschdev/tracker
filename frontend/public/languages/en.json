@@ -51,7 +51,7 @@
     "password-too-short": "Password too short!",
     "password-requirements": "Password requires uppercase, lowercase, digit, and special char!",
     "passwords-do-not-match": "Passwords do not match!",
-    "accept": "I accept",
+    "accept": "I accept the",
     "privacy-policy-lowercase": "privacy policy",
     "accept-privacy-policy": "Please accept the privacy policy!",
     "signup-confirmation-message": "A verification link has been send too your email.",
@@ -84,5 +84,7 @@
     "enter-amount": "Enter amount...",
     "attention": "Attention",
     "confirmation-message-1": "Deleting this category will also remove all associated expenses!",
-    "confirmation-message-2": "This action will permanently delete your account!"
+    "confirmation-message-2": "This action will permanently delete your account!",
+    "category": "Category",
+    "amount": "Amount"
 }

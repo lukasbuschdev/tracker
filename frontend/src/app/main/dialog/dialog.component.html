@@ -97,7 +97,7 @@
                         <div class="row between align-center w-100">
                             <span>{{ 'password' | translate }}:</span>
                             <div class="btn-secondary">
-                                <span>{{ 'change' | translate }}</span>
+                                <span (click)="logoutAndResetPassword()">{{ 'change' | translate }}</span>
                             </div>
                         </div>
                     </div>

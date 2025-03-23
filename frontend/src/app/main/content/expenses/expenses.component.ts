@@ -39,4 +39,16 @@ export class ExpensesComponent {
     this.selectedExpenseId = expenseId; 
     this.data.clickedExpense = this.data.expensesArray.find(expense => expense.id === this.selectedExpenseId) ?? null;
   }
+
+  sortExpensesByName(): void {
+    this.data.expensesArray.sort((a, b) => a.name.localeCompare(b.name));
+  }
+  
+  sortExpensesByCategory(): void {
+    this.data.expensesArray.sort((a, b) => a.category.localeCompare(b.category));
+  }
+  
+  sortExpensesByAmount(): void {
+    this.data.expensesArray.sort((a, b) => b.amount - a.amount);
+  }
 }
