@@ -11,15 +11,26 @@
     width: 100%;
 
     .spinner {
+        position: relative;
         width: 100px;
         height: 100px;
-        border: 8px solid lighten($wine, 30%);
-        border-top-color: $wine;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
+        background-image: conic-gradient($wine, $white);
+        border-radius: 999px;
+        animation: spin 750ms linear infinite;
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            height: 80px;
+            width: 80px;
+            border-radius: 999px;
+            background-color: $white;
+        }
     }
 }
-
 
 @keyframes spin {
     0% { transform: rotate(0deg); }

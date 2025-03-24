@@ -534,8 +534,8 @@ input[type="number"] {
 @media(max-width: 800px) {
   .section-container  {
     height: 100%;
-    padding: 15px 3%;
-    max-height: 75vh;
+    padding: 15px 3% 0;
+    max-height: 77vh;
   }
 
   .help-container {
