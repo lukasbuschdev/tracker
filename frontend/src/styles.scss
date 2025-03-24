@@ -478,6 +478,29 @@ input[type="number"] {
   width: 100%;
 }
 
+.privacy-policy-container {
+  ul {
+    margin: 10px 0;
+
+    li {
+      margin: 10px 0;
+    }
+  }
+
+  h3, h4 {
+    margin: 30px 0 10px 0;
+  }
+
+  a {
+    color: $wine;
+
+    &:hover {
+      cursor: pointer;
+      filter: brightness(1.5);
+    }
+  }
+}
+
 .fade-in-up {
   animation: fadeInUp 250ms ease-out forwards;
 }
