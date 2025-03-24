@@ -85,6 +85,8 @@
     "attention": "Attention",
     "confirmation-message-1": "Supprimer cette catégorie supprimera également toutes les dépenses associées !",
     "confirmation-message-2": "Cette action supprimera définitivement votre compte !",
+    "confirmation-message-3": "Tu ne peux pas supprimer le compte invité!",
+    "confirmation-message-4": "Tu ne peux pas modifier le compte invité!",
     "category": "Catégorie",
     "amount": "Montant",
     "help": "Aide"

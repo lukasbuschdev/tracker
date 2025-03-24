@@ -85,6 +85,8 @@
     "attention": "Attention",
     "confirmation-message-1": "Deleting this category will also remove all associated expenses!",
     "confirmation-message-2": "This action will permanently delete your account!",
+    "confirmation-message-3": "You can't delete the guest account!",
+    "confirmation-message-4": "You can't edit the guest account!",
     "category": "Category",
     "amount": "Amount",
     "help": "Help"

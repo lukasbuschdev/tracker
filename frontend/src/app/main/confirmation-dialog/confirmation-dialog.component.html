@@ -15,10 +15,22 @@
                     <h4>{{ 'confirmation-message-2' | translate }}</h4>
                 </div>
             }
+            @if(dialog.confirmationType === 'delete-guest') {
+                <div class="center">
+                    <h4>{{ 'confirmation-message-3' | translate }}</h4>
+                </div>
+            }
+            @if(dialog.confirmationType === 'edit-guest') {
+                <div class="center">
+                    <h4>{{ 'confirmation-message-4' | translate }}</h4>
+                </div>
+            }
             
             <div class="button-container row right gap-10">
                 <div class="btn-secondary" (click)="closeDialog()">{{ 'cancel' | translate }}</div>
-                <div class="btn-primary" (click)="deleteData()">{{ 'delete' | translate }}</div>
+                @if(dialog.confirmationType !== 'delete-guest' && dialog.confirmationType !== 'edit-guest') {
+                    <div class="btn-primary" (click)="deleteData()">{{ 'delete' | translate }}</div>
+                }
             </div>
         </div>
     </div>

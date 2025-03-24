@@ -14,10 +14,16 @@ export class SettingsComponent {
   constructor(private dialog: DialogService, public data: DataService, public language: LanguageService) { }
 
   deleteAccount(str: string): void {
+    if(this.data.currentUser?.id === '687d7a01-fcad-497a-be8d-b0e4389da2da') {
+      return this.dialog.openConfirmationDialog('delete-guest');
+    }
     this.dialog.openConfirmationDialog(str);
   }
 
   openDialog(str: string): void {
+    if(this.data.currentUser?.id === '687d7a01-fcad-497a-be8d-b0e4389da2da') {
+      return this.dialog.openConfirmationDialog('edit-guest');
+    }
     this.dialog.openDialog(str);
   }
 }

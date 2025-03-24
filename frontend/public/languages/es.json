@@ -85,6 +85,8 @@
     "attention": "Atención",
     "confirmation-message-1": "¡Eliminar esta categoría también eliminará todos los gastos asociados!",
     "confirmation-message-2": "¡Esta acción eliminará permanentemente tu cuenta!",
+    "confirmation-message-3": "¡No puedes eliminar la cuenta de invitado!",
+    "confirmation-message-4": "¡No puedes editar la cuenta de invitado!",
     "category": "Categoría",
     "amount": "Cantidad",
     "help": "Ayuda"
