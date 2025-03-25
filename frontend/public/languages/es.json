@@ -89,6 +89,11 @@
     "confirmation-message-4": "¡No puedes editar la cuenta de invitado!",
     "category": "Categoría",
     "amount": "Cantidad",
-    "help": "Ayuda"
+    "help": "Ayuda",
+    "verification": "Verificación",
+    "placeholder-code": "Introduce el código...",
+    "code-invalid": "¡El código de verificación no es válido!",
+    "verification-completed": "¡La verificación se realizó correctamente!",
+    "verify": "Verificar"
   }
   

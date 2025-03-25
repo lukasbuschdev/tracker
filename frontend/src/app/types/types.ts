@@ -32,7 +32,9 @@ export type typeUser = {
     created: Date,
     name: string,
     email: string,
-    password: string
+    password: string,
+    isVerified: boolean,
+    verificationCode: string
 }
 
 export type typeDialogData = {

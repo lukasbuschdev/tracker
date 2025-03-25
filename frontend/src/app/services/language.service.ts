@@ -18,6 +18,9 @@ export class LanguageService {
     this.loadLanguage(savedLang);
   }
 
+  public get currentLanguage(): string {
+    return this.currentLang.value;
+  }
   /**
    * Returns an observable of the current language.
    */

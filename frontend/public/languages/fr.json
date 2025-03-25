@@ -89,6 +89,11 @@
     "confirmation-message-4": "Tu ne peux pas modifier le compte invité!",
     "category": "Catégorie",
     "amount": "Montant",
-    "help": "Aide"
+    "help": "Aide",
+    "verification": "Vérification",
+    "placeholder-code": "Entrez le code...",
+    "code-invalid": "Le code de vérification est invalide !",
+    "verification-completed": "La vérification a réussi !",
+    "verify": "Vérifier"
   }
   

@@ -12,6 +12,10 @@
   "description": "",
   "dependencies": {
     "@supabase/supabase-js": "^2.48.1",
-    "dotenv": "^16.4.7"
+    "dotenv": "^16.4.7",
+    "nodemailer": "^6.10.0"
+  },
+  "devDependencies": {
+    "@types/nodemailer": "^6.4.17"
   }
 }

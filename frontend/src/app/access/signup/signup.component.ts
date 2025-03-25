@@ -1,6 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { TranslatePipe } from '../../pipe/translate.pipe';
+import { User } from '../../models/user';
+import { UtilsService } from '../../services/utils.service';
+import { typeUser } from '../../types/types';
+import { HttpClient } from '@angular/common/http';
+import { response } from 'express';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-signup',
@@ -21,19 +27,36 @@ export class SignupComponent {
   passwordRegex: RegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.,!?&§@+\-\/\\]).+$/;
 
   router = inject(Router);
+  utils = inject(UtilsService);
+  language = inject(LanguageService);
+  http = inject(HttpClient);
 
   toggleIsChecked() {
     this.isChecked = !this.isChecked;
   }
 
-  checkSignup(name: string, email: string, password: string, repeatedPassword: string): void {
+  async checkSignup(name: string, email: string, password: string, repeatedPassword: string): Promise<void> {
     this.signupAttemptMade = true;
     this.isSignupSuccessful = this.testInputs(name, email, password, repeatedPassword);
+    const hashedPassword = await this.utils.sha256(password);
+    const verificationCode = this.utils.createVerificationCode();
 
     if(!this.isSignupSuccessful) return;
-    
+
+    const unverifiedUser = await User.create({
+      name, 
+      email, 
+      password: hashedPassword,
+      isVerified: false,
+      verificationCode
+    });
+
+    this.saveUnverifiedUserToLocalStorage(unverifiedUser);
+
+    this.sendMail(name, email, verificationCode);
+
     setTimeout(() => {
-      this.router.navigateByUrl('/login');
+      this.router.navigateByUrl('/verification');
     }, 3000);
   }
 
@@ -43,5 +66,32 @@ export class SignupComponent {
     this.passwordRegex.test(password) &&
     repeatedPassword === password && 
     this.isChecked;
+  }
+
+  saveUnverifiedUserToLocalStorage(userData: typeUser): void {
+    const unverifiedUser = {
+      id: userData.id
+    }
+    
+    localStorage.setItem('unverifiedUser', JSON.stringify(unverifiedUser));
+  }
+
+  sendMail(name: string, email: string, verificationCode: string): void {
+    const lang = this.getCurrentLang();
+
+    this.http.post('/api/send-mail', {
+      to: email,
+      name: name,
+      email: email,
+      url: 'www.lukasbusch.dev',
+      verificationCode: verificationCode,
+      lang: lang
+    }).subscribe(response => {
+      console.log('Email send result: ', response);
+    });
+  }
+
+  getCurrentLang(): string {
+    return this.language.currentLanguage;
   }
 }

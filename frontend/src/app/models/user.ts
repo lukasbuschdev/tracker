@@ -8,6 +8,8 @@ export class User {
     name: string;
     email: string;
     password: string;
+    isVerified: boolean;
+    verificationCode: string;
 
     static http: HttpClient
 
@@ -17,6 +19,8 @@ export class User {
         this.name = data.name;
         this.email = data.email;
         this.password = data.password;
+        this.isVerified = data.isVerified;
+        this.verificationCode = data.verificationCode;
     }
 
     public static async create(data: UploadData<typeUser>) {

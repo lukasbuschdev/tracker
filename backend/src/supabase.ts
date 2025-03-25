@@ -146,6 +146,8 @@ export type Database = {
           id: string
           name: string
           password: string
+          isVerified: boolean
+          verificationCode: string
         }
         Insert: {
           created?: string
@@ -153,11 +155,14 @@ export type Database = {
           id?: string
           name: string
           password: string
+          isVerified?: boolean
+          verificationCode: string
         }
         Update: {
           email?: string
           name?: string
           password?: string
+          isVerified?: boolean
         }
         Relationships: []
       }

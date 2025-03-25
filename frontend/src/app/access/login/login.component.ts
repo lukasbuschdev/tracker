@@ -40,6 +40,8 @@ export class LoginComponent implements OnInit {
     
     try {
       const user = await User.getUserWithEmailOrNameAndPassword(emailOrName, hashedPassword);
+
+      if(!user.isVerified) return;
       this.data.isLoggedIn = true;
       this.data.currentUser = user;
       this.data.currentUserId = user.id;

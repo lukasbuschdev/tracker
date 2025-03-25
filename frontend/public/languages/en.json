@@ -89,5 +89,10 @@
     "confirmation-message-4": "You can't edit the guest account!",
     "category": "Category",
     "amount": "Amount",
-    "help": "Help"
+    "help": "Help",
+    "verification": "Verification",
+    "placeholder-code": "Enter code...",
+    "code-invalid": "Verification code is invalid!",
+    "verification-completed": "Verification was successful!",
+    "verify": "Verify"
 }

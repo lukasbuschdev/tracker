@@ -317,9 +317,10 @@ export class DataService {
     this.calculateCurrentAvailable();
   }
 
-  public async editUser(name: string): Promise<void> {
+  public async editUser(name?: string, isVerified?: boolean): Promise<void> {
     const userData = {
-      name: name
+      name: name,
+      isVerified: isVerified
     } 
 
     await User.patch(this.currentUserId, userData);

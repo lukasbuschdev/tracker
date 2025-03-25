@@ -13,6 +13,7 @@ import { LoginComponent } from './access/login/login.component';
 import { ResetPasswordComponent } from './access/reset-password/reset-password.component';
 import { SignupComponent } from './access/signup/signup.component';
 import { AuthGuardService } from './services/auth-guard.service';
+import { VerificationComponent } from './access/verification/verification.component';
 
 export const routes: Routes = [
     { path: '', component: MainComponent, canActivate: [AuthGuardService], children: [
@@ -31,6 +32,7 @@ export const routes: Routes = [
         { path: 'login', component: LoginComponent },
         { path: 'signup', component: SignupComponent },
         { path: 'reset-password', component: ResetPasswordComponent },
+        { path: 'verification', component: VerificationComponent },
         { path: 'access-help', component: HelpComponent },
         { path: 'access-legal-notice', component: LegalNoticeComponent },
         { path: 'access-privacy-policy', component: PrivacyComponent },

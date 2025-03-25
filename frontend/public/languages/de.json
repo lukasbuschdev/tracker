@@ -89,6 +89,11 @@
     "confirmation-message-4": "Du kannst das Gastkonto nicht bearbeiten!",
     "category": "Kategorie",
     "amount": "Betrag",
-    "help": "Hilfe"
+    "help": "Hilfe",
+    "verification": "Verifizierung",
+    "placeholder-code": "Code eingeben...",
+    "code-invalid": "Verifizierungscode ist ungültig!",
+    "verification-completed": "Verifizierung war erfolgreich!",
+    "verify": "Bestätigen"
   }
   

@@ -1,0 +1,30 @@
+<section class="center">
+    <div class="card access column gap-30 center fade-in-up">
+        <div class="center">
+            <h2>{{ 'verification' | translate }}</h2>
+        </div>
+
+        <div class="column gap-5 center input-message-container">
+            @if(!isVerified) {
+                <input type="text" #code [placeholder]="'placeholder-code' | translate">
+                @if(verificationAttemptMade && !isSuccessful) {
+                    <span class="error-message">{{ 'code-invalid' | translate }}</span>
+                } @else {
+                    <span class="error-message"></span>
+                }
+            } @else {
+                <div class="confirmation-message align-center">
+                    <h4>{{ 'verification-completed' | translate }}</h4>
+                </div>
+            }
+        </div>
+
+        <div class="button-container row gap-10" [class.no-min-height]="isVerified">
+            @if(!isVerified) {
+                <div class="btn-primary" (click)="checkVerification(code.nativeElement.value)">
+                    <span>{{ 'verify' | translate }}</span>
+                </div>
+            }
+        </div>
+    </div>
+</section>
