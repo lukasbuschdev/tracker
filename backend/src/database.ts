@@ -29,6 +29,10 @@ export class Supabase {
         return this.supabase.from('users').select('*').eq(column, emailOrName).eq('password', password).single();
     }
 
+    getUserByEmail(email: string) {
+        return this.supabase.from('users').select('*').eq('email', email).single();
+    }
+
     getData(id: string, table: keyof Tables, idColumn: string, isSingle: boolean = false) {
         const query = this.supabase.from(table).select('*').eq(idColumn, id);
         return (isSingle ? query.single() : query);

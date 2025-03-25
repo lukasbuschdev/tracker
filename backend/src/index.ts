@@ -37,6 +37,9 @@ const transporter = nodemailer.createTransport({
 
 app.use(express.json());
 
+
+// SEND MAILS
+
 app.post('/api/send-mail', async (req, res) => {
     try {
         const { to, verificationCode, url, name, lang } = req.body;
@@ -53,6 +56,32 @@ app.post('/api/send-mail', async (req, res) => {
             to: to,
             subject: "Welcome to ExpenseTracker",
             text: `Hello ${name}, thanks for signing up! Your verification code is: ${verificationCode}. Please verify your account by clicking (or copying) this link: ${url}`,
+            html: template
+        });
+
+        res.json({ message: 'Email successfully sent', info });
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({ error: 'Failed to send email!' });
+    }
+});
+
+app.post('/api/send-reset-mail', async (req, res) => {
+    try {
+        const { to, verificationCode, name, url, lang } = req.body;
+        const templatePath = path.join(_dirname, '..', '..', 'shared', 'email-templates', `reset-password-${lang}.html`);
+        
+        let template = await fs.readFile(templatePath, 'utf8');
+
+        template = template.replace('{{name}}', name);
+        template = template.replace('{{url}}', url);
+        template = template.replace('{{verificationCode}}', verificationCode);
+
+        const info = await transporter.sendMail({
+            from: "expensetracker@lukasbusch.dev",
+            to: to,
+            subject: "Welcome to ExpenseTracker",
+            text: `Hello ${name}! Your verification code is: ${verificationCode}. Please use the verification code reset your password by clicking (or copying) this link: ${url}`,
             html: template
         });
 
@@ -83,6 +112,19 @@ app.post('/api/:table', async (req, res) => {
 
 // GET
 
+app.get(`/api/users/byEmail`, async (req, res) => {
+    try {
+        const email = req.query.email as string;
+        const { data, error } = await supabase.getUserByEmail(email);
+
+        if(error) return statusError(res, error, 404);
+
+        res.send(data);
+    } catch (error) {
+        statusError(res, error);
+    }
+});
+
 app.get(`/api/:table/:id`, async (req, res) => {
     try {
         const id = req.params.id;
@@ -112,6 +154,7 @@ app.get(`/api/users`, async (req, res) => {
         statusError(res, error);
     }
 });
+
 
 // DELETE
 

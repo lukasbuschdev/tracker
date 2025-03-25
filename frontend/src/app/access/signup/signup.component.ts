@@ -7,6 +7,7 @@ import { typeUser } from '../../types/types';
 import { HttpClient } from '@angular/common/http';
 import { response } from 'express';
 import { LanguageService } from '../../services/language.service';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-signup',
@@ -30,6 +31,7 @@ export class SignupComponent {
   utils = inject(UtilsService);
   language = inject(LanguageService);
   http = inject(HttpClient);
+  data = inject(DataService);
 
   toggleIsChecked() {
     this.isChecked = !this.isChecked;
@@ -37,6 +39,8 @@ export class SignupComponent {
 
   async checkSignup(name: string, email: string, password: string, repeatedPassword: string): Promise<void> {
     this.signupAttemptMade = true;
+    // if(this.checkIfUserAlreadyExists(email, password)) return;
+
     this.isSignupSuccessful = this.testInputs(name, email, password, repeatedPassword);
     const hashedPassword = await this.utils.sha256(password);
     const verificationCode = this.utils.createVerificationCode();
@@ -59,6 +63,11 @@ export class SignupComponent {
       this.router.navigateByUrl('/verification');
     }, 3000);
   }
+
+  // async checkIfUserAlreadyExists(email: string, password: string): Promise<boolean> {
+  //   const user = await User.getUserWithEmailOrNameAndPassword(email, password); 
+  //   return user ? true : false;
+  // }
 
   testInputs(name: string, email: string, password: string, repeatedPassword: string): boolean {
     return this.nameRegex.test(name) && 

@@ -46,4 +46,9 @@ export class User {
         const receivedData = await firstValueFrom(this.http.get<typeUser>(`/api/users?emailOrName=${emailOrName}&password=${password}`));
         return new User(receivedData);
     }
+
+    public static async getUserWithEmail(email: string) {
+        const receivedData = await firstValueFrom(this.http.get<typeUser>(`/api/users/byEmail?email=${email}`));
+        return new User(receivedData);
+    }
 }

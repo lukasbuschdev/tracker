@@ -90,10 +90,10 @@
     "category": "Kategorie",
     "amount": "Betrag",
     "help": "Hilfe",
-    "verification": "Verifizierung",
-    "placeholder-code": "Code eingeben...",
-    "code-invalid": "Verifizierungscode ist ungültig!",
-    "verification-completed": "Verifizierung war erfolgreich!",
-    "verify": "Bestätigen"
+    "placeholder-verification-code": "Bestätigungscode eingeben...",
+    "verification-code-invalid": "Ungültiger Bestätigungscode!",
+    "placeholder-new-password": "Neues Passwort eingeben...",
+    "placeholder-repeat-new-password": "Neues Passwort wiederholen...",
+    "reset-password-confirmation-message": "Ihr Passwort wurde erfolgreich zurückgesetzt. Sie können sich jetzt mit Ihrem neuen Passwort anmelden."
   }
   

@@ -90,10 +90,10 @@
     "category": "Categoría",
     "amount": "Cantidad",
     "help": "Ayuda",
-    "verification": "Verificación",
-    "placeholder-code": "Introduce el código...",
-    "code-invalid": "¡El código de verificación no es válido!",
-    "verification-completed": "¡La verificación se realizó correctamente!",
-    "verify": "Verificar"
+    "placeholder-verification-code": "Código de verificación...",
+    "verification-code-invalid": "¡Código de verificación no válido!",
+    "placeholder-new-password": "Nueva contraseña...",
+    "placeholder-repeat-new-password": "Repite la nueva contraseña...",
+    "reset-password-confirmation-message": "Tu contraseña ha sido restablecida con éxito. Ahora puedes iniciar sesión con tu nueva contraseña."
   }
   

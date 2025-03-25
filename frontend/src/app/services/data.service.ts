@@ -20,7 +20,6 @@ export class DataService {
   private categoriesSubject = new BehaviorSubject<Category[]>([]);
   private expensesSubject = new BehaviorSubject<Expense[]>([]);
 
-
   public get budgetsArray() {
     return this.budgetsSubject.value;
   }
@@ -129,6 +128,8 @@ export class DataService {
   }
 
   public logout(): void {
+    this.resetLoggedUserInLocalStorage();
+
     this.currentUser = null;
     this.currentUserId = '';
     this.isLoggedIn = false;
@@ -136,6 +137,10 @@ export class DataService {
     this.categoriesSubject.next([]);
     this.expensesSubject.next([]);
     this.selectedBudget = null;
+  }
+
+  private resetLoggedUserInLocalStorage(): void {
+    localStorage.setItem('loggedUser', '')
   }
 
 

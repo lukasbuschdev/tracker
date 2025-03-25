@@ -10,10 +10,11 @@ import { HelpComponent } from './main/content/help/help.component';
 import { MainComponent } from './main/main.component';
 import { AccessComponent } from './access/access.component';
 import { LoginComponent } from './access/login/login.component';
-import { ResetPasswordComponent } from './access/reset-password/reset-password.component';
+import { ResetPasswordMailComponent } from './access/reset-password-mail/reset-password-mail.component';
 import { SignupComponent } from './access/signup/signup.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { VerificationComponent } from './access/verification/verification.component';
+import { ResetPasswordComponent } from './access/reset-password/reset-password.component';
 
 export const routes: Routes = [
     { path: '', component: MainComponent, canActivate: [AuthGuardService], children: [
@@ -31,6 +32,7 @@ export const routes: Routes = [
         { path: '', redirectTo: 'login', pathMatch: 'full' },
         { path: 'login', component: LoginComponent },
         { path: 'signup', component: SignupComponent },
+        { path: 'reset-password-mail', component: ResetPasswordMailComponent },
         { path: 'reset-password', component: ResetPasswordComponent },
         { path: 'verification', component: VerificationComponent },
         { path: 'access-help', component: HelpComponent },

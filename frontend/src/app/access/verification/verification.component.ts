@@ -41,7 +41,7 @@ export class VerificationComponent {
     const unverifiedUser = localStorage.getItem('unverifiedUser');
     if(!unverifiedUser) return '';
     
-    const user= JSON.parse(unverifiedUser);
+    const user = JSON.parse(unverifiedUser);
 
     return user.id;
   }

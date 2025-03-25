@@ -83,7 +83,7 @@ export class DialogComponent implements OnInit {
 
   logoutAndResetPassword(): void {
     this.data.logout();
-    this.router.navigateByUrl('/reset-password');
+    this.router.navigateByUrl('/reset-password-mail');
   }
 
 

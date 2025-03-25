@@ -91,9 +91,10 @@
     "amount": "Montant",
     "help": "Aide",
     "verification": "Vérification",
-    "placeholder-code": "Entrez le code...",
-    "code-invalid": "Le code de vérification est invalide !",
-    "verification-completed": "La vérification a réussi !",
-    "verify": "Vérifier"
+    "placeholder-verification-code": "Code de vérification...",
+    "verification-code-invalid": "Code de vérification invalide!",
+    "placeholder-new-password": "Nouveau mot de passe...",
+    "placeholder-repeat-new-password": "Répétez le nouveau mot de passe...",
+    "reset-password-confirmation-message": "Votre mot de passe a été réinitialisé avec succès. Vous pouvez maintenant vous connecter avec votre nouveau mot de passe."
   }
   
