@@ -1,10 +1,10 @@
+import { fileURLToPath } from 'url';
+import path from 'path';
 import express, { Request, Response } from 'express';
 import { config } from 'dotenv';
 import { Supabase, Tables } from './database.js';
 import nodemailer from 'nodemailer';
 import fs from 'fs/promises';
-import { fileURLToPath } from 'url';
-import path from 'path';
 
 config();
 
@@ -38,11 +38,11 @@ const transporter = nodemailer.createTransport({
 app.use(express.json());
 
 // 1) Serve the Angular dist folder
-app.use(express.static(path.join(__dirname, '../../frontend/dist/frontend')));
+app.use(express.static(path.join(_dirname, '../../frontend/dist/frontend')));
 
 // 2) Catch-all route: send back Angular’s index.html for any other path
 app.get('*', (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, '../../frontend/dist/frontend/index.html'));
+  res.sendFile(path.join(_dirname, '../../frontend/dist/frontend/index.html'));
 });
 
 
