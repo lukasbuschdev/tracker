@@ -11,6 +11,6 @@
     "backend:build": "cd backend && npm run build",
     "backend:start": "cd backend && npm start",
     "backend:pm2": "cd backend && npm run build && pm2 start dist/index.js --name 'expense-tracker' && pm2 save",
-    "build": "cd backend && tsc && cd ../frontend && ng build"
+    "build": "npm i && cd fontend && npm i && cd ../backend && npm i && tsc && cd ../frontend && ng build"
   }
 }
