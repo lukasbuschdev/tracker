@@ -36,7 +36,7 @@ const transporter = nodemailer.createTransport({
 
 
 app.use(express.json());
-app.use(express.static(path.join(process.cwd(), 'dist/frontend/browser/')));
+app.use(express.static(path.join(process.cwd(), 'backend/dist/frontend/browser/')));
 
 
 // SEND MAILS
