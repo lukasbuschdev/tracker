@@ -1,18 +1,23 @@
 {
   "name": "tracker",
   "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "frontend": "cd frontend && ng serve --proxy-config proxy.conf.json",
-    "backend": "cd backend && npm start"
-  },
-  "keywords": [],
+  "description": "My fullstack tracker project",
   "author": "MEINS.. ganz alleine MEINS !",
   "license": "ISC",
-  "description": "",
+  "scripts": {
+    "frontend:dev": "cd frontend && ng serve --proxy-config proxy.conf.json",
+    "frontend:build": "cd frontend && ng build --configuration production",
+
+    "backend:install": "cd backend && npm install",
+    "backend:build": "cd backend && npm run build", 
+    "backend:start": "cd backend && npm start",
+
+    "install:all": "npm run backend:install && (cd frontend && npm install)",
+    "build:all": "npm run backend:build && npm run frontend:build"
+  },
   "dependencies": {
-    "@types/express": "^5.0.0",
     "express": "^4.21.2",
+    "@types/express": "^5.0.0",
     "typescript": "^5.7.3"
   }
 }
