@@ -36,6 +36,7 @@ const transporter = nodemailer.createTransport({
 
 
 app.use(express.json());
+app.use(express.static(path.join(process.cwd(), 'dist/frontend/browser/')));
 
 
 // SEND MAILS
@@ -195,6 +196,11 @@ app.patch('/api/:table/:id', async (req: Request, res: Response) => {
 function statusError(res: Response, error: any, statusCode: number = 500): void {
     res.status(statusCode).json({ error });
 }
+
+
+app.get('*', (req: Request, res: Response) => {
+    res.sendFile(path.join(process.cwd(), 'dist/frontend/browser/index.html'));
+});
 
 // LISTEN
 
