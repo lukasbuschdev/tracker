@@ -1,4 +1,4 @@
-import express, { Response } from 'express';
+import express, { Request, Response } from 'express';
 import { config } from 'dotenv';
 import { Supabase, Tables } from './database.js';
 import nodemailer from 'nodemailer';
@@ -40,7 +40,7 @@ app.use(express.json());
 
 // SEND MAILS
 
-app.post('/api/send-mail', async (req, res) => {
+app.post('/api/send-mail', async (req: Request, res: Response) => {
     try {
         const { to, verificationCode, url, name, lang } = req.body;
         const templatePath = path.join(_dirname, '..', '..', 'shared', 'email-templates', `verification-${lang}.html`);
@@ -66,7 +66,7 @@ app.post('/api/send-mail', async (req, res) => {
     }
 });
 
-app.post('/api/send-reset-mail', async (req, res) => {
+app.post('/api/send-reset-mail', async (req: Request, res: Response) => {
     try {
         const { to, verificationCode, name, url, lang } = req.body;
         const templatePath = path.join(_dirname, '..', '..', 'shared', 'email-templates', `reset-password-${lang}.html`);
@@ -95,7 +95,7 @@ app.post('/api/send-reset-mail', async (req, res) => {
 
 // POST
 
-app.post('/api/:table', async (req, res) => {
+app.post('/api/:table', async (req: Request, res: Response) => {
     try {
         const receivedData = req.body;
         const table = req.params.table as keyof Tables;
@@ -112,7 +112,7 @@ app.post('/api/:table', async (req, res) => {
 
 // GET
 
-app.get(`/api/users/byEmail`, async (req, res) => {
+app.get(`/api/users/byEmail`, async (req: Request, res: Response) => {
     try {
         const email = req.query.email as string;
         const { data, error } = await supabase.getUserByEmail(email);
@@ -125,7 +125,7 @@ app.get(`/api/users/byEmail`, async (req, res) => {
     }
 });
 
-app.get(`/api/:table/:id`, async (req, res) => {
+app.get(`/api/:table/:id`, async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
         const table = req.params.table as keyof Tables;
@@ -140,7 +140,7 @@ app.get(`/api/:table/:id`, async (req, res) => {
     }
 });
 
-app.get(`/api/users`, async (req, res) => {
+app.get(`/api/users`, async (req: Request, res: Response) => {
     try {
         const emailOrName = req.query.emailOrName as string;
         const password = req.query.password as string;
@@ -158,7 +158,7 @@ app.get(`/api/users`, async (req, res) => {
 
 // DELETE
 
-app.delete('/api/:table/:id', async (req, res) => {
+app.delete('/api/:table/:id', async (req: Request, res: Response) => {
     try {
         const table = req.params.table as keyof Tables;
         const id = req.params.id;
@@ -176,7 +176,7 @@ app.delete('/api/:table/:id', async (req, res) => {
 
 // UPDATE 
 
-app.patch('/api/:table/:id', async (req, res) => {
+app.patch('/api/:table/:id', async (req: Request, res: Response) => {
     try {
         const table = req.params.table as keyof Tables;
         const id = req.params.id;
