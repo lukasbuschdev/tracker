@@ -23,6 +23,11 @@
             text-align: end;
         }
     }
+
+    .sticky {
+        position: sticky;
+        top: 0;
+    }
 }
 
 .filter-container {

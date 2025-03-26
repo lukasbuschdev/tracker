@@ -80,7 +80,7 @@ app.post('/api/send-reset-mail', async (req: Request, res: Response) => {
         const info = await transporter.sendMail({
             from: "expensetracker@lukasbusch.dev",
             to: to,
-            subject: "Welcome to ExpenseTracker",
+            subject: "Reset password",
             text: `Hello ${name}! Your verification code is: ${verificationCode}. Please use the verification code reset your password by clicking (or copying) this link: ${url}`,
             html: template
         });
