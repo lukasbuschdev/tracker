@@ -75,7 +75,7 @@ export class ResetPasswordMailComponent {
       to: email,
       name: name,
       email: email,
-      url: 'https://www.expensetracker.lukasbusch.dev/reset-password',
+      url: 'https://expensetracker.lukasbusch.dev/reset-password',
       verificationCode: verificationCode,
       lang: lang
     }).subscribe(response => {
