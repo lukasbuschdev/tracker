@@ -17,6 +17,7 @@
     "nodemailer": "^6.10.0"
   },
   "devDependencies": {
+    "@types/express": "^5.0.1",
     "@types/nodemailer": "^6.4.17"
   }
 }

@@ -37,6 +37,15 @@ const transporter = nodemailer.createTransport({
 
 app.use(express.json());
 
+// 1) Serve the Angular dist folder
+app.use(express.static(path.join(__dirname, '../../frontend/dist/frontend')));
+
+// 2) Catch-all route: send back Angular’s index.html for any other path
+app.get('*', (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, '../../frontend/dist/frontend/index.html'));
+});
+
+
 
 // SEND MAILS
 
