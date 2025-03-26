@@ -7,12 +7,9 @@
   "scripts": {
     "frontend:dev": "cd frontend && ng serve --proxy-config proxy.conf.json",
     "frontend:build": "cd frontend && ng build --configuration production",
-
     "backend:install": "cd backend && npm install",
-    "backend:build": "cd backend && npm run build", 
+    "backend:build": "cd backend && npm run build",
     "backend:start": "cd backend && npm start",
-
     "backend:pm2": "cd backend && npm run build && pm2 start dist/index.js --name 'expense-tracker' && pm2 save"
   }
 }
-
