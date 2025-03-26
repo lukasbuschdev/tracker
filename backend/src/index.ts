@@ -199,7 +199,7 @@ function statusError(res: Response, error: any, statusCode: number = 500): void 
 
 
 app.get('*', (req: Request, res: Response) => {
-    res.sendFile(path.join(process.cwd(), 'dist/frontend/browser/index.html'));
+    res.sendFile(path.join(process.cwd(), '/backend/dist/frontend/browser/index.html'));
 });
 
 // LISTEN
