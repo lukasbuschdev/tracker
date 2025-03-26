@@ -1,4 +1,3 @@
-import '@fontsource/montserrat';
 import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { Budget } from './models/budget';
