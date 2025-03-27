@@ -54,6 +54,7 @@
     "accept": "Acepto la",
     "privacy-policy-lowercase": "política de privacidad",
     "accept-privacy-policy": "¡Por favor acepta la política de privacidad!",
+    "user-already-exists": "¡La dirección de correo electrónico ya está en uso!",
     "signup-confirmation-message": "Se ha enviado un enlace de verificación a tu correo electrónico.",
     "placeholder-email-or-username": "Correo electrónico o nombre de usuario...",
     "placeholder-username": "Nombre de usuario...",

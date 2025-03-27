@@ -30,7 +30,7 @@ export class ResetPasswordComponent {
 
     setTimeout(() => {
       this.router.navigateByUrl('/login');
-    }, 1500);
+    }, 3000);
   }
 
   async getResetUser(): Promise<typeUser | undefined>{

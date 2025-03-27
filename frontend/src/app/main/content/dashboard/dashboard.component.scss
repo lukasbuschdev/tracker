@@ -35,14 +35,8 @@
             align-items: center;
             
             .chart-container {
-                height: 50vw;
+                height: 100vw;
             }
         }
-    }
-}
-
-@media(max-width: 500px) {
-    .chart-container {
-        height: 70vh;
     }
 }

@@ -182,24 +182,20 @@ input[type="number"] {
   text-align: center;
 }
 
-
-// CONTENT CONTAINER
-
 .section-container {
   height: calc(100vh - 80px);
   width: 100%;
   max-width: 1440px;
-  padding: 20px 30px;
+  padding: 0 30px 20px;
+  overflow: auto;
 
   .heading-container {
     width: 100%;
+    padding-top: 20px;
   }
 
   .content-container {
-    height: 100%;
-    max-height: 70vh;
     width: 100%;
-    overflow: auto;
   }
 
   .navigation {
@@ -494,9 +490,14 @@ input[type="number"] {
   }
 }
 
+.access-container .content-container {
+  height: calc(100vh - 80px);
+}
+
 .no-budgets-message-container {
   height: 90%;
   width: 100%;
+  height: calc(100vh - 80px - 200px);
 }
 
 .privacy-policy-container {
@@ -554,18 +555,13 @@ input[type="number"] {
 
 @media(max-width: 800px) {
   .section-container  {
-    height: 100%;
-    padding: 15px 3% 0;
-    max-height: 77vh;
+    height: calc(100vh - 80px - 80px);
+    padding: 0 3% 20px;
   }
 
-  .help-container {
-    max-height: calc(100vh - 80px - 80px - 100px) !important;
-  }
-
-  section .content-container .section-container {
-    max-height: unset;
-  }
+  // section .content-container .section-container {
+  //   max-height: unset;
+  // }
 
   label {
       width: 100% !important;

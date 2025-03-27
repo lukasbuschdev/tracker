@@ -9,4 +9,8 @@ export class ScrollService {
     if(!section) return;
     section.scrollIntoView();
   }
+
+  scrollToTop(): void {
+    window.scrollTo(0, 0);
+  }
 }

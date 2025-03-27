@@ -55,6 +55,8 @@
                         </div>
                         @if(signupAttemptMade && !isChecked) {
                             <span class="error-message">{{ 'accept-privacy-policy' | translate }}</span>
+                        } @else if(isAlreadyExistingUser) {
+                            <span class="error-message">{{ 'user-already-exists' | translate }}</span>
                         } @else {
                             <span class="error-message"></span>
                         }

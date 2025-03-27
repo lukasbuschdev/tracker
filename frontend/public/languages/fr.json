@@ -54,6 +54,7 @@
     "accept": "J'accepte la",
     "privacy-policy-lowercase": "politique de confidentialité",
     "accept-privacy-policy": "Veuillez accepter la politique de confidentialité !",
+    "user-already-exists": "L'adresse e-mail est déjà utilisée!",
     "signup-confirmation-message": "Un lien de confirmation a été envoyé à votre e-mail.",
     "placeholder-email-or-username": "E-mail ou nom d'utilisateur...",
     "placeholder-username": "Nom d'utilisateur...",

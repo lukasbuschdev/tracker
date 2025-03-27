@@ -26,6 +26,7 @@ export class SignupComponent {
   nameRegex: RegExp = /^(?=.{3,})[A-Za-z0-9 ]+$/;
   emailRegex: RegExp = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
   passwordRegex: RegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.,!?&§@+\-\/\\]).+$/;
+  isAlreadyExistingUser: boolean = false;
 
   router = inject(Router);
   utils = inject(UtilsService);
@@ -38,8 +39,13 @@ export class SignupComponent {
   }
 
   async checkSignup(name: string, email: string, password: string, repeatedPassword: string): Promise<void> {
+    this.isAlreadyExistingUser = false;
     this.signupAttemptMade = true;
-    // if(this.checkIfUserAlreadyExists(email, password)) return;
+
+    if(await this.checkIfUserAlreadyExists(email)) {
+      this.isAlreadyExistingUser = true;
+      return;
+    };
 
     this.isSignupSuccessful = this.testInputs(name, email, password, repeatedPassword);
     const hashedPassword = await this.utils.sha256(password);
@@ -64,10 +70,10 @@ export class SignupComponent {
     }, 3000);
   }
 
-  // async checkIfUserAlreadyExists(email: string, password: string): Promise<boolean> {
-  //   const user = await User.getUserWithEmailOrNameAndPassword(email, password); 
-  //   return user ? true : false;
-  // }
+  async checkIfUserAlreadyExists(email: string): Promise<boolean> {
+    const user = await User.getUserWithEmail(email);
+    return user ? true : false;
+  }
 
   testInputs(name: string, email: string, password: string, repeatedPassword: string): boolean {
     return this.nameRegex.test(name) && 

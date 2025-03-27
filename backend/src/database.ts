@@ -30,7 +30,8 @@ export class Supabase {
     }
 
     getUserByEmail(email: string) {
-        return this.supabase.from('users').select('*').eq('email', email).single();
+        const lowerCaseEmail = email.toLocaleLowerCase();
+        return this.supabase.from('users').select('*').eq('email', lowerCaseEmail).single();
     }
 
     getData(id: string, table: keyof Tables, idColumn: string, isSingle: boolean = false) {

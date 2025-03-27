@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class VerificationComponent {
   isVerified: boolean = false;
-  isSuccessful: boolean = false;
+  isSuccessful: boolean = true;
   verificationAttemptMade: boolean = false;
 
   @ViewChild('code') code!: ElementRef<HTMLInputElement>;
@@ -26,7 +26,10 @@ export class VerificationComponent {
 
     const user = await User.get(unverifiedUserId);
     if(!user) return;
-    if(user.verificationCode !== code) return;
+    if(user.verificationCode !== code) {
+      this.isSuccessful = false;
+      return;
+    }
 
     this.setVerificationSuccessful();
 
@@ -34,7 +37,7 @@ export class VerificationComponent {
 
     setTimeout(() => {
       this.router.navigateByUrl('/login');
-    }, 1500);
+    }, 3000);
   }
 
   getUnverifiedUserFromLocalStorage(): string {

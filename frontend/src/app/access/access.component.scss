@@ -23,17 +23,19 @@ section {
 
     .mobile-language {
         display: none;
+        padding-bottom: 15px;
     }
+}
 
-    .content-container {
-        height: calc(100% - 80px);
+@media(max-width: 800px) {
+    section {
+        height: 100dvh;
     }
-
 }
 
 @media(max-width: 600px) {
     .content-container {
-        height: calc(100% - 80px - 45px) !important;
+        height: calc(100% - 80px - 60px) !important;
     }
 
     .btn-container .data-row{

@@ -341,7 +341,7 @@ export class DataService {
 
   
 
-  // // DELETE
+  // DELETE
 
   public deleteData() {
     if(this.dialog.type === 'budget') return this.deleteBudget(this.clickedBudget?.id);
@@ -359,6 +359,10 @@ export class DataService {
 
     this.updateCategoriesAndExpenses(budgetId);
     this.dialog.closeDialog();
+    
+    if(this.selectedBudget?.id === budgetId) {
+      this.selectedBudget = this.budgetsArray[0];
+    }
   }
 
   private updateCategoriesAndExpenses(budgetId: string): void {

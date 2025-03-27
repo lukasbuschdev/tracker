@@ -1,8 +1,13 @@
 :host {
     position: relative;
+    height: 100vh;
 }
 
 @media(max-width: 800px) {
+    :host {
+        height: 100dvh;
+    }
+
     .nav-content-container {
         flex-direction: column-reverse;
         height: calc(100vh - 80px);

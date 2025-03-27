@@ -15,6 +15,9 @@ export class ExpensesComponent {
   isFilterVisible: boolean = false;
   isDropdownOpened: boolean = false;
   selectedExpenseId: string = '';
+  isNamesAscending: boolean = false;
+  isCategoriesAscending: boolean = false;
+  isAmountAscending: boolean = false;
 
   constructor(private dialog: DialogService, public utils: UtilsService, public data: DataService) { }
 
@@ -41,14 +44,27 @@ export class ExpensesComponent {
   }
 
   sortExpensesByName(): void {
-    this.data.expensesArray.sort((a, b) => a.name.localeCompare(b.name));
+    this.data.expensesArray.sort((a, b) => {
+      return this.isNamesAscending ? b.name.localeCompare(a.name) : a.name.localeCompare(b.name);
+    });
+
+    this.isNamesAscending = !this.isNamesAscending;
   }
   
   sortExpensesByCategory(): void {
-    this.data.expensesArray.sort((a, b) => a.category.localeCompare(b.category));
+    this.data.expensesArray.sort((a, b) => {
+      return this.isCategoriesAscending ? b.category.localeCompare(a.category) : a.category.localeCompare(b.category);
+    });
+
+
+    this.isCategoriesAscending = !this.isCategoriesAscending;
   }
   
   sortExpensesByAmount(): void {
-    this.data.expensesArray.sort((a, b) => b.amount - a.amount);
+    this.data.expensesArray.sort((a, b) => {
+      return this.isAmountAscending ? a.amount - b.amount : b.amount - a.amount; 
+    });
+
+    this.isAmountAscending = !this.isAmountAscending;
   }
 }
