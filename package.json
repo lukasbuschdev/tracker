@@ -5,12 +5,8 @@
   "author": "MEINS.. ganz alleine MEINS !",
   "license": "ISC",
   "scripts": {
-    "frontend:dev": "cd frontend && ng serve --proxy-config proxy.conf.json",
-    "frontend:build": "cd frontend && ng build --configuration production",
-    "backend:install": "cd backend && npm install",
-    "backend:build": "cd backend && npm run build",
-    "backend:start": "cd backend && npm start",
-    "backend:pm2": "cd backend && npm run build && pm2 start dist/index.js --name 'expense-tracker' && pm2 save",
+    "frontend": "cd frontend && ng serve --proxy-config proxy.conf.json",
+    "backend": "cd backend && tsc && node dist/index.js",
     "build": "npm i && cd frontend && npm i && cd ../backend && npm i && tsc && cd ../frontend && ./node_modules/.bin/ng build"
   }
 }

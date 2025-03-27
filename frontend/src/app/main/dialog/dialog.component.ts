@@ -1,7 +1,7 @@
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { DialogService } from '../../services/dialog.service';
 import { DataService } from '../../services/data.service';
-import { typeDialogData } from '../../types/types';
+import { typeCategory, typeDialogData } from '../../types/types';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Category } from '../../models/category';
@@ -136,37 +136,37 @@ export class DialogComponent implements OnInit {
   }
   
   checkForTypeExpense(amount: number): void {
-    const categoryOfExpense = this.data.categoriesArray.find(category => category.name === this.data.clickedExpense?.category);
+    let categoryOfExpense;
+
+    if(this.dialog.addOrEdit === 'Add') {
+      categoryOfExpense = this.data.categoriesArray.find(category => category.name === this.data.selectedCategory);
+    } else {
+      categoryOfExpense = this.data.categoriesArray.find(category => category.name === this.data.clickedExpense?.category);
+    }
+
     if(!categoryOfExpense) return;
-    this.checkForExpense(amount, categoryOfExpense);
+    this.checkForExpenses(amount, categoryOfExpense);
   }
 
-  checkForExpense(amount: number, categoryOfExpense: Category): void {
-    const expensesAmountClickedExpense = this.calculateAllExpensesAmountOfClickedExpenseCategory(amount);
-    const expensesAmount = this.calculateAllExpensesAmount(amount);
-    const selectedCategory = this.data.categoriesArray.find(category => category.name === this.dialog.category);
+  checkForExpenses(amount: number, categoryOfExpense: typeCategory): void {
+    const amountUsedInCategory = this.calculateAmountUsedInCategory(categoryOfExpense);
 
-    if(amount > (categoryOfExpense.amount - this.calculateCategoryUsed())) {
+    if(amount > categoryOfExpense.amount) {
       this.dialog.setAmountTooBig();
+      return;
     }
-    
-    if(this.dialog.addOrEdit === 'Add') {
-      if(expensesAmount > 0) {
-        this.dialog.setAmountTooBig();
-        return;
-      }
 
-      if(!selectedCategory) return;
-      if(amount > selectedCategory?.amount) {
-        this.dialog.setAmountTooBig();
-        return;
-      }
-    } else {
-      if((expensesAmountClickedExpense - categoryOfExpense.amount) > 0) {
-        this.dialog.setAmountTooBig();
-        return;
-      }
+    if(amount > (categoryOfExpense.amount - amountUsedInCategory)) {
+      this.dialog.setAmountTooBig();
+      return;
     }
+  }
+
+  calculateAmountUsedInCategory(categoryOfExpense: typeCategory): number {
+    const allExpensesOfCategory = this.data.expensesArray.filter(expense => expense.category === categoryOfExpense.name);
+    const allExpensesAmounts = allExpensesOfCategory.map(expense => expense.amount).reduce((acc, curr) => acc + curr, 0);
+
+    return this.dialog.addOrEdit === 'Add' ? allExpensesAmounts : allExpensesAmounts - this.data.clickedExpense!.amount;
   }
 
   calculateAvailableBudget(): number {
@@ -177,7 +177,7 @@ export class DialogComponent implements OnInit {
   }
 
   calculateCategoryUsed(): number {
-    const category = this.data.clickedCategory;
+    const category = this.data.categoriesArray.find(category => category.name === this.data.selectedCategory);
     if(!category) return 0;
 
     const expenses = this.data.expensesArray.filter(expense => expense.category === category.name);
@@ -194,26 +194,5 @@ export class DialogComponent implements OnInit {
     if(!this.data.clickedCategory) return 0;
 
     return (result - this.data.clickedCategory?.amount) + amount;
-  }
-
-  calculateAllExpensesAmountOfClickedExpenseCategory(amount: number): number {
-    const allExpensesOfCategory = this.data.expensesArray.filter(expense => expense.category === this.data.clickedExpense?.category);
-    const allAmounts = allExpensesOfCategory.map(expense => expense.amount);
-    const result = allAmounts.reduce((acc, curr) => acc + curr, 0);
-
-    if(!this.data.clickedExpense) return 0;
-
-    return (result - this.data.clickedExpense.amount) + amount;
-  }
-
-  calculateAllExpensesAmount(amount: number): number {
-    const selectedCategory = this.data.categoriesArray.find(category => category.name === this.dialog.category);
-    const allExpensesFromSelectedCategory = this.data.expensesArray.filter(expense => expense.category === this.dialog.category);
-    const allAmounts = allExpensesFromSelectedCategory.map(expense => expense.amount);
-    const result = allAmounts.reduce((acc, curr) => acc + curr, 0);
-
-    if(!selectedCategory) return 0;
-
-    return (result - selectedCategory.amount) + amount;
   }
 }
