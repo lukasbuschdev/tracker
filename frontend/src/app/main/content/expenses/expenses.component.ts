@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { DialogService } from '../../../services/dialog.service';
 import { UtilsService } from '../../../services/utils.service';
 import { DataService } from '../../../services/data.service';
-import { Budget } from '../../../models/budget';
 import { TranslatePipe } from '../../../pipe/translate.pipe';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-expenses',
-  imports: [TranslatePipe],
+  imports: [TranslatePipe, FormsModule],
   templateUrl: './expenses.component.html',
   styleUrl: './expenses.component.scss'
 })
@@ -18,11 +18,19 @@ export class ExpensesComponent {
   isNamesAscending: boolean = false;
   isCategoriesAscending: boolean = false;
   isAmountAscending: boolean = false;
+  timer!: any;
+  filterInputValue: string = '';
 
   constructor(private dialog: DialogService, public utils: UtilsService, public data: DataService) { }
 
+  ngOnInit(): void {
+    this.data.filteredExpenses = this.data.expensesArray;
+    this.isFilterVisible = false;
+  }
+
   toggleFilter(): void {
     this.isFilterVisible = !this.isFilterVisible;
+    this.resetFilterInputValue();
   }
 
   toggleBudgets(event: MouseEvent): void {
@@ -36,6 +44,7 @@ export class ExpensesComponent {
 
   openDialog(str: string, expenseId?: string, category?: string): void {
     this.dialog.openDialog(str, category);
+    this.resetFilterInputValue();
 
     if(!expenseId) return;
 
@@ -44,7 +53,7 @@ export class ExpensesComponent {
   }
 
   sortExpensesByName(): void {
-    this.data.expensesArray.sort((a, b) => {
+    this.data.filteredExpenses.sort((a, b) => {
       return this.isNamesAscending ? b.name.localeCompare(a.name) : a.name.localeCompare(b.name);
     });
 
@@ -52,7 +61,7 @@ export class ExpensesComponent {
   }
   
   sortExpensesByCategory(): void {
-    this.data.expensesArray.sort((a, b) => {
+    this.data.filteredExpenses.sort((a, b) => {
       return this.isCategoriesAscending ? b.category.localeCompare(a.category) : a.category.localeCompare(b.category);
     });
 
@@ -61,10 +70,36 @@ export class ExpensesComponent {
   }
   
   sortExpensesByAmount(): void {
-    this.data.expensesArray.sort((a, b) => {
+    this.data.filteredExpenses.sort((a, b) => {
       return this.isAmountAscending ? a.amount - b.amount : b.amount - a.amount; 
     });
 
     this.isAmountAscending = !this.isAmountAscending;
+  }
+
+  getInput(event: KeyboardEvent): void {
+    const input = event.target as HTMLInputElement;
+
+    clearTimeout(this.timer);
+
+    this.timer = setTimeout(() => {
+      this.search(input.value);
+    }, 300);
+  }
+
+  search(input: string): void {
+    if(input.trim()) {
+      this.data.filteredExpenses = this.data.filteredExpenses.filter(expense => {
+        return expense.name.toLowerCase().includes(input.toLowerCase()) || 
+              expense.category.toLowerCase().includes(input.toLowerCase()) || 
+              expense.amount === Number(input);
+      });
+    } else {
+      this.data.filteredExpenses = this.data.expensesArray
+    }
+  }
+  
+  resetFilterInputValue(): void {
+    this.filterInputValue = '';
   }
 }

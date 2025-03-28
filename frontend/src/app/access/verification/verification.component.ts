@@ -1,24 +1,30 @@
-import { Component, ElementRef, inject, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { TranslatePipe } from '../../pipe/translate.pipe';
 import { User } from '../../models/user';
 import { DataService } from '../../services/data.service';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-verification',
-  imports: [TranslatePipe],
+  imports: [TranslatePipe, FormsModule],
   templateUrl: './verification.component.html',
   styleUrl: './verification.component.scss'
 })
-export class VerificationComponent {
+export class VerificationComponent implements OnInit {
   isVerified: boolean = false;
   isSuccessful: boolean = true;
   verificationAttemptMade: boolean = false;
+  verificationCode: string = '';
 
   @ViewChild('code') code!: ElementRef<HTMLInputElement>;
 
   data = inject(DataService);
   router = inject(Router);
+
+  ngOnInit(): void {
+    this.verificationCode = window.location.hash.substring(1);
+  }
 
   async checkVerification(code: string): Promise<void> {
     this.verificationAttemptMade = true;

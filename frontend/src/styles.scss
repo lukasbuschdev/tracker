@@ -329,6 +329,7 @@ input[type="number"] {
   text-align: center;
   color: $wine;
   font-size: 1rem;
+  font-weight: 600;
   padding: 10px 20px;
   border: 2px solid $wine;
   border-radius: 999px;
@@ -391,6 +392,7 @@ input[type="number"] {
 .dropdown-menu.frequency li span {
   padding: 5px 10px;
   width: max-content;
+  font-weight: 600;
 }
 
 
@@ -523,6 +525,40 @@ input[type="number"] {
   }
 }
 
+
+// LOADING SPINNER
+
+.spinner-container {
+  height: calc(100vh - 80px);
+  width: 100%;
+
+  .spinner {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    background-image: conic-gradient($wine, $white);
+    border-radius: 999px;
+    animation: spin 750ms linear infinite;
+    
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      height: 80px;
+      width: 80px;
+      border-radius: 999px;
+      background-color: $white;
+    }
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 .fade-in-up {
   animation: fadeInUp 250ms ease-out forwards;
 }
@@ -558,10 +594,6 @@ input[type="number"] {
     height: calc(100vh - 80px - 80px);
     padding: 0 3% 20px;
   }
-
-  // section .content-container .section-container {
-  //   max-height: unset;
-  // }
 
   label {
       width: 100% !important;

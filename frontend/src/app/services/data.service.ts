@@ -32,6 +32,8 @@ export class DataService {
     return this.expensesSubject.value;
   }
 
+  filteredExpenses: Expense[] = [];
+
   public selectedBudget: Budget | null = null;
   public selectedCategory: string = 'Select category';
 
@@ -42,6 +44,7 @@ export class DataService {
   constructor(private dialog: DialogService) { }
 
   public async init(): Promise<void> {
+    // this.getSelectedBudgetFromLocalStorage();
     await this.getData();
   }
 
@@ -75,7 +78,9 @@ export class DataService {
       if(!budgets.length) return;
 
       this.budgetsSubject.next(budgets);
-      this.selectedBudget = budgets[0];
+      console.log(this.selectedBudget)
+      this.selectedBudget = this.getSelectedBudgetIdFromLocalStorage() !== '' ? (budgets.find(budget => budget.id === this.getSelectedBudgetIdFromLocalStorage()) || null) : budgets[0];
+      console.log(this.selectedBudget)
       
       await this.getCategories();
       await this.getExpenses();
@@ -123,8 +128,21 @@ export class DataService {
 
   public selectBudget(budget: Budget): void {
     this.selectedBudget = this.budgetsArray.find(dataBudget => dataBudget.id === budget.id) || null;
+    if(!this.selectedBudget) return;
+
     this.getCategories();
     this.getExpenses();
+    this.saveSelectedBudgetIdToLocalStorage(this.selectedBudget.id);
+  }
+
+  private saveSelectedBudgetIdToLocalStorage(budgetId: string): void {
+    localStorage.setItem('selectedBudget', budgetId);
+  }
+
+  private getSelectedBudgetIdFromLocalStorage(): string {
+    const budgetId = localStorage.getItem('selectedBudget');
+    if(!budgetId) return '';
+    return budgetId
   }
 
   public logout(): void {
@@ -141,6 +159,10 @@ export class DataService {
 
   private resetLoggedUserInLocalStorage(): void {
     localStorage.setItem('loggedUser', '')
+  }
+
+  public resetFilter(): void {
+    this.filteredExpenses = this.expensesArray;
   }
 
 
@@ -205,6 +227,7 @@ export class DataService {
     this.expensesSubject.next(currentExpensesSorted);
 
     this.updateUsed();
+    this.resetFilter();
   }
 
   private async updateUsed(): Promise<void> {
@@ -320,6 +343,7 @@ export class DataService {
     this.expensesSubject.next(updatedExpensesSorted);
 
     this.calculateCurrentAvailable();
+    this.resetFilter();
   }
 
   public async editUser(name?: string, isVerified?: boolean): Promise<void> {
@@ -407,6 +431,7 @@ export class DataService {
     this.expensesSubject.next(updatedExpensesSorted);
 
     this.updateUsed();
+    this.resetFilter();
     this.dialog.closeDialog();
   }
 

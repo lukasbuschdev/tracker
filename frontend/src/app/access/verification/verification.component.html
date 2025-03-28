@@ -6,7 +6,7 @@
 
         <div class="column gap-5 center input-message-container">
             @if(!isVerified) {
-                <input type="text" #code [placeholder]="'placeholder-code' | translate">
+                <input type="text" #code [(ngModel)]="verificationCode" [placeholder]="'placeholder-code' | translate">
                 @if(verificationAttemptMade && !isSuccessful) {
                     <span class="error-message">{{ 'code-invalid' | translate }}</span>
                 } @else {

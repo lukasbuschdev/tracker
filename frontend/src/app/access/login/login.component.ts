@@ -6,6 +6,7 @@ import { UtilsService } from '../../services/utils.service';
 import { User } from '../../models/user';
 import { DataService } from '../../services/data.service';
 import { TranslatePipe } from '../../pipe/translate.pipe';
+import { LoadingService } from '../../services/loading.service';
 
 @Component({
   selector: 'app-login',
@@ -20,8 +21,9 @@ export class LoginComponent implements OnInit {
   isUserFound: boolean = false;
   loginAttempted: boolean = false;
   existsStoredUser: boolean = false;
+  isLoading: boolean = false;
 
-  constructor(private utils: UtilsService, private data: DataService) { }
+  constructor(private utils: UtilsService, private data: DataService, public loading: LoadingService) { }
 
   router = inject(Router);
 
@@ -39,6 +41,7 @@ export class LoginComponent implements OnInit {
     this.isUserFound = true;
     
     try {
+      this.loading.loadingAnimation(1500);
       const user = await User.getUserWithEmailOrNameAndPassword(emailOrName, hashedPassword);
 
       if(!user.isVerified) return;
@@ -96,4 +99,6 @@ export class LoginComponent implements OnInit {
 
     localStorage.setItem('loggedUser', JSON.stringify(loggedUser));
   }
+
+
 }

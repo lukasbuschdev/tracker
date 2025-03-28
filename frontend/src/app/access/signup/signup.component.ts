@@ -98,7 +98,7 @@ export class SignupComponent {
       to: email,
       name: name,
       email: email,
-      url: 'https://expensetracker.lukasbusch.dev/verification',
+      url: `https://expensetracker.lukasbusch.dev/verification#${verificationCode}`,
       verificationCode: verificationCode,
       lang: lang
     }).subscribe(response => {

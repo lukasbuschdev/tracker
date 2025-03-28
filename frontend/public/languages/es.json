@@ -95,6 +95,8 @@
     "verification-code-invalid": "¡Código de verificación no válido!",
     "placeholder-new-password": "Nueva contraseña...",
     "placeholder-repeat-new-password": "Repite la nueva contraseña...",
-    "reset-password-confirmation-message": "Tu contraseña ha sido restablecida con éxito. Ahora puedes iniciar sesión con tu nueva contraseña."
+    "reset-password-confirmation-message": "Tu contraseña ha sido restablecida con éxito. Ahora puedes iniciar sesión con tu nueva contraseña.",
+    "filter": "Filtro",
+    "search": "Buscar..."
   }
   

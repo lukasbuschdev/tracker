@@ -1,24 +1,30 @@
-import { Component, Inject, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { TranslatePipe } from '../../pipe/translate.pipe';
 import { User } from '../../models/user';
 import { typeUser } from '../../types/types';
 import { Router } from '@angular/router';
 import { UtilsService } from '../../services/utils.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-reset-password',
-  imports: [TranslatePipe],
+  imports: [TranslatePipe, FormsModule],
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.scss'
 })
-export class ResetPasswordComponent {
+export class ResetPasswordComponent implements OnInit {
   isResetSuccessful: boolean = false;
   resetAttemptMade: boolean = false;
   isVaildVerificationCode: boolean = true;
   passwordRegex: RegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.,!?&§@+\-\/\\]).+$/;
+  verificationCode: string = '';
 
   router = inject(Router);
   utils = inject(UtilsService);
+
+  ngOnInit(): void {
+    this.verificationCode = window.location.hash.substring(1);
+  }
 
   async checkReset(code: string, password: string, repeatedPassword: string): Promise<void> {
     this.resetAttemptMade = true;
