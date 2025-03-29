@@ -9,6 +9,7 @@ import { TranslatePipe } from '../../pipe/translate.pipe';
 import { LoadingService } from '../../services/loading.service';
 import { NavigationService } from '../../services/navigation.service';
 import { typeUser } from '../../types/types';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-login',
@@ -27,6 +28,7 @@ export class LoginComponent implements OnInit {
   constructor(private utils: UtilsService, private data: DataService, public loading: LoadingService) { }
 
   navigation = inject(NavigationService);
+  theme = inject(ThemeService);
 
   ngOnInit(): void {
     this.getCredentialsFromLocalStorage();
@@ -42,7 +44,7 @@ export class LoginComponent implements OnInit {
     this.isUserFound = true;
     
     try {
-      this.loading.loadingAnimation(1500);
+      this.loading.loadingAnimation(2000);
       const user = await User.getUserWithEmailOrNameAndPassword(emailOrName, hashedPassword);
 
       if(!user.isVerified) return;
@@ -55,6 +57,7 @@ export class LoginComponent implements OnInit {
       this.saveLoggedUserToLocalStorage(user.id);
       await this.data.init();
       this.navigation.setNavigation('/dashboard', 0);
+      this.theme.loadTheme();
     } catch (error) {
       console.error(error);
       this.resetBooleans();

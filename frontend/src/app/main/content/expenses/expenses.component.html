@@ -1,4 +1,4 @@
-<div class="section-container column gap-30 fade-in-up" (click)="closeBudgtes()">
+<div class="section-container column gap-30 fade-in-up" (click)="closeBudgtes()" [ngClass]="{ 'dark-mode': theme.isDarkmode }">
     <div class="heading-container between align-center">
         <h1>{{'expenses' | translate }}</h1>
         
@@ -69,19 +69,19 @@
                 </div>
     
                 <div class="column table gap-20">
-                    <div class="column gap-10 sticky">
+                    <div class="column gap-10 sticky table-head">
                         <div class="row between header gap-15">
                             <div class="row between align-center">
                                 <h4>{{ 'name' | translate }}</h4>
-                                <img src="img/sort.svg" (click)="sortExpensesByName()">
+                                <img [src]="theme.isDarkmode ? 'img/sort-light.svg' : 'img/sort.svg'" (click)="sortExpensesByName()">
                             </div>
                             <div class="row between align-center">
                                 <h4>{{ 'category' | translate }}</h4>
-                                <img src="img/sort.svg" (click)="sortExpensesByCategory()">
+                                <img [src]="theme.isDarkmode ? 'img/sort-light.svg' : 'img/sort.svg'" (click)="sortExpensesByCategory()">
                             </div>
                             <div class="row between align-center">
                                 <h4>{{ 'amount' | translate }}</h4>
-                                <img src="img/sort.svg" (click)="sortExpensesByAmount()">
+                                <img [src]="theme.isDarkmode ? 'img/sort-light.svg' : 'img/sort.svg'" (click)="sortExpensesByAmount()">
                             </div>
                         </div>
                     
@@ -89,15 +89,33 @@
                     </div>
     
                     <div class="column gap-5">
-                        @for (expense of data.filteredExpenses; track $index) {
-                            <div class="row between header gap-15 single-expense" (click)="openDialog('edit-expense', expense.id, expense.category)">
-                                <div>{{ expense.name }}</div>
-                                <div>{{ expense.category }}</div>
-                                <div class="number txt-red">- {{ utils.formatNumber(expense.amount) }}</div>
+                        @for(expense of data.filteredExpenses; track $index) {
+                            <div class="single-expense column gap-10" (click)="openDialog('edit-expense', expense.id, expense.category)">
+                                <div class="row between header gap-15">
+                                    <div>{{ expense.name }}</div>
+                                    <div>{{ expense.category }}</div>
+                                    <div class="number txt-red">- {{ utils.formatNumber(expense.amount) }}</div>
+                                </div>
+    
+                                <div class="expense-date-container row between">
+                                    <span>{{ 'expense-created' | translate }}</span>
+                                    <span>{{ expense.created | date:'short' }}</span>
+                                </div>
                             </div>
                         
                             <div class="line gray"></div>
                         }
+                    </div>
+
+                    <div class="column gap-10">
+                        <div class="sum-container row between">
+                            <span class="txt-bold">{{ 'expenses-result' | translate }}</span>
+                            <span class="number txt-red">- {{ utils.formatNumber(calculateCurrentBudgetSum()) }}</span>
+                        </div>
+                        <div class="line-container column gap-5">
+                            <div class="line gray"></div>
+                            <div class="line gray"></div>
+                        </div>
                     </div>
                 </div>
             }

@@ -4,9 +4,9 @@ import { DataService } from '../../services/data.service';
 import { typeCategory, typeDialogData } from '../../types/types';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Category } from '../../models/category';
 import { TranslatePipe } from '../../pipe/translate.pipe';
 import { Router } from '@angular/router';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-dialog',
@@ -26,7 +26,8 @@ export class DialogComponent implements OnInit {
   @ViewChild('inputName') inputName!: ElementRef<HTMLInputElement>;
   @ViewChild('amount') amount!: ElementRef<HTMLInputElement>;
 
-  router = inject(Router)
+  router = inject(Router);
+  theme = inject(ThemeService);
 
   ngOnInit(): void {
     this.dialog.isVisible$.subscribe(state => {

@@ -1,7 +1,7 @@
 <app-header></app-header>
 <div class="row nav-content-container">
   <app-nav></app-nav>
-  <app-content></app-content>
+  <app-content class="app-content" [ngClass]="{ 'dark-mode': theme.isDarkmode }"></app-content>
 </div>
 <app-dialog></app-dialog>
 <app-confirmation-dialog></app-confirmation-dialog>

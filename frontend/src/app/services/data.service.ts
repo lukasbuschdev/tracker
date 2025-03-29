@@ -6,6 +6,7 @@ import { DialogService } from './dialog.service';
 import { typeDialogData, typeExpense } from '../types/types';
 import { BehaviorSubject } from 'rxjs';
 import { User } from '../models/user';
+import { ThemeService } from './theme.service';
 
 @Injectable({
   providedIn: 'root'
@@ -41,7 +42,7 @@ export class DataService {
   public clickedCategory: Category | null = null;
   public clickedExpense: Expense | null = null;
 
-  constructor(private dialog: DialogService) { }
+  constructor(private dialog: DialogService, private theme: ThemeService) { }
 
   public async init(): Promise<void> {
     await this.getData();
@@ -60,6 +61,7 @@ export class DataService {
 
   public async getLoggedUserFromLocalStorage(): Promise<void> {
     const storedUserString = localStorage.getItem('loggedUser');
+
     if(!storedUserString) return;
     
     const loggedUser = JSON.parse(storedUserString);
@@ -70,12 +72,13 @@ export class DataService {
   }
 
   private async getData(): Promise<void> {
+    this.theme.loadTheme();
     if(!this.currentUserId) return;
-
+    
     try {
       const budgets = await Budget.get(this.currentUserId);
       if(!budgets.length) return;
-
+      
       this.budgetsSubject.next(budgets);
       this.selectedBudget = this.budgetsArray[0];
       

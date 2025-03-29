@@ -1,5 +1,5 @@
 @if(isOpen) {
-    <div class="backdrop center" (click)="closeDialog()">
+    <div class="backdrop center" (click)="closeDialog()" [ngClass]="{ 'dark-mode': theme.isDarkmode }">
         <div class="card column between confirmation-card" (click)="$event.stopPropagation()">
             <div class="heading">
                 <h2>{{ 'attention' | translate }}</h2>

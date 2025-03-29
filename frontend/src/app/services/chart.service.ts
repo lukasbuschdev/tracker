@@ -25,7 +25,7 @@ export class ChartService {
     }
 
     return {
-      labels: ['Budget amount available', 'Budget amount used'],
+      labels: ['Amount available', 'Amount used'],
       datasets: [{
         data: [
           (this.data.selectedBudget?.amount - this.data.selectedBudget?.used),  

@@ -1,4 +1,4 @@
-<div class="section-container column between fade-in-up" (click)="language.closeLanguages()">
+<div class="section-container column between fade-in-up" (click)="language.closeLanguages()" [ngClass]="{ 'dark-mode': theme.isDarkmode }">
     <div class="column gap-50">
         <div class="heading-container between align-center">
             <h1>{{ 'settings' | translate  }}</h1>
@@ -9,7 +9,7 @@
         </div>
     
         <div class="content-container column between">
-            <div class="column gap-50">
+            <div class="column gap-30">
                 <div class="row between align-center data-row">
                     <span>{{ 'language' | translate }}:</span>
                     <div class="dropdown" [class.active]="language.isDropdownOpened">
@@ -34,6 +34,12 @@
                 <div class="row between align-center data-row">
                     <span>{{ 'password' | translate }}:</span>
                     <span>*****</span>
+                </div>
+                <div class="row between align-center data-row">
+                    <span>{{ 'darkmode' | translate }}:</span>
+                    <div class="btn-primary center theme-btn" (click)="theme.toggleThemeMode()">
+                        <img [src]="theme.isDarkmode ? 'img/lightmode.svg' : 'img/darkmode.svg'">
+                    </div>
                 </div>
             </div>
         </div>

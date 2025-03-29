@@ -188,6 +188,7 @@ input[type="number"] {
   max-width: 1440px;
   padding: 0 30px 20px;
   overflow: auto;
+  background-color: $white;
 
   .heading-container {
     width: 100%;
@@ -220,6 +221,8 @@ input[type="number"] {
     }
   }
 }
+
+
 
 .btn-primary {
   width: fit-content;
@@ -312,8 +315,18 @@ input[type="number"] {
   color: $green !important;
 }
 
+.txt-bold {
+  font-weight: 600;
+}
+
 .d-none {
   display: none;
+}
+
+.arrow {
+  height: 12px;
+  width: 12px;
+  object-fit: contain;
 }
 
 
@@ -419,6 +432,7 @@ input[type="number"] {
   border: none;
   border-radius: 20px;
   padding: 30px;
+  overflow: auto;
 
   .input-container {
       width: 100%;
@@ -667,5 +681,134 @@ input[type="number"] {
   .dropdown-menu li:hover,
   .content-container .links span:hover {
     filter: none !important;
+  }
+}
+
+
+
+// DARK MODE SECTION
+.app-content.dark-mode {
+  background-color: $darkmode;
+}
+
+.nav.dark-mode, .header.dark-mode {
+  background-color: $wine-light
+}
+
+.section-container.dark-mode {
+  background-color: $darkmode;
+  color: $white;
+}
+
+.dark-mode {
+  h1, h2, h3, h4, li {
+    color: $wine-light !important;
+  }
+
+  .nav-row {
+    background-color: $wine-light;
+
+    &:hover {
+      background-color: $wine !important;
+    }
+  }
+
+  .nav-row.isActive {
+    background-color: $wine;
+  }
+
+  .btn-primary {
+    border-color: $wine-light;
+    background-color: $wine-light;
+
+    &:hover {
+      color: $white;
+      background-color: $darkmode;
+
+      img {
+        filter: $icon-white
+      }
+    }
+  }
+
+  .btn-secondary {
+    color: $white;
+    background-color: $darkmode;
+    border-color: $wine-light;
+
+    img {
+      filter: $icon-white;
+    }
+  
+    &:hover {
+      background-color: $wine-light;
+    }
+  }
+
+  .dropdown-btn {
+    border-color: $wine-light;
+    background-color: $darkmode;
+    color: $white;
+    
+    &:hover {
+      color: $white;
+      background-color: $wine-light;
+    }
+  }
+  
+  .dropdown-menu {
+    background-color: $darkmode
+  }
+  
+  .dropdown-menu li span {
+    color: $white;
+  }
+
+  .dropdown-menu li:hover {
+    background-color: $wine-light;
+  }
+
+  .table-head {
+    background-color: $darkmode !important;
+  }
+
+  input {
+    background-color: $darkmode;
+    color: $white;
+  }
+
+  .img-container:hover {
+    background-color: $darkmode-hover !important;
+  }
+
+  .single-expense {
+    &:hover {
+      background-color: $darkmode-hover !important;
+    }
+  }
+
+  .card {
+    background-color: $darkmode;
+    color: $white;
+
+    label {
+      color: $white;
+    }
+  }
+
+  .confirmation-card {
+    background-color: $darkmode;
+
+    h4 {
+      color: $white;
+    }
+  }
+
+  .spinner {
+    background-image: conic-gradient($wine-light, $darkmode);
+    
+    &::after {
+      background-color: $darkmode;
+    }
   }
 }

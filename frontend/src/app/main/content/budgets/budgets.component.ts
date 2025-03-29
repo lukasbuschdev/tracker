@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { UtilsService } from '../../../services/utils.service';
 import { DialogService } from '../../../services/dialog.service';
 import { DataService } from '../../../services/data.service';
 import { CommonModule } from '@angular/common';
 import { Budget } from '../../../models/budget';
 import { TranslatePipe } from '../../../pipe/translate.pipe';
+import { ThemeService } from '../../../services/theme.service';
 
 @Component({
   selector: 'app-budgets',
@@ -17,6 +18,8 @@ export class BudgetsComponent {
   activeBudgetId: string = '';
 
   constructor(public utils: UtilsService, private dialog: DialogService, public data: DataService) { }
+
+  theme = inject(ThemeService);
 
   toggleActiveBudget(event: MouseEvent, budgetId: string): void {
     event.stopPropagation();

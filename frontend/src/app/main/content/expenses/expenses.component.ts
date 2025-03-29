@@ -1,13 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { DialogService } from '../../../services/dialog.service';
 import { UtilsService } from '../../../services/utils.service';
 import { DataService } from '../../../services/data.service';
 import { TranslatePipe } from '../../../pipe/translate.pipe';
 import { FormsModule } from '@angular/forms';
+import { CommonModule, DatePipe } from '@angular/common';
+import { ThemeService } from '../../../services/theme.service';
 
 @Component({
   selector: 'app-expenses',
-  imports: [TranslatePipe, FormsModule],
+  imports: [TranslatePipe, FormsModule, DatePipe, CommonModule],
   templateUrl: './expenses.component.html',
   styleUrl: './expenses.component.scss'
 })
@@ -22,6 +24,8 @@ export class ExpensesComponent {
   filterInputValue: string = '';
 
   constructor(private dialog: DialogService, public utils: UtilsService, public data: DataService) { }
+
+  theme = inject(ThemeService);
 
   ngOnInit(): void {
     this.data.filteredExpenses = this.data.expensesArray;
@@ -90,9 +94,12 @@ export class ExpensesComponent {
   search(input: string): void {
     if(input.trim()) {
       this.data.filteredExpenses = this.data.filteredExpenses.filter(expense => {
+        const formattedDate = new Date(expense.created).toLocaleString().toLowerCase();
+
         return expense.name.toLowerCase().includes(input.toLowerCase()) || 
               expense.category.toLowerCase().includes(input.toLowerCase()) || 
-              expense.amount === Number(input);
+              expense.amount === Number(input) ||
+              formattedDate.includes(input.toLowerCase());
       });
     } else {
       this.data.filteredExpenses = this.data.expensesArray
@@ -101,5 +108,10 @@ export class ExpensesComponent {
   
   resetFilterInputValue(): void {
     this.filterInputValue = '';
+  }
+
+  calculateCurrentBudgetSum(): number {
+    const expensesAmount = this.data.filteredExpenses.map(expense => expense.amount).reduce((acc, curr) => acc + curr, 0); 
+    return expensesAmount;
   }
 }

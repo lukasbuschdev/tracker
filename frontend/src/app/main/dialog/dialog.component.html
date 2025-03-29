@@ -1,5 +1,5 @@
 @if(isOpen) {
-    <div class="backdrop center" (click)="closeCategories(); closeDialog()">
+    <div class="backdrop center" (click)="closeCategories(); closeDialog()" [ngClass]="{ 'dark-mode': theme.isDarkmode }">
         <div class="card column between fade-in-right" (click)="$event.stopPropagation()">
             <div class="heading">
                 <h2>{{ (dialog.addOrEdit.toLowerCase() + '-' + dialog.type.toLowerCase()) | translate }}</h2>

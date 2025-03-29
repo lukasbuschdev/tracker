@@ -56,6 +56,8 @@ nav {
         height: fit-content;
         max-width: unset;
         padding: unset;
+        z-index: 99;
+        position: relative;
 
         .nav-links-container {
             flex-direction: row;

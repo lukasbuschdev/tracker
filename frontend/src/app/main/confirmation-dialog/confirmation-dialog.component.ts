@@ -3,10 +3,12 @@ import { DialogService } from '../../services/dialog.service';
 import { DataService } from '../../services/data.service';
 import { TranslatePipe } from '../../pipe/translate.pipe';
 import { Router } from '@angular/router';
+import { ThemeService } from '../../services/theme.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-confirmation-dialog',
-  imports: [TranslatePipe],
+  imports: [TranslatePipe, CommonModule],
   templateUrl: './confirmation-dialog.component.html',
   styleUrl: './confirmation-dialog.component.scss'
 })
@@ -14,6 +16,7 @@ export class ConfirmationDialogComponent implements OnInit {
   isOpen: boolean = false;
 
   router = inject(Router);
+  theme = inject(ThemeService);
 
   constructor(public dialog: DialogService, private data: DataService) { }
 

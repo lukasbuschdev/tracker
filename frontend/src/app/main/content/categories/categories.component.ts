@@ -1,13 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { UtilsService } from '../../../services/utils.service';
 import { DialogService } from '../../../services/dialog.service';
 import { DataService } from '../../../services/data.service';
 import { Category } from '../../../models/category';
 import { TranslatePipe } from '../../../pipe/translate.pipe';
+import { ThemeService } from '../../../services/theme.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-categories',
-  imports: [TranslatePipe],
+  imports: [TranslatePipe, CommonModule],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss'
 })
@@ -18,6 +20,8 @@ export class CategoriesComponent {
   availableInSelectedBudget: number = 0;
 
   constructor(public utils: UtilsService, private dialog: DialogService, public data: DataService) { }
+
+  theme = inject(ThemeService);
 
   toggleActiveCategory(event: MouseEvent, categoryId: string): void {
     event.stopPropagation();

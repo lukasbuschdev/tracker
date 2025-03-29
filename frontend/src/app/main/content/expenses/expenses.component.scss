@@ -15,7 +15,7 @@
 
             &:hover {
                 cursor: pointer;
-                filter: brightness(0.8);
+                filter: brightness(1.6);
             }
         }
 
@@ -83,7 +83,6 @@
             }
         }
     }
-
 }
 
 .single-expense {
@@ -94,6 +93,15 @@
         cursor: pointer;
         background-color: $lightgray;
     }
+}
+
+.expense-date-container span {
+    color: $darkgray;
+    font-size: 0.8rem;
+}
+
+.sum-container {
+    padding: 10px 5px;
 }
 
 @media(max-width: 400px) {

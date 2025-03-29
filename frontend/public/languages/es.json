@@ -97,6 +97,9 @@
     "placeholder-repeat-new-password": "Repite la nueva contraseña...",
     "reset-password-confirmation-message": "Tu contraseña ha sido restablecida con éxito. Ahora puedes iniciar sesión con tu nueva contraseña.",
     "filter": "Filtro",
-    "search": "Buscar..."
+    "search": "Buscar...",
+    "expenses-result": "Suma",
+    "expense-created": "Creado",
+    "darkmode": "Modo oscuro"
   }
   

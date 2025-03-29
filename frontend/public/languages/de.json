@@ -97,6 +97,9 @@
     "placeholder-repeat-new-password": "Neues Passwort wiederholen...",
     "reset-password-confirmation-message": "Ihr Passwort wurde erfolgreich zurückgesetzt. Sie können sich jetzt mit Ihrem neuen Passwort anmelden.",
     "filter": "Filter",
-    "search": "Suche..."
+    "search": "Suche...",
+    "expenses-result": "Summe",
+    "expense-created": "Erstellt",
+    "darkmode": "Dunkler Modus"
   }
   

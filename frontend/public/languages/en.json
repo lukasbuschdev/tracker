@@ -102,5 +102,8 @@
     "placeholder-repeat-new-password": "Repeat new password...",
     "reset-password-confirmation-message": "Your password has successfully been reset. You can now login with your new password.",
     "filter": "Filter",
-    "search": "Search..."
+    "search": "Search...",
+    "expenses-result": "Sum",
+    "expense-created": "Created",
+    "darkmode": "Darkmode"
 }

@@ -98,6 +98,9 @@
     "placeholder-repeat-new-password": "Répétez le nouveau mot de passe...",
     "reset-password-confirmation-message": "Votre mot de passe a été réinitialisé avec succès. Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.",
     "filter": "Filtre",
-    "search": "Recherche..."
+    "search": "Recherche...",
+    "expenses-result": "Somme",
+    "expense-created": "Créé",
+    "darkmode": "Mode sombre"
   }
   

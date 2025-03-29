@@ -1,4 +1,4 @@
-<div class="section-container column gap-30 fade-in-up" (click)="closeCategory(); closeBudgtes()">
+<div class="section-container column gap-30 fade-in-up" (click)="closeCategory(); closeBudgtes()" [ngClass]="{ 'dark-mode': theme.isDarkmode }">
     <div class="heading-container between">
         <h1>{{ 'categories' | translate }}</h1>
 
@@ -52,7 +52,14 @@
                 <div class="column between category-container" (click)="toggleActiveCategory($event, category.id)" [class.isActiveCategory]="activeCategoryId === category.id">
                     <div class="row between">
                         <div class="name">{{ category.name }}:</div>
-                        <div class="number txt-green">+ {{ utils.formatNumber(category.amount) }}</div>
+                        <div class="row gap-10 align-center">
+                            <div class="number txt-green">+ {{ utils.formatNumber(category.amount) }}</div>
+                            @if(activeCategoryId === category.id) {
+                                <img class="arrow" [src]="theme.isDarkmode ? 'img/arrow-down-white.svg' : 'img/arrow-down.svg'">
+                            } @else {
+                                <img class="arrow" [src]="theme.isDarkmode ? 'img/arrow-up-white.svg' : 'img/arrow-up.svg'">
+                            }
+                        </div>
                     </div>
                     
                     <div class="column between gap-15 information">
