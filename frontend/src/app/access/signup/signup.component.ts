@@ -42,10 +42,10 @@ export class SignupComponent {
     this.isAlreadyExistingUser = false;
     this.signupAttemptMade = true;
 
-    if(await this.checkIfUserAlreadyExists(email)) {
-      this.isAlreadyExistingUser = true;
-      return;
-    };
+    // if(await this.checkIfUserAlreadyExists(email)) {
+    //   this.isAlreadyExistingUser = true;
+    //   return;
+    // };
 
     this.isSignupSuccessful = this.testInputs(name, email, password, repeatedPassword);
     const hashedPassword = await this.utils.sha256(password);
