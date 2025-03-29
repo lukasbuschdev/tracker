@@ -1,82 +1,88 @@
-<section class="center">
-    <div class="card access column gap-30 center fade-in-up">
-        <div class="center">
-            <h2>{{ 'signup' | translate}}</h2>
-        </div>
-
-        @if(!isSignupSuccessful) {
-            <div class="column gap-10 center">
-                <div class="column gap-5 center">
-                    <div class="column center gap-5 input-error-container">
-                        <input #name type="text" [placeholder]="'placeholder-username' | translate">
-                        @if(signupAttemptMade && name.value.length < 1) {
-                            <span class="error-message">{{ 'enter-name' | translate }}</span>
-                        } @else if(signupAttemptMade && name.value.length >= 1 && name.value.length < 3) {
-                            <span class="error-message">{{ 'name-too-short' | translate }}</span>
-                        } @else {
-                            <span class="error-message"></span>
-                        }
-                    </div>
-                    <div class="column center gap-5 input-error-container">
-                        <input #email type="text" [placeholder]="'placeholder-email' | translate">
-                        @if(signupAttemptMade && email.value.length < 1) {
-                            <span class="error-message">{{ 'enter-email' | translate }}</span>
-                        } @else if(signupAttemptMade && !emailRegex.test(email.value)) {
-                            <span class="error-message">{{ 'email-invalid' | translate }}</span>
-                        } @else {
-                            <span class="error-message"></span>
-                        }
-                    </div>
-                    <div class="column center gap-5 input-error-container">
-                        <input #password type="password" [placeholder]="'placeholder-password' | translate">
-                        @if(signupAttemptMade && password.value.length < 1) {
-                            <span class="error-message">{{ 'enter-password' | translate }}</span>
-                        } @else if(signupAttemptMade && password.value.length < 6) {
-                            <span class="error-message">{{ 'password-too-short' | translate }}</span>
-                        } @else if(signupAttemptMade && !passwordRegex.test(password.value)) {
-                            <span class="error-message">{{ 'password-requirements' | translate }}</span>
-                        } @else {
-                            <span class="error-message"></span>
-                        }
-                    </div>
-                    <div class="column center gap-5 input-error-container">
-                        <input #repeatedPassword type="password" [placeholder]="'placeholder-repeat-password' | translate">
-                        @if(signupAttemptMade && repeatedPassword.value !== password.value) {
-                            <span class="error-message">{{ 'passwords-do-not-match' | translate }}</span>
-                        } @else {
-                            <span class="error-message"></span>
-                        }
-                    </div>
-                    
-                    <div class="column gap-10 center input-error-container">
-                        <div class="row gap-10 align-center">
-                            <img class="checkbox" [src]="isChecked ? 'img/checkbox-checked.svg' : 'img/checkbox-unchecked.svg'" (click)="toggleIsChecked()">
-                            <span>{{ 'accept' | translate }} <span class="link" routerLink="access-privacy-policy">{{ 'privacy-policy-lowercase' | translate }}</span></span>
-                        </div>
-                        @if(signupAttemptMade && !isChecked) {
-                            <span class="error-message">{{ 'accept-privacy-policy' | translate }}</span>
-                        } @else if(isAlreadyExistingUser) {
-                            <span class="error-message">{{ 'user-already-exists' | translate }}</span>
-                        } @else {
-                            <span class="error-message"></span>
-                        }
-                    </div>
-                </div>
-        
-                <div class="links row gap-15">
-                    <span routerLink="/access-legal-notice">{{'legal-notice' | translate}}</span>
-                </div>
-        
-                <div class="button-container row gap-10">
-                    <div class="btn-primary" (click)="checkSignup(name.value, email.value, password.value, repeatedPassword.value)">
-                        <span>{{ 'signup' | translate }}</span>
-                    </div>
-                </div>
-            </div>
-        } @else {
-            <div class="confirmation-message align-center">
-                <h4>{{ 'signup-confirmation-message' | translate  }}</h4>
-            </div>
-        }
+@if(loading.isLoading) {
+    <div class="center spinner-container">
+        <div class="spinner"></div>
     </div>
-</section>
+} @else {
+    <section class="center">
+        <div class="card access column gap-30 center fade-in-up">
+            <div class="center">
+                <h2>{{ 'signup' | translate}}</h2>
+            </div>
+    
+            @if(!isSignupSuccessful) {
+                <div class="column gap-10 center">
+                    <div class="column gap-5 center">
+                        <div class="column center gap-5 input-error-container">
+                            <input #name type="text" [placeholder]="'placeholder-username' | translate">
+                            @if(signupAttemptMade && name.value.length < 1) {
+                                <span class="error-message">{{ 'enter-name' | translate }}</span>
+                            } @else if(signupAttemptMade && name.value.length >= 1 && name.value.length < 3) {
+                                <span class="error-message">{{ 'name-too-short' | translate }}</span>
+                            } @else {
+                                <span class="error-message"></span>
+                            }
+                        </div>
+                        <div class="column center gap-5 input-error-container">
+                            <input #email type="text" [placeholder]="'placeholder-email' | translate">
+                            @if(signupAttemptMade && email.value.length < 1) {
+                                <span class="error-message">{{ 'enter-email' | translate }}</span>
+                            } @else if(signupAttemptMade && !emailRegex.test(email.value)) {
+                                <span class="error-message">{{ 'email-invalid' | translate }}</span>
+                            } @else {
+                                <span class="error-message"></span>
+                            }
+                        </div>
+                        <div class="column center gap-5 input-error-container">
+                            <input #password type="password" [placeholder]="'placeholder-password' | translate">
+                            @if(signupAttemptMade && password.value.length < 1) {
+                                <span class="error-message">{{ 'enter-password' | translate }}</span>
+                            } @else if(signupAttemptMade && password.value.length < 6) {
+                                <span class="error-message">{{ 'password-too-short' | translate }}</span>
+                            } @else if(signupAttemptMade && !passwordRegex.test(password.value)) {
+                                <span class="error-message">{{ 'password-requirements' | translate }}</span>
+                            } @else {
+                                <span class="error-message"></span>
+                            }
+                        </div>
+                        <div class="column center gap-5 input-error-container">
+                            <input #repeatedPassword type="password" [placeholder]="'placeholder-repeat-password' | translate">
+                            @if(signupAttemptMade && repeatedPassword.value !== password.value) {
+                                <span class="error-message">{{ 'passwords-do-not-match' | translate }}</span>
+                            } @else {
+                                <span class="error-message"></span>
+                            }
+                        </div>
+                        
+                        <div class="column gap-10 center input-error-container">
+                            <div class="row gap-10 align-center">
+                                <img class="checkbox" [src]="isChecked ? 'img/checkbox-checked.svg' : 'img/checkbox-unchecked.svg'" (click)="toggleIsChecked()">
+                                <span>{{ 'accept' | translate }} <span class="link" routerLink="access-privacy-policy">{{ 'privacy-policy-lowercase' | translate }}</span></span>
+                            </div>
+                            @if(signupAttemptMade && !isChecked) {
+                                <span class="error-message">{{ 'accept-privacy-policy' | translate }}</span>
+                            } @else if(isAlreadyExistingUser) {
+                                <span class="error-message">{{ 'user-already-exists' | translate }}</span>
+                            } @else {
+                                <span class="error-message"></span>
+                            }
+                        </div>
+                    </div>
+            
+                    <div class="links row gap-15">
+                        <span routerLink="/access-legal-notice">{{'legal-notice' | translate}}</span>
+                    </div>
+            
+                    <div class="button-container row gap-10">
+                        <div class="btn-primary" (click)="checkSignup(name.value, email.value, password.value, repeatedPassword.value)">
+                            <span>{{ 'signup' | translate }}</span>
+                        </div>
+                    </div>
+                </div>
+            } @else {
+                <div class="confirmation-message align-center">
+                    <h4>{{ 'signup-confirmation-message' | translate  }}</h4>
+                </div>
+            }
+        </div>
+    </section>
+}

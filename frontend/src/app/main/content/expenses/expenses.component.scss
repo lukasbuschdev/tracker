@@ -95,3 +95,9 @@
         background-color: $lightgray;
     }
 }
+
+@media(max-width: 400px) {
+    .input-container {
+        width: 100%;
+    }
+}

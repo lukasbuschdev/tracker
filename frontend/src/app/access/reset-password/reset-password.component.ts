@@ -1,10 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { TranslatePipe } from '../../pipe/translate.pipe';
 import { User } from '../../models/user';
-import { typeUser } from '../../types/types';
-import { Router } from '@angular/router';
 import { UtilsService } from '../../services/utils.service';
 import { FormsModule } from '@angular/forms';
+import { NavigationService } from '../../services/navigation.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-reset-password',
@@ -18,36 +18,25 @@ export class ResetPasswordComponent implements OnInit {
   isVaildVerificationCode: boolean = true;
   passwordRegex: RegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.,!?&§@+\-\/\\]).+$/;
   verificationCode: string = '';
+  userId: string = '';
 
-  router = inject(Router);
   utils = inject(UtilsService);
+  navigation = inject(NavigationService);
+  route = inject(ActivatedRoute);
 
   ngOnInit(): void {
-    this.verificationCode = window.location.hash.substring(1);
+    this.verificationCode = this.route.snapshot.queryParamMap.get('verificationCode') || '';
+    this.userId = this.route.snapshot.queryParamMap.get('userId') || '';
   }
 
   async checkReset(code: string, password: string, repeatedPassword: string): Promise<void> {
     this.resetAttemptMade = true;
-    const user = await this.getResetUser();
+    const user = await User.get(this.userId);
     if(!user) return;
 
     this.isResetSuccessful = this.testInputs(code, password, repeatedPassword, user.verificationCode);
     this.updateUser(user.id, password);
-
-    setTimeout(() => {
-      this.router.navigateByUrl('/login');
-    }, 3000);
-  }
-
-  async getResetUser(): Promise<typeUser | undefined>{
-    const resetUser = localStorage.getItem('resetUser');
-    if(!resetUser) return undefined;
-    
-    const userData = JSON.parse(resetUser);
-    const user = await User.get(userData.id);
-    if(!user) return undefined;
-
-    return user;
+    this.navigation.setNavigation('/login', 3000);
   }
 
   testInputs(code: string, password: string, repeatedPassword: string, verificationCode: string): boolean {

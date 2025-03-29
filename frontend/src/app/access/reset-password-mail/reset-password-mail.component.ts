@@ -1,5 +1,4 @@
 import { Component, ElementRef, inject, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
 import { TranslatePipe } from '../../pipe/translate.pipe';
 import { LanguageService } from '../../services/language.service';
 import { typeUser } from '../../types/types';
@@ -7,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { DataService } from '../../services/data.service';
 import { User } from '../../models/user';
 import { UtilsService } from '../../services/utils.service';
+import { NavigationService } from '../../services/navigation.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -22,11 +22,11 @@ export class ResetPasswordMailComponent {
 
   @ViewChild('email') email!: ElementRef<HTMLInputElement>; 
 
-  router = inject(Router);
   language = inject(LanguageService);
   http = inject(HttpClient);
   data = inject(DataService);
   utils = inject(UtilsService);
+  navigation = inject(NavigationService);
 
   async checkReset(email: string): Promise<void> {
     this.resetAttemptMade = true;
@@ -37,15 +37,11 @@ export class ResetPasswordMailComponent {
     const user = await this.getUser(email);
     if(!user) return;
 
-    this.saveUserToLocalStorage(user);
     await this.updateUser(user, verificationCode);
 
-    this.sendMail(user.name, user.email, verificationCode);
+    this.sendMail(user.name, user.email, verificationCode, user.id);
     this.resetMailSent = true;
-    
-    setTimeout(() => {
-      this.router.navigateByUrl('/reset-password');
-    }, 3000);
+    this.navigation.setNavigation('/reset-password', 3000);
   }
 
   async getUser(email: string): Promise<User | undefined> {
@@ -59,23 +55,14 @@ export class ResetPasswordMailComponent {
     return user;
   }
 
-  saveUserToLocalStorage(userData: typeUser): void {
-    console.log(userData)
-    const resetUser = {
-      id: userData.id
-    }
-    
-    localStorage.setItem('resetUser', JSON.stringify(resetUser));
-  }
-
-  sendMail(name: string, email: string, verificationCode: string): void {
+  sendMail(name: string, email: string, verificationCode: string, userId: string): void {
     const lang = this.getCurrentLang();
 
     this.http.post('/api/send-reset-mail', {
       to: email,
       name: name,
       email: email,
-      url: `https://expensetracker.lukasbusch.dev/reset-password#${verificationCode}`,
+      url: `https://expensetracker.lukasbusch.dev/reset-password?verificationCode=${verificationCode}&userId=${userId}`,
       verificationCode: verificationCode,
       lang: lang
     }).subscribe(response => {

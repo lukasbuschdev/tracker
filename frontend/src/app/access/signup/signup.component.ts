@@ -3,11 +3,11 @@ import { Router, RouterModule } from '@angular/router';
 import { TranslatePipe } from '../../pipe/translate.pipe';
 import { User } from '../../models/user';
 import { UtilsService } from '../../services/utils.service';
-import { typeUser } from '../../types/types';
 import { HttpClient } from '@angular/common/http';
-import { response } from 'express';
 import { LanguageService } from '../../services/language.service';
 import { DataService } from '../../services/data.service';
+import { NavigationService } from '../../services/navigation.service';
+import { LoadingService } from '../../services/loading.service';
 
 @Component({
   selector: 'app-signup',
@@ -33,6 +33,8 @@ export class SignupComponent {
   language = inject(LanguageService);
   http = inject(HttpClient);
   data = inject(DataService);
+  navigation = inject(NavigationService);
+  loading = inject(LoadingService);
 
   toggleIsChecked() {
     this.isChecked = !this.isChecked;
@@ -42,16 +44,17 @@ export class SignupComponent {
     this.isAlreadyExistingUser = false;
     this.signupAttemptMade = true;
 
-    // if(await this.checkIfUserAlreadyExists(email)) {
-    //   this.isAlreadyExistingUser = true;
-    //   return;
-    // };
+    if(await this.checkIfUserAlreadyExists(email)) {
+      this.isAlreadyExistingUser = true;
+      return;
+    }
 
     this.isSignupSuccessful = this.testInputs(name, email, password, repeatedPassword);
     const hashedPassword = await this.utils.sha256(password);
     const verificationCode = this.utils.createVerificationCode();
 
     if(!this.isSignupSuccessful) return;
+    this.loading.loadingAnimation(1000);
 
     const unverifiedUser = await User.create({
       name, 
@@ -61,18 +64,18 @@ export class SignupComponent {
       verificationCode
     });
 
-    this.saveUnverifiedUserToLocalStorage(unverifiedUser);
-
-    this.sendMail(name, email, verificationCode);
-
-    setTimeout(() => {
-      this.router.navigateByUrl('/verification');
-    }, 3000);
+    this.sendMail(name, email, verificationCode, unverifiedUser.id);
+    this.navigation.setNavigation('/verification', 3000);
   }
 
   async checkIfUserAlreadyExists(email: string): Promise<boolean> {
-    const user = await User.getUserWithEmail(email);
-    return user ? true : false;
+    try {
+      const user = await User.getUserWithEmail(email);
+      return user ? true : false; 
+    } catch (error) {
+      console.error('No user found!', error);
+      return false;
+    }
   }
 
   testInputs(name: string, email: string, password: string, repeatedPassword: string): boolean {
@@ -83,22 +86,14 @@ export class SignupComponent {
     this.isChecked;
   }
 
-  saveUnverifiedUserToLocalStorage(userData: typeUser): void {
-    const unverifiedUser = {
-      id: userData.id
-    }
-    
-    localStorage.setItem('unverifiedUser', JSON.stringify(unverifiedUser));
-  }
-
-  sendMail(name: string, email: string, verificationCode: string): void {
+  sendMail(name: string, email: string, verificationCode: string, userId: string): void {
     const lang = this.getCurrentLang();
 
     this.http.post('/api/send-mail', {
       to: email,
       name: name,
       email: email,
-      url: `https://expensetracker.lukasbusch.dev/verification#${verificationCode}`,
+      url: `https://expensetracker.lukasbusch.dev/verification?verificationCode=${verificationCode}&userId=${userId}`,
       verificationCode: verificationCode,
       lang: lang
     }).subscribe(response => {
