@@ -44,7 +44,6 @@ export class DataService {
   constructor(private dialog: DialogService) { }
 
   public async init(): Promise<void> {
-    // this.getSelectedBudgetFromLocalStorage();
     await this.getData();
   }
 
@@ -78,9 +77,7 @@ export class DataService {
       if(!budgets.length) return;
 
       this.budgetsSubject.next(budgets);
-      console.log(this.selectedBudget)
-      this.selectedBudget = this.getSelectedBudgetIdFromLocalStorage() !== '' ? (budgets.find(budget => budget.id === this.getSelectedBudgetIdFromLocalStorage()) || null) : budgets[0];
-      console.log(this.selectedBudget)
+      this.selectedBudget = this.budgetsArray[0];
       
       await this.getCategories();
       await this.getExpenses();
@@ -132,17 +129,6 @@ export class DataService {
 
     this.getCategories();
     this.getExpenses();
-    this.saveSelectedBudgetIdToLocalStorage(this.selectedBudget.id);
-  }
-
-  private saveSelectedBudgetIdToLocalStorage(budgetId: string): void {
-    localStorage.setItem('selectedBudget', budgetId);
-  }
-
-  private getSelectedBudgetIdFromLocalStorage(): string {
-    const budgetId = localStorage.getItem('selectedBudget');
-    if(!budgetId) return '';
-    return budgetId
   }
 
   public logout(): void {

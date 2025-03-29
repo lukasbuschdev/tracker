@@ -16,3 +16,9 @@
 .input-error-container {
     max-width: 250px;
 }
+
+@media (pointer: coarse) {
+    .link:hover {
+        filter: none !important;
+    }
+}

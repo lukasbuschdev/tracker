@@ -648,3 +648,24 @@ input[type="number"] {
       justify-content: center;
   }
 }
+
+@media (pointer: coarse) {
+  *:hover {
+    transition: none !important;
+  }
+
+  .btn-primary:hover,
+  .btn-secondary:hover,
+  .dropdown-btn:hover,
+  a:hover {
+    background-color: inherit !important;
+    color: inherit !important;
+    filter: none !important;
+    text-decoration: none !important;
+  }
+
+  .dropdown-menu li:hover,
+  .content-container .links span:hover {
+    filter: none !important;
+  }
+}

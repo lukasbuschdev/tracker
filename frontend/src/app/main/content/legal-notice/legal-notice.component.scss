@@ -71,3 +71,13 @@ a {
         max-height: 400px;
     }
 }
+
+@media (pointer: coarse) {
+    a:hover,
+    #back:hover {
+        filter: none !important;
+        transition: none !important;
+        cursor: default !important;
+    }
+  }
+  
