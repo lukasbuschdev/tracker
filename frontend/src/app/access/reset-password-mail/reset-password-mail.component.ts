@@ -19,6 +19,7 @@ export class ResetPasswordMailComponent {
   emailRegex: RegExp = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
   resetMailSent: boolean = false;
   isInvalidEmail: boolean = false;
+  isNotExisting: boolean = false;
 
   @ViewChild('email') email!: ElementRef<HTMLInputElement>; 
 
@@ -44,15 +45,15 @@ export class ResetPasswordMailComponent {
     this.navigation.setNavigation('/reset-password', 3000);
   }
 
-  async getUser(email: string): Promise<User | undefined> {
-    const user = await User.getUserWithEmail(email);
-
-    if(!user) {
-      this.isInvalidEmail = true;
-      return undefined;
-    };
-
-    return user;
+  async getUser(email: string): Promise<User | void> {
+    try {
+      const user = await User.getUserWithEmail(email);
+      this.isNotExisting = false;
+      return user;
+    } catch (error) {
+      this.isNotExisting = true;
+      console.error('Email does not exist!', error); 
+    }
   }
 
   sendMail(name: string, email: string, verificationCode: string, userId: string): void {

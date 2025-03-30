@@ -1,6 +1,9 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import en from '../../../public/languages/en.json';
+import de from '../../../public/languages/de.json';
+import es from '../../../public/languages/es.json';
+import fr from '../../../public/languages/fr.json';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +15,7 @@ export class LanguageService {
   public isDropdownOpened: boolean = false;
   public selectableLanguages: string[] = ['English', 'Español', 'Deutsch', 'Français'];
 
-  constructor(private http: HttpClient) {
+  constructor() {
     const savedLang = localStorage.getItem('selectedLang') || 'en';
     this.currentLang.next(savedLang);
     this.loadLanguage(savedLang);
@@ -21,35 +24,30 @@ export class LanguageService {
   public get currentLanguage(): string {
     return this.currentLang.value;
   }
-  /**
-   * Returns an observable of the current language.
-   */
+
   getCurrentLanguage(): Observable<string> {
     return this.currentLang.asObservable();
   }
 
-  /**
-   * Changes the current language, saves it to localStorage, and loads the JSON file.
-   */
   changeLanguage(lang: string): void {
     this.currentLang.next(lang);
     localStorage.setItem('selectedLang', lang);
     this.loadLanguage(lang);
   }
 
-  /**
-   * Loads the language JSON file from languages/ folder.
-   */
   private loadLanguage(lang: string): void {
-    this.http.get(`languages/${lang}.json`).subscribe({
-      next: translations => {
-        this.translations = translations;
-        this.setLanguageString(lang);
-      },
-      error: err => {
-        console.error(`Could not load ${lang} language file`, err);
-      }
-    });
+    if(lang === 'en') {
+      this.translations = en;
+    } else if(lang === 'es') {
+      this.translations = es;
+    } else if(lang === 'de') {
+      this.translations = de;
+    } else if(lang === 'fr') {
+      this.translations = fr;
+    } else {
+      this.translations = en;
+    }
+    this.setLanguageString(lang);
   }
 
   private setLanguageString(lang: string): void {
@@ -64,10 +62,6 @@ export class LanguageService {
     }
   }
 
-  /**
-   * Retrieves the translated value for a given key.
-   * Returns the key itself if not found.
-   */
   getTranslation(key: string): string {
     return this.translations[key] || key;
   }

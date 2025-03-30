@@ -109,23 +109,3 @@
         width: 100%;
     }
 }
-
-@media (pointer: coarse) {
-    .table .header img:hover {
-        filter: none !important;
-    }
-    
-    .filter:hover img {
-        filter: none !important;
-        transition: none !important;
-    }
-    
-    .filter-container .input-container .img-container:hover {
-        background-color: transparent !important;
-        transition: none !important;
-    }
-    
-    .single-expense:hover {
-        background-color: inherit !important;
-    }
-  }

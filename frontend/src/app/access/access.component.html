@@ -1,10 +1,13 @@
-<section (click)="language.closeLanguages()" class="access-container">
+<section (click)="language.closeLanguages()" class="access-container" [ngClass]="{ 'dark-mode': theme.isDarkmode }">
     <div class="header row between">
         <div class="center">
             <img class="logo" src="img/logo.svg">
         </div>
-        <div class="row gap-20 align-center btn-container">
-            <div class="align-center data-row">
+        <div class="row gap-15 align-center btn-container">
+            <div class="btn-secondary center theme-btn" (click)="theme.toggleThemeMode()">
+                <img [src]="theme.isDarkmode ? 'img/lightmode-red.svg' : 'img/darkmode-red.svg'">
+            </div>
+            <div class="align-center data-row gap-15">
                 <div class="dropdown" [class.active]="language.isDropdownOpened">
                     <div (click)="language.toggleLanguages($event)" class="dropdown-btn data">{{ language.selectedLanguage }}</div>
                     <ul class="dropdown-menu frequency">
@@ -16,7 +19,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="row gap-20 align-center">
+            <div class="row gap-15 align-center">
                 <div class="btn-primary" [routerLink]="router.url === '/login' ? '/signup' : '/login'">
                     <span>{{ (router.url === '/login' ? 'signup' : 'login') | translate }}</span>
                 </div>
@@ -27,7 +30,7 @@
         </div>
     </div>
 
-    <div class="align-center data-row mobile-language w-100 right">
+    <div class="align-center data-row mobile-language w-100 right gap-15">
         <div class="dropdown" [class.active]="language.isDropdownOpened">
             <div (click)="language.toggleLanguages($event)" class="dropdown-btn data">{{ language.selectedLanguage }}</div>
             <ul class="dropdown-menu frequency">

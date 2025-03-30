@@ -8,6 +8,7 @@ import { LanguageService } from '../../services/language.service';
 import { DataService } from '../../services/data.service';
 import { NavigationService } from '../../services/navigation.service';
 import { LoadingService } from '../../services/loading.service';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-signup',
@@ -35,6 +36,7 @@ export class SignupComponent {
   data = inject(DataService);
   navigation = inject(NavigationService);
   loading = inject(LoadingService);
+  theme = inject(ThemeService);
 
   toggleIsChecked() {
     this.isChecked = !this.isChecked;

@@ -42,6 +42,7 @@
     "guest": "Guest",
     "reset-password": "Reset password",
     "email-invalid": "Invalid email",
+    "email-not-found": "Email not existing!",
     "reset-password-mail-sent": "An email to reset your password has been sent.",
     "signup": "Signup",
     "enter-name": "Enter a name!",

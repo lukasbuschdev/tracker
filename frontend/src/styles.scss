@@ -278,6 +278,20 @@ input[type="number"] {
   }
 }
 
+.theme-btn {
+  padding: 5px 10px;
+
+  img {
+      height: 30px;
+      width: 20px;
+      object-fit: contain;
+  
+      &:hover {
+          cursor: pointer;
+      }
+  }
+}
+
 .isInactive {
   display: none;
 }
@@ -663,27 +677,6 @@ input[type="number"] {
   }
 }
 
-@media (pointer: coarse) {
-  *:hover {
-    transition: none !important;
-  }
-
-  .btn-primary:hover,
-  .btn-secondary:hover,
-  .dropdown-btn:hover,
-  a:hover {
-    background-color: inherit !important;
-    color: inherit !important;
-    filter: none !important;
-    text-decoration: none !important;
-  }
-
-  .dropdown-menu li:hover,
-  .content-container .links span:hover {
-    filter: none !important;
-  }
-}
-
 
 
 // DARK MODE SECTION
@@ -700,8 +693,12 @@ input[type="number"] {
   color: $white;
 }
 
+.access-container.dark-mode {
+  background-color: $darkmode;
+}
+
 .dark-mode {
-  h1, h2, h3, h4, li {
+  h1, h2, h3, h4, li, a {
     color: $wine-light !important;
   }
 
@@ -790,9 +787,14 @@ input[type="number"] {
   .card {
     background-color: $darkmode;
     color: $white;
+    box-shadow: 5px 5px 10px $box-shadow-dark;
 
     label {
       color: $white;
+    }
+    
+    .links span {
+      color: $wine-light;
     }
   }
 
@@ -810,5 +812,13 @@ input[type="number"] {
     &::after {
       background-color: $darkmode;
     }
+  }
+
+  .content-container, .header {
+    background-color: $darkmode;
+  }
+
+  .link {
+    color: $wine-light !important;
   }
 }

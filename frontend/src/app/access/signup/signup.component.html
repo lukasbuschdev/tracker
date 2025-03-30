@@ -55,7 +55,11 @@
                         
                         <div class="column gap-10 center input-error-container">
                             <div class="row gap-10 align-center">
-                                <img class="checkbox" [src]="isChecked ? 'img/checkbox-checked.svg' : 'img/checkbox-unchecked.svg'" (click)="toggleIsChecked()">
+                                @if(!theme.isDarkmode) {
+                                    <img class="checkbox" [src]="isChecked ? 'img/checkbox-checked.svg' : 'img/checkbox-unchecked.svg'" (click)="toggleIsChecked()">
+                                } @else {
+                                    <img class="checkbox" [src]="isChecked ? 'img/checkbox-checked-white.svg' : 'img/checkbox-unchecked-white.svg'" (click)="toggleIsChecked()">
+                                }
                                 <span>{{ 'accept' | translate }} <span class="link" routerLink="access-privacy-policy">{{ 'privacy-policy-lowercase' | translate }}</span></span>
                             </div>
                             @if(signupAttemptMade && !isChecked) {

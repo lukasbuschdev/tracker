@@ -42,6 +42,7 @@
     "guest": "Invité",
     "reset-password": "Réinitialiser le mot de passe",
     "email-invalid": "E-mail invalide",
+    "email-not-found": "L'email n'existe pas!",
     "reset-password-mail-sent": "Un e-mail pour réinitialiser votre mot de passe a été envoyé.",
     "signup": "S'inscrire",
     "enter-name": "Veuillez entrer un nom !",

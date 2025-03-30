@@ -8,20 +8,6 @@
     font-weight: 600;
 }
 
-.theme-btn {
-    padding: 5px 10px;
-
-    img {
-        height: 30px;
-        width: 20px;
-        object-fit: contain;
-    
-        &:hover {
-            cursor: pointer;
-        }
-    }
-}
-
 .btn-container {
     width: 100%;
 }
@@ -38,11 +24,5 @@
     
     &:hover {
         cursor: pointer;
-    }
-}
-
-@media (pointer: coarse) {
-    .edit:hover {
-        cursor: default !important;
     }
 }

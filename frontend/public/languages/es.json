@@ -42,6 +42,7 @@
     "guest": "Invitado",
     "reset-password": "Restablecer contraseña",
     "email-invalid": "Correo inválido",
+    "email-not-found": "¡El correo electrónico no existe!",
     "reset-password-mail-sent": "Se ha enviado un correo para restablecer tu contraseña.",
     "signup": "Registrarse",
     "enter-name": "¡Ingresa un nombre!",

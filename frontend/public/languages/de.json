@@ -42,6 +42,7 @@
     "guest": "Gast",
     "reset-password": "Passwort zurücksetzen",
     "email-invalid": "Ungültige E-Mail",
+    "email-not-found": "E-Mail existiert nicht!",
     "reset-password-mail-sent": "Eine E-Mail zum Zurücksetzen deines Passworts wurde gesendet.",
     "signup": "Registrieren",
     "enter-name": "Bitte gib einen Namen ein!",

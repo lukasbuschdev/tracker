@@ -51,11 +51,3 @@ header {
         }
     }
 }
-
-@media (pointer: coarse) {
-    header div.align-center img:hover,
-    header .help:hover {
-        filter: none !important;
-        cursor: default !important;
-    }
-  }

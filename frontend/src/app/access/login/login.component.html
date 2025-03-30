@@ -16,7 +16,11 @@
                         <input type="password" [(ngModel)]="password" [placeholder]="'placeholder-password' | translate">
                         
                         <div class="row gap-10 align-center">
-                            <img class="checkbox" [src]="isChecked ? 'img/checkbox-checked.svg' : 'img/checkbox-unchecked.svg'" (click)="toggleIsChecked()">
+                            @if(!theme.isDarkmode) {
+                                <img class="checkbox" [src]="isChecked ? 'img/checkbox-checked.svg' : 'img/checkbox-unchecked.svg'" (click)="toggleIsChecked()">
+                            } @else {
+                                <img class="checkbox" [src]="isChecked ? 'img/checkbox-checked-white.svg' : 'img/checkbox-unchecked-white.svg'" (click)="toggleIsChecked()">
+                            }
                             <span>{{ 'remember-me' | translate }}</span>
                         </div>
                     </div>

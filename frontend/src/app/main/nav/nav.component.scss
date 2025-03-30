@@ -91,15 +91,3 @@ nav {
         }
     }
 }
-
-@media (pointer: coarse) {
-    nav .nav-row:hover {
-        background-color: inherit !important;
-        cursor: default !important;
-    }
-    
-    nav .legal-privacy-container div span:hover {
-        filter: none !important;
-        cursor: default !important;
-    }
-  }
