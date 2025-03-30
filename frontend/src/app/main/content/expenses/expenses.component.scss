@@ -146,6 +146,17 @@
     }
 }
 
+@media(max-width: 500px) {
+    .filter {
+        padding: 10px;
+
+        img {
+            height: 15px !important;
+            width: 15px !important;
+        }
+    }
+}
+
 @media(max-width: 400px) {
     .input-container {
         width: 100%;
