@@ -55,9 +55,9 @@
                         <div class="row gap-10 align-center">
                             <div class="number txt-green">+ {{ utils.formatNumber(category.amount) }}</div>
                             @if(activeCategoryId === category.id) {
-                                <img class="arrow" [src]="theme.isDarkmode ? 'img/arrow-down-white.svg' : 'img/arrow-down.svg'">
-                            } @else {
                                 <img class="arrow" [src]="theme.isDarkmode ? 'img/arrow-up-white.svg' : 'img/arrow-up.svg'">
+                            } @else {
+                                <img class="arrow" [src]="theme.isDarkmode ? 'img/arrow-down-white.svg' : 'img/arrow-down.svg'">
                             }
                         </div>
                     </div>
