@@ -1,4 +1,4 @@
-<div class="section-container column gap-30 fade-in-up" (click)="closeBudgtes()" [ngClass]="{ 'dark-mode': theme.isDarkmode }">
+<div class="section-container column gap-30 fade-in-up" (click)="closeBudgtes(); closeCategories(); closeMonths();" [ngClass]="{ 'dark-mode': theme.isDarkmode }">
     <div class="heading-container between align-center">
         <h1>{{'expenses' | translate }}</h1>
         
@@ -10,7 +10,7 @@
         }
     </div>
 
-    <div class="content-container column gap-25">
+    <div class="content-container column gap-15">
         @if(!data.budgetsArray.length) {
             <div class="center no-budgets-message-container center">
                 <h4>{{ 'create-budget-and-category-first' | translate }}</h4>
@@ -28,11 +28,11 @@
                 <div class="w-100 row between">
                     <div class="select-budget-container row gap-15 align-center">
                         <h4>{{'active-budget' | translate }}:</h4>
-                        <div class="dropdown" [class.active]="isDropdownOpened">
+                        <div class="dropdown" [class.active]="isBudgetsDropdownOpened">
                             <div (click)="toggleBudgets($event)" class="dropdown-btn data">{{ data.selectedBudget.name }}</div>
                             <ul class="dropdown-menu frequency">
                                 @for(budget of data.budgetsArray; track $index) {
-                                    <li (click)="data.selectBudget(budget); toggleBudgets($event)">
+                                    <li (click)="selectBudget(budget); toggleBudgets($event)">
                                         <span>{{ budget.name }}</span>
                                     </li>
                                 }
@@ -46,8 +46,8 @@
                     </div>
                 </div>
 
-                @if(isFilterVisible) {
-                    <div class="filter-container">
+                <div class="row between filter-container align-center gap-15" [class.isVisible]="isFilterVisible">
+                    <div class="filter-content row gap-15 align-center">
                         <div class="input-container">
                             <input type="text" [(ngModel)]="filterInputValue" [placeholder]="'search' | translate" (keyup)="getInput($event)">
                             @if(filterInputValue.length) {
@@ -57,7 +57,36 @@
                             }
                         </div>
                     </div>
-                }
+                    <div class="row between w-100 align-center">
+                        <div class="row gap-15">
+                            <div class="dropdown" [class.active]="isMonthsDropdownOpened">
+                                <div (click)="toggleMonths($event)" class="dropdown-btn data">{{ selectedMonth !== '' ? selectedMonth : 'month' | translate }}</div>
+                                <ul class="dropdown-menu frequency">
+                                    @for(month of months; track $index) {
+                                        <li (click)="selectMonth(month); toggleMonths($event)">
+                                            <span>{{ month }}</span>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                            <div class="dropdown" [class.active]="isCategoriesDropdownOpened">
+                                <div (click)="toggleCategories($event)" class="dropdown-btn data">{{ selectedCategory !== '' ? selectedCategory : 'category' | translate }}</div>
+                                <ul class="dropdown-menu frequency">
+                                    @for(category of data.categoriesArray; track $index) {
+                                        <li (click)="selectCategory(category.name); toggleCategories($event)">
+                                            <span>{{ category.name }}</span>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                        @if(isFilterActive) {
+                            <div class="btn-primary center reset-filter" (click)="resetFilter()">
+                                <img [src]="theme.isDarkmode ? 'img/delete-pink.svg' : 'img/delete-white.svg'" alt="Reset">
+                            </div>
+                        }
+                    </div>
+                </div>
     
                 <div class="row start">
                     <div class="row gap-15 align-center">
@@ -99,7 +128,15 @@
     
                                 <div class="expense-date-container row between">
                                     <span>{{ 'expense-created' | translate }}</span>
-                                    <span>{{ expense.created | date:'short' }}</span>
+                                    @if(language.currentLanguage === 'en') {
+                                        <span>{{ expense.created | date:'M/d/yy, h:mm a' }}</span>
+                                    } @else if(language.currentLanguage === 'de') {
+                                        <span>{{ expense.created | date:'dd.MM.yyyy, HH:mm' }}</span>
+                                    } @else if(language.currentLanguage === 'es') {
+                                        <span>{{ expense.created | date:'dd/MM/yyyy, h:mm a' }}</span>
+                                    } @else {
+                                        <span>{{ expense.created | date:'dd/MM/yyyy, HH:mm' }}</span>
+                                    }
                                 </div>
                             </div>
                         

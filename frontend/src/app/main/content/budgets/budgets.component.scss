@@ -9,7 +9,7 @@
     
     .information {
         height: 0;
-        transition: all 125ms ease-in-out;
+        transition: $transition-medium;
         margin-top: 0;
         overflow: hidden;
     }
@@ -21,7 +21,7 @@
     .information {
         height: 55px;
         margin-top: 15px;
-        transition: all 125ms ease-in-out;
+        transition: $transition-medium;
     }
 
     .name {

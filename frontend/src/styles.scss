@@ -26,7 +26,7 @@
 }
 
 *:hover {
-  transition: all 125ms ease-in-out;
+  transition: $transition-medium;
 }
 
 html,
@@ -389,6 +389,8 @@ input[type="number"] {
 }
 
 .dropdown-menu li {
+  display: flex;
+  justify-content: center;
   padding: 5px 15px;
 }
 
@@ -781,6 +783,11 @@ input[type="number"] {
   .single-expense {
     &:hover {
       background-color: $darkmode-hover !important;
+      
+      .header {
+        background-color: $darkmode-hover !important;
+        transition: $transition-medium;
+      }
     }
   }
 
@@ -820,5 +827,9 @@ input[type="number"] {
 
   .link {
     color: $wine-light !important;
+  }
+
+  .reset-filter img {
+    filter: $icon-white;
   }
 }

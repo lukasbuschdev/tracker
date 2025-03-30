@@ -20,7 +20,7 @@ a {
     &:hover {
         cursor: pointer;
         filter: brightness(1.6);
-        transition: all 125ms ease-in-out;
+        transition: $transition-medium;
     }
 }
 
@@ -32,7 +32,7 @@ a {
 
     &:hover {
         filter: brightness(1.6);
-        transition: all 125ms ease-in-out;
+        transition: $transition-medium;
     }
 }
 
