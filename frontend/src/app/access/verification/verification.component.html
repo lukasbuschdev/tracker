@@ -21,7 +21,7 @@
 
         <div class="button-container row gap-10" [class.no-min-height]="isVerified">
             @if(!isVerified) {
-                <div class="btn-primary" (click)="checkVerification(code.nativeElement.value)">
+                <div role="button" tabindex="0" class="btn-primary" (click)="checkVerification(code.nativeElement.value)">
                     <span>{{ 'verify' | translate }}</span>
                 </div>
             }

@@ -40,13 +40,13 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   testInputs(code: string, password: string, repeatedPassword: string, verificationCode: string): boolean {
-    if(code !== verificationCode) {
+    if(code.trim() !== verificationCode.trim()) {
       this.isVaildVerificationCode = false;
     }
     
-    return code === verificationCode && 
+    return code.trim() === verificationCode.trim() && 
     this.passwordRegex.test(password) &&
-    repeatedPassword === password
+    repeatedPassword === password;
   }
 
   setVerificationSuccessful(): void {

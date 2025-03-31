@@ -96,7 +96,7 @@
     
                         <div class="row between align-center w-100">
                             <span>{{ 'password' | translate }}:</span>
-                            <div class="btn-secondary">
+                            <div role="button" tabindex="0" class="btn-secondary">
                                 <span (click)="logoutAndResetPassword()">{{ 'change' | translate }}</span>
                             </div>
                         </div>
@@ -105,10 +105,10 @@
             </div>
             
             <div class="button-container row right gap-10">
-                <div class="btn-secondary" (click)="closeDialog()">{{ 'cancel' | translate }}</div>
-                <div class="btn-secondary d-none" [class.active]="dialog.addOrEdit === 'Edit' && dialog.type !== 'settings'" (click)="deleteCategory()">{{ 'delete' | translate}}</div>
-                <div class="btn-primary d-none" [class.active]="dialog.type !== 'settings'" (click)="getData(inputName.nativeElement.value, amount.nativeElement.value)">{{ dialog.addOrEdit | translate }}</div>
-                <div class="btn-primary d-none" [class.active]="dialog.type == 'settings'"  (click)="getSettingsData(inputName.nativeElement.value)">{{ 'edit' | translate }}</div>
+                <div role="button" tabindex="0" class="btn-secondary" (click)="closeDialog()">{{ 'cancel' | translate }}</div>
+                <div role="button" tabindex="0" class="btn-secondary d-none" [class.active]="dialog.addOrEdit === 'Edit' && dialog.type !== 'settings'" (click)="deleteCategory()">{{ 'delete' | translate}}</div>
+                <div role="button" tabindex="0" class="btn-primary d-none" [class.active]="dialog.type !== 'settings'" (click)="getData(inputName.nativeElement.value, amount.nativeElement.value)">{{ dialog.addOrEdit | translate }}</div>
+                <div role="button" tabindex="0" class="btn-primary d-none" [class.active]="dialog.type == 'settings'"  (click)="getSettingsData(inputName.nativeElement.value)">{{ 'edit' | translate }}</div>
             </div>
         </div>
     </div>

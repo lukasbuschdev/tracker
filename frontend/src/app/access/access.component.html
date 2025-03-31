@@ -4,7 +4,7 @@
             <img class="logo" src="img/logo.svg">
         </div>
         <div class="row gap-15 align-center btn-container">
-            <div class="btn-secondary center theme-btn" (click)="theme.toggleThemeMode()">
+            <div role="button" tabindex="0" class="btn-secondary center theme-btn" (click)="theme.toggleThemeMode()">
                 <img [src]="theme.isDarkmode ? 'img/lightmode-red.svg' : 'img/darkmode-red.svg'">
             </div>
             <div class="align-center data-row gap-15">
@@ -20,10 +20,10 @@
                 </div>
             </div>
             <div class="row gap-15 align-center">
-                <div class="btn-primary" [routerLink]="router.url === '/login' ? '/signup' : '/login'">
+                <div role="button" tabindex="0" class="btn-primary" [routerLink]="router.url === '/login' ? '/signup' : '/login'">
                     <span>{{ (router.url === '/login' ? 'signup' : 'login') | translate }}</span>
                 </div>
-                <div class="center help btn-primary" routerLink="/access-help">
+                <div role="button" tabindex="0" class="center help btn-primary" routerLink="/access-help">
                     <span>?</span>
                 </div>
             </div>

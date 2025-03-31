@@ -45,10 +45,10 @@
                 </div>
         
                 <div class="button-container row gap-10">
-                    <div class="btn-primary" (click)="checkLogin(emailOrName, password)">
+                    <div role="button" tabindex="0" class="btn-primary" (click)="checkLogin(emailOrName, password)">
                         <span>{{ 'login' | translate }}</span>
                     </div>
-                    <div class="btn-secondary" (click)="checkLogin('Guest', 'Guest123!')">
+                    <div role="button" tabindex="0" class="btn-secondary" (click)="checkLogin('Guest', 'Guest123!')">
                         <span>{{ 'guest' | translate }}</span>
                     </div>
                 </div>

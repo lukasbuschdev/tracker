@@ -2,7 +2,7 @@
     <div class="column gap-50">
         <div class="heading-container between align-center">
             <h1>{{ 'settings' | translate  }}</h1>
-            <div class="row gap-10 btn-primary" (click)="openDialog('edit-settings')">
+            <div role="button" tabindex="0" class="row gap-10 btn-primary" (click)="openDialog('edit-settings')">
                 <img class="edit" src="img/edit.svg">
                 <span>{{ 'edit' | translate }}</span>
             </div>
@@ -37,7 +37,7 @@
                 </div>
                 <div class="row between align-center data-row">
                     <span>{{ 'darkmode' | translate }}:</span>
-                    <div class="btn-primary center theme-btn" (click)="theme.toggleThemeMode()">
+                    <div role="button" tabindex="0" class="btn-primary center theme-btn" (click)="theme.toggleThemeMode()">
                         <img [src]="theme.isDarkmode ? 'img/lightmode.svg' : 'img/darkmode.svg'">
                     </div>
                 </div>
@@ -46,7 +46,7 @@
     </div>
 
     <div class="right btn-container">
-        <div class="btn-primary" (click)="deleteAccount('account')">
+        <div role="button" tabindex="0" class="btn-primary" (click)="deleteAccount('account')">
             <span class="delete-account">{{ 'delete-account' | translate }}</span>
         </div>
     </div>

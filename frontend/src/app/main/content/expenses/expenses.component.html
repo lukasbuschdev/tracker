@@ -3,7 +3,7 @@
         <h1>{{'expenses' | translate }}</h1>
         
         @if(data.categoriesArray.length) {
-            <div class="btn-primary row gap-10" (click)="openDialog('add-expense')">
+            <div role="button" tabindex="0" class="btn-primary row gap-10" (click)="openDialog('add-expense')">
                 <span>+</span>
                 <span>{{ 'add' | translate }}</span>
             </div>
@@ -40,7 +40,7 @@
                         </div>
                     </div>
 
-                    <div class="btn-secondary filter row gap-10 align-center" (click)="toggleFilter()">
+                    <div role="button" tabindex="0" class="btn-secondary filter row gap-10 align-center" (click)="toggleFilter()">
                         <img src="img/filter.svg">
                         <span>{{ 'filter' | translate }}</span>
                     </div>
@@ -81,7 +81,7 @@
                             </div>
                         </div>
                         @if(isFilterActive) {
-                            <div class="btn-primary center reset-filter" (click)="resetFilter()">
+                            <div role="button" tabindex="0" class="btn-primary center reset-filter" (click)="resetFilter()">
                                 <img [src]="theme.isDarkmode ? 'img/delete-pink.svg' : 'img/delete-white.svg'" alt="Reset">
                             </div>
                         }
