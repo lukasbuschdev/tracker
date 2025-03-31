@@ -15,7 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 export class ResetPasswordComponent implements OnInit {
   isResetSuccessful: boolean = false;
   resetAttemptMade: boolean = false;
-  isVaildVerificationCode: boolean = true;
+  isVaildVerificationCode: boolean = false;
   passwordRegex: RegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.,!?&§@+\-\/\\]).+$/;
   verificationCode: string = '';
   userId: string = '';
@@ -31,22 +31,20 @@ export class ResetPasswordComponent implements OnInit {
 
   async checkReset(code: string, password: string, repeatedPassword: string): Promise<void> {
     this.resetAttemptMade = true;
-    const user = await User.get(this.userId);
-    if(!user) return;
+    // this.isVaildVerificationCode = true;
 
-    this.isResetSuccessful = this.testInputs(code, password, repeatedPassword, user.verificationCode);
+    const user = await User.get(this.userId);
+
+    if(!user) return;
+    if(!this.testVerificationCode(code, this.verificationCode)) return;
+
+    this.isResetSuccessful = this.testInputs(password, repeatedPassword);
     this.updateUser(user.id, password);
     this.navigation.setNavigation('/login', 3000);
   }
 
-  testInputs(code: string, password: string, repeatedPassword: string, verificationCode: string): boolean {
-    if(code.trim() !== verificationCode.trim()) {
-      this.isVaildVerificationCode = false;
-    }
-    
-    return code.trim() === verificationCode.trim() && 
-    this.passwordRegex.test(password) &&
-    repeatedPassword === password;
+  testInputs(password: string, repeatedPassword: string): boolean {
+    return this.passwordRegex.test(password) && repeatedPassword === password;
   }
 
   setVerificationSuccessful(): void {
@@ -61,5 +59,15 @@ export class ResetPasswordComponent implements OnInit {
     }
 
     await User.patch(userId, updateData);
+  }
+
+  testVerificationCode(code: string, verificationCode: string): boolean {
+    if(code.trim() === verificationCode.trim()) {
+      this.isVaildVerificationCode = true;
+      return true;
+    }
+
+    this.isVaildVerificationCode = false;
+    return false;
   }
 }
