@@ -5,7 +5,8 @@ export type typeBudget = {
     userId: string,
     amount: number,
     used: number,
-    recreate: boolean
+    recreate: boolean,
+    isArchived: boolean
 }
 
 export type typeCategory = {
@@ -14,7 +15,8 @@ export type typeCategory = {
     amount: number,
     used: number,
     recreate: boolean,
-    budgetId: string
+    budgetId: string,
+    isArchived: boolean
 }
 
 export type typeExpense = {
@@ -24,7 +26,8 @@ export type typeExpense = {
     amount: number,
     created: Date,
     recreate: boolean,
-    budgetId: string
+    budgetId: string,
+    isArchived: boolean
 }
 
 export type typeUser = {

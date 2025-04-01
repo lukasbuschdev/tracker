@@ -10,6 +10,7 @@ export class Expense {
     created: Date;
     recreate: boolean;
     budgetId: string;
+    isArchived: boolean;
 
     static http: HttpClient
 
@@ -21,6 +22,7 @@ export class Expense {
         this.created = new Date(data.created);
         this.recreate = data.recreate;
         this.budgetId = data.budgetId;
+        this.isArchived = data.isArchived;
     }
 
     public static async create(data: UploadData<typeExpense>) {

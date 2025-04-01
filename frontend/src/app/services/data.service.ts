@@ -16,11 +16,13 @@ export class DataService {
   public currentUserId: string = '';
   public currentUser: User | null = null;
   public isLoggedIn: boolean = false;
-  private isRecreated: boolean = false;
 
   private budgetsSubject = new BehaviorSubject<Budget[]>([]);
   private categoriesSubject = new BehaviorSubject<Category[]>([]);
   private expensesSubject = new BehaviorSubject<Expense[]>([]);
+  private archivedBudgetsSubject = new BehaviorSubject<Budget[]>([]);
+  private archivedCategoriesSubject = new BehaviorSubject<Category[]>([]);
+  private archivedExpensesSubject = new BehaviorSubject<Expense[]>([]);
 
   public get budgetsArray() {
     return this.budgetsSubject.value;
@@ -32,6 +34,18 @@ export class DataService {
 
   public get expensesArray() {
     return this.expensesSubject.value;
+  }
+
+  public get archivedBudgetsArray() {
+    return this.archivedBudgetsSubject.value;
+  }
+
+  public get archivedCategoriesArray() {
+    return this.archivedBudgetsSubject.value;
+  }
+
+  public get archivedExpensesArray() {
+    return this.archivedBudgetsSubject.value;
   }
 
   filteredExpenses: Expense[] = [];
@@ -82,6 +96,7 @@ export class DataService {
       await this.getBudgets();
       await this.getCategories();
       await this.getExpenses();
+      await this.getArchivedBudgets();
       this.calculateCurrentAvailable();
     } catch (error) {
       console.error(error);
@@ -89,7 +104,7 @@ export class DataService {
   }
 
   private async getBudgets(): Promise<void> {
-    const budgets = await Budget.get(this.currentUserId);
+    const budgets = (await Budget.get(this.currentUserId)).filter(budget => budget.isArchived === false);
     if(!budgets.length) return;
     
     this.budgetsSubject.next(budgets);
@@ -98,16 +113,39 @@ export class DataService {
 
   public async getCategories(): Promise<void> {
     if(!this.selectedBudget) return;
-    const categories = await Category.get(this.selectedBudget.id);
+    const categories = (await Category.get(this.selectedBudget.id)).filter(category => category.isArchived === false);
     this.categoriesSubject.next(categories);
   }
   
   public async getExpenses(): Promise<void> {
     if(!this.selectedBudget) return;
-    const expenses = await Expense.get(this.selectedBudget.id);
+    const expenses = (await Expense.get(this.selectedBudget.id)).filter(budget => budget.isArchived === false);
     const sortedExpenses = this.sortExpensesByDate(expenses);
     this.expensesSubject.next(sortedExpenses);
   }
+
+  private async getArchivedBudgets(): Promise<void> {
+    const budgets = (await Budget.get(this.currentUserId)).filter(budget => budget.isArchived === true);
+    if(!budgets.length) return;
+    
+    const budgetIds = budgets.map(budget => budget.id);
+    // const categories = await this.getArchivedCategories(budgetIds);
+    this.archivedBudgetsSubject.next(budgets);
+    // this.archivedCategoriesSubject.next(categories);
+
+    // console.log(budgets)
+    // console.log(categories)
+  }
+
+  // private async getArchivedCategories(budgetIds: string[]): Promise<Category[]> {
+  //   const categories = await Promise.all(
+  //     budgetIds.map(async (budgetId) => {
+  //       return (await Category.get(budgetId)).filter(category => category.isArchived === true);
+  //     })
+  //   );
+
+  //   return categories.flat();
+  // }
 
   public calculateCurrentAvailable(): number {
     if(!this.selectedBudget) return 0;
@@ -145,12 +183,13 @@ export class DataService {
     const currentMonth = `${today.getFullYear()}-${today.getMonth() + 1}`;
     const executedMonth = localStorage.getItem("monthlyRecreationCheckExecuted");
   
-    if(executedMonth !== currentMonth) {
-      this.checkRecreation();
-      localStorage.setItem("monthlyRecreationCheckExecuted", currentMonth);
-    } else {
-      console.log("Monthly recreation check already executed for", currentMonth);
-    }
+    // if(executedMonth !== currentMonth) {
+    //   this.checkRecreation();
+    //   localStorage.setItem("monthlyRecreationCheckExecuted", currentMonth);
+    // } else {
+    //   console.log("Monthly recreation check already executed for", currentMonth);
+    // }
+    this.checkRecreation();
   }
 
   private async checkRecreation(): Promise<void> {
@@ -168,12 +207,12 @@ export class DataService {
   private async recreateData(data: [Budget, Category[]][]): Promise<void> {
     const createdData = await Promise.all(
       data.map(async ([budget, categories]) => {
-        const newBudget = await this.getNewBudgets(budget);
-        const newCategories = await this.getNewCategories(newBudget.id, categories);
+        // const newBudget = await this.getNewBudgets(budget);
+        // const newCategories = await this.getNewCategories(newBudget.id, categories);
+        await this.moveBudgetsToArchive(budget);
+        await this.moveCategoriesToArchive(categories);
       })
     );
-
-    this.isRecreated = true;
 
     await this.getBudgets();
     await this.getCategories();
@@ -186,7 +225,8 @@ export class DataService {
         userId: this.currentUserId,
         amount: budget.amount,
         used: 0,
-        recreate: budget.recreate
+        recreate: budget.recreate,
+        isArchived: false
       });
     } catch (error) {
       console.error(error);
@@ -203,7 +243,33 @@ export class DataService {
             budgetId: newBudgetId,
             amount: category.amount,
             used: 0,
-            recreate: category.recreate
+            recreate: category.recreate,
+            isArchived: false
+          });
+      }));
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
+  private moveBudgetsToArchive(budget: Budget): Promise<Budget> {
+    try {
+      return Budget.patch(budget.id, {
+        isArchived: true
+      });
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
+  private moveCategoriesToArchive(categories: Category[]): Promise<Category[]> {
+    try {
+      return Promise.all(
+        categories.map(async (category) => {
+          return Category.patch(category.id, {
+            isArchived: false
           });
       }));
     } catch (error) {
@@ -252,7 +318,8 @@ export class DataService {
       userId: this.currentUserId,
       amount: dialogData.amount,
       used: 0,
-      recreate: dialogData.recreate
+      recreate: dialogData.recreate,
+      isArchived: false
     }
 
     const newBudget = await Budget.create(budget);
@@ -269,7 +336,8 @@ export class DataService {
       budgetId: this.selectedBudget.id,
       amount: dialogData.amount,
       used: 0,
-      recreate: dialogData.recreate
+      recreate: dialogData.recreate,
+      isArchived: false
     }
 
     const newCategory = await Category.create(category);
@@ -285,7 +353,8 @@ export class DataService {
       budgetId: this.selectedBudget.id,
       amount: dialogData.amount,
       category: this.selectedCategory,
-      recreate: false
+      recreate: false,
+      isArchived: false
     }
 
     const newExpense = await Expense.create(expense);

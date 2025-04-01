@@ -1,0 +1,64 @@
+<div class="section-container column gap-30 fade-in-up" (click)="closeBudget()" [ngClass]="{ 'dark-mode': theme.isDarkmode }">
+    <div class="heading-container between">
+        <h1>{{ 'archive' | translate }}</h1>
+
+        <div class="row align-center gap-10">
+            <!-- <div role="button" tabindex="0" class="btn-primary row gap-10 align-center" [class.isInactive]="activeBudgetId == ''" (click)="openDialog('edit-budget')">
+                <img src="img/edit.svg">
+                <span>{{ 'edit' | translate }}</span>
+            </div> -->
+        </div>
+    </div>
+
+    <div class="content-container column gap-20">
+        @if(!data.archivedBudgetsArray.length) {
+            <div class="center no-budgets-message-container center">
+                <h4>{{ 'no-budgets-yet' | translate }}</h4>
+            </div>
+        } @else {
+            @for(budget of data.archivedBudgetsArray; track budget.id) {
+                <div class="column between budget-container" (click)="toggleActiveBudget($event, budget.id)" [class.isActiveBudget]="activeBudgetId === budget.id">
+                    <div class="row between">
+                        <div class="name">{{ budget.name }}:</div>
+                        <div class="row gap-10 align-center">
+                            <div class="number txt-green">+ {{ utils.formatNumber(budget.amount) }}</div>
+                            @if(activeBudgetId === budget.id) {
+                                <img class="arrow" [src]="theme.isDarkmode ? 'img/arrow-up-white.svg' : 'img/arrow-up.svg'">
+                            } @else {
+                                <img class="arrow" [src]="theme.isDarkmode ? 'img/arrow-down-white.svg' : 'img/arrow-down.svg'">
+                            }
+                        </div>
+                    </div>
+                    
+                    <div class="column between gap-15 information">
+                        <div class="row between">
+                            <div>{{ 'used' | translate }}:</div>
+                            <div class="number txt-red">- {{ utils.formatNumber(budget.used) }}</div>
+                        </div>
+            
+                        <div class="row between">
+                            <div>{{ 'current-available' | translate }}:</div>
+                            <div class="number" [class]="(budget.amount - budget.used) > 0 ? 'txt-green' : 'txt-red'">
+                                {{ (budget.amount - budget.used) > 0 ? '+ ' : '- ' }}
+                                {{ utils.formatNumber(budget.amount - budget.used) }}
+                            </div>
+                        </div>
+
+                        <div class="budget-date-container row between">
+                            <span>{{ 'created' | translate }}:</span>
+                            @if(language.currentLanguage === 'en') {
+                                <span>{{ budget.created | date:'M/d/yy, h:mm a' }}</span>
+                            } @else if(language.currentLanguage === 'de') {
+                                <span>{{ budget.created | date:'dd.MM.yyyy, HH:mm' }}</span>
+                            } @else if(language.currentLanguage === 'es') {
+                                <span>{{ budget.created | date:'dd/MM/yyyy, h:mm a' }}</span>
+                            } @else {
+                                <span>{{ budget.created | date:'dd/MM/yyyy, HH:mm' }}</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

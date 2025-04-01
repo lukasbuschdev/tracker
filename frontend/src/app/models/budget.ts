@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { typeBudget, typeCategory, typeExpense, UpdateData, UploadData } from "../types/types";
+import { typeBudget, UpdateData, UploadData } from "../types/types";
 import { firstValueFrom } from "rxjs";
 
 export class Budget {
@@ -10,6 +10,7 @@ export class Budget {
     amount: number;
     used: number;
     recreate: boolean;
+    isArchived: boolean;
 
     static http: HttpClient
 
@@ -21,6 +22,7 @@ export class Budget {
         this.amount = data.amount;
         this.used = data.used ?? 0;
         this.recreate = data.recreate;
+        this.isArchived = data.isArchived;
     }
 
     public static async create(data: UploadData<typeBudget>) {

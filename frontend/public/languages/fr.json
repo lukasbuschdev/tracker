@@ -107,6 +107,7 @@
     "monthly-recreate-budget": "Recréer le budget mensuellement",
     "monthly-recreate-category": "Recréer la catégorie mensuellement",
     "monthly-recreate-expense": "Recréer la dépense mensuellement",
-    "archive-budget-after-month": "Archiver le budget le mois prochain"
+    "archive-budget-after-month": "Archiver le budget le mois prochain",
+    "archive": "Archive"
   }
   

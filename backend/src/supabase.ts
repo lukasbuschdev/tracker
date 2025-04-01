@@ -43,6 +43,7 @@ export type Database = {
           recreate: boolean
           used: number
           userId: string
+          isArchived: boolean
         }
         Insert: {
           amount: number
@@ -52,12 +53,14 @@ export type Database = {
           recreate?: boolean
           used?: number
           userId: string
+          isArchived: boolean
         }
         Update: {
           amount?: number
           name?: string
           recreate?: boolean
           used?: number
+          isArchived?: boolean
         }
         Relationships: [
           {
@@ -78,6 +81,7 @@ export type Database = {
           name: string
           recreate: boolean
           used: number
+          isArchived: boolean
         }
         Insert: {
           amount: number
@@ -87,12 +91,14 @@ export type Database = {
           name: string
           recreate: boolean
           used?: number
+          isArchived: boolean
         }
         Update: {
           amount?: number
           name?: string
           recreate?: boolean
           used?: number
+          isArchived?: boolean
         }
         Relationships: [
           {
@@ -113,6 +119,7 @@ export type Database = {
           id: string
           name: string
           recreate: boolean
+          isArchived: boolean
         }
         Insert: {
           amount: number
@@ -122,12 +129,14 @@ export type Database = {
           id?: string
           name: string
           recreate: boolean
+          isArchived: boolean
         }
         Update: {
           amount?: number
           category?: string
           name?: string
           recreate?: boolean
+          isArchived?: boolean
         }
         Relationships: [
           {

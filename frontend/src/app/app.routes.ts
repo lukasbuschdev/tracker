@@ -15,6 +15,7 @@ import { SignupComponent } from './access/signup/signup.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { VerificationComponent } from './access/verification/verification.component';
 import { ResetPasswordComponent } from './access/reset-password/reset-password.component';
+import { ArchiveComponent } from './main/content/archive/archive.component';
 
 export const routes: Routes = [
     { path: '', component: MainComponent, canActivate: [AuthGuardService], children: [
@@ -23,6 +24,7 @@ export const routes: Routes = [
         { path: 'expenses', component: ExpensesComponent },
         { path: 'budgets', component: BudgetsComponent },
         { path: 'categories', component: CategoriesComponent },
+        { path: 'archive', component: ArchiveComponent },
         { path: 'settings', component: SettingsComponent },
         { path: 'legal-notice', component: LegalNoticeComponent },
         { path: 'privacy-policy', component: PrivacyComponent },

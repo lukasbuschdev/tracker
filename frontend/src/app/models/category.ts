@@ -9,6 +9,7 @@ export class Category {
     used: number;
     recreate: boolean;
     budgetId: string;
+    isArchived: boolean;
 
     static http: HttpClient
 
@@ -19,6 +20,7 @@ export class Category {
         this.used = 0;
         this.recreate = data.recreate;
         this.budgetId = data.budgetId;
+        this.isArchived = data.isArchived;
     }
 
     public static async create(data: UploadData<typeCategory>) {
