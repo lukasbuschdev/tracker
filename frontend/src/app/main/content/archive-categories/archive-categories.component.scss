@@ -1,6 +1,6 @@
 @use 'variables' as *;
 
-.budget-container {
+.category-container {
     width: 100%;
     height: fit-content;
     border: 1px solid $gray;
@@ -15,11 +15,11 @@
     }
 }
 
-.isActiveBudget {
+.isActiveCategory {
     border-color: $wine;
     
     .information {
-        height: 150px;
+        height: 55px;
         margin-top: 15px;
         transition: $transition-medium;
     }
@@ -29,21 +29,10 @@
     }
 }
 
-@media(max-width: 500px) {
-    .isActiveBudget {
-        padding: 20px;
 
-        .information {
-            height: 220px;
-        }
-    }
-
-    .button-container {
+@media(max-width: 1000px) {
+    .select-budget-container {
         flex-direction: column;
-        align-items: center;
-
-        span {
-            display: block !important;
-        }
+        gap: 20px;
     }
 }

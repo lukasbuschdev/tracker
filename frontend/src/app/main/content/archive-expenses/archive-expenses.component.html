@@ -1,45 +1,30 @@
-<div class="section-container column gap-30 fade-in-up" (click)="closeBudgtes(); closeCategories(); closeMonths();" [ngClass]="{ 'dark-mode': theme.isDarkmode }">
+<div class="section-container column gap-30 fade-in-up" (click)="closeCategories(); closeMonths();" [ngClass]="{ 'dark-mode': theme.isDarkmode }">
     <div class="heading-container between align-center">
-        <h1>{{'expenses' | translate }}</h1>
-        
-        @if(data.categoriesArray.length) {
-            <div role="button" tabindex="0" class="btn-primary row gap-10" (click)="openDialog('add-expense')">
-                <span>+</span>
-                <span>{{ 'add' | translate }}</span>
+        <h1>{{'archived-expenses' | translate }}</h1>
+
+        <div class="row align-center gap-10">
+            <div role="button" tabindex="0" class="btn-primary gap-10" routerLink="/archive">
+                <span>{{ 'back' | translate }}</span>
             </div>
-        }
+        </div>
     </div>
 
     <div class="content-container column gap-15">
-        @if(!data.budgetsArray.length) {
+        @if(!data.archivedBudgetsArray.length) {
             <div class="center no-budgets-message-container center">
                 <h4>{{ 'create-budget-and-category-first' | translate }}</h4>
             </div>
-        } @else if(!data.categoriesArray.length) {
+        } @else if(!data.archivedCategoriesArray.length) {
             <div class="center no-budgets-message-container center">
                 <h4>{{ 'no-categories-yet' | translate }}</h4>
             </div>
-        } @else if(!data.expensesArray.length) {
+        } @else if(!data.archivedExpensesArray.length) {
             <div class="center no-budgets-message-container center">
                 <h4>{{ 'no-expenses-yet' | translate }}</h4>
             </div>
         } @else {
-            @if(data.selectedBudget) {
+            @if(data.clickedBudget) {
                 <div class="w-100 row between align-center">
-                    <div class="select-budget-container row gap-15 align-center">
-                        <h4>{{'active-budget' | translate }}:</h4>
-                        <div class="dropdown" [class.active]="isBudgetsDropdownOpened">
-                            <div (click)="toggleBudgets($event)" class="dropdown-btn data">{{ data.selectedBudget.name }}</div>
-                            <ul class="dropdown-menu frequency">
-                                @for(budget of data.budgetsArray; track $index) {
-                                    <li (click)="selectBudget(budget); toggleBudgets($event)">
-                                        <span>{{ budget.name }}</span>
-                                    </li>
-                                }
-                            </ul>
-                        </div>
-                    </div>
-
                     <div role="button" tabindex="0" class="btn-secondary filter row gap-10 align-center" (click)="toggleFilter()">
                         <img src="img/filter.svg">
                         <span>{{ 'filter' | translate }}</span>
@@ -72,7 +57,7 @@
                             <div class="dropdown" [class.active]="isCategoriesDropdownOpened">
                                 <div (click)="toggleCategories($event)" class="dropdown-btn data">{{ selectedCategory !== '' ? selectedCategory : 'category' | translate }}</div>
                                 <ul class="dropdown-menu frequency">
-                                    @for(category of data.categoriesArray; track $index) {
+                                    @for(category of data.archivedCategoriesOfClickedBudget; track $index) {
                                         <li (click)="selectCategory(category.name); toggleCategories($event)">
                                             <span>{{ category.name }}</span>
                                         </li>
@@ -118,8 +103,8 @@
                     </div>
     
                     <div class="column gap-5">
-                        @for(expense of data.filteredExpenses; track $index) {
-                            <div class="single-expense column gap-10" (click)="openDialog('edit-expense', expense.id, expense.category)">
+                        @for(expense of data.filteredArchivedExpenses; track $index) {
+                            <div class="single-expense column gap-10">
                                 <div class="row between header gap-15">
                                     <div>{{ expense.name }}</div>
                                     <div>{{ expense.category }}</div>
@@ -159,3 +144,4 @@
         }
     </div>
 </div>
+

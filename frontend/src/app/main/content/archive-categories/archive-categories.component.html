@@ -1,0 +1,51 @@
+<div class="section-container column gap-30 fade-in-up" (click)="closeCategory(); closeBudgtes()" [ngClass]="{ 'dark-mode': theme.isDarkmode }">
+    <div class="heading-container between">
+        <h1>{{ 'archived-categories' | translate }}</h1>
+
+        <div class="row align-center gap-10">
+            <div role="button" tabindex="0" class="btn-primary gap-10" routerLink="/archive">
+                <span>{{ 'back' | translate }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-container column gap-25">
+        @if(!data.archivedCategoriesOfClickedBudget.length) {
+            <div class="center no-budgets-message-container center">
+                <h4>{{ 'no-archived-categories' | translate }}</h4>
+            </div>
+        } @else {
+            @for(category of data.archivedCategoriesOfClickedBudget; track category.id) {
+                <div class="column between category-container" (click)="toggleActiveCategory($event, category.id)" [class.isActiveCategory]="activeCategoryId === category.id">
+                    <div class="row between">
+                        <div class="name">{{ category.name }}:</div>
+                        <div class="row gap-10 align-center">
+                            <div class="number txt-green">+ {{ utils.formatNumber(category.amount) }}</div>
+                            @if(activeCategoryId === category.id) {
+                                <img class="arrow" [src]="theme.isDarkmode ? 'img/arrow-up-white.svg' : 'img/arrow-up.svg'">
+                            } @else {
+                                <img class="arrow" [src]="theme.isDarkmode ? 'img/arrow-down-white.svg' : 'img/arrow-down.svg'">
+                            }
+                        </div>
+                    </div>
+                    
+                    <div class="column between gap-15 information">
+                        <div class="row between">
+                            <div>{{ 'used' | translate }}:</div>
+                            <div class="number txt-red">- {{ utils.formatNumber(calculateCategoryUsed(category)) }}</div>
+                        </div>
+            
+                        <div class="row between">
+                            <div>{{ 'available' | translate }}:</div>
+                            <div class="number" [class]="(category.amount - calculateCategoryUsed(category)) > 0 ? 'txt-green' : 'txt-red'">
+                                {{ (category.amount - calculateCategoryUsed(category)) > 0 ? '+ ' : '- ' }}
+                                {{ utils.formatNumber(category.amount - calculateCategoryUsed(category)) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+

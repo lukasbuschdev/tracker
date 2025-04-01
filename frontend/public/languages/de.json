@@ -107,6 +107,12 @@
     "monthly-recreate-category": "Kategorie monatlich neu erstellen",
     "monthly-recreate-expense": "Ausgabe monatlich neu erstellen",
     "archive-budget-after-month": "Budget nächsten Monat archivieren",
-    "archive": "Archiv"
+    "archive": "Archiv",
+    "no-archived-budgets": "Sie haben keine archivierten Budgets!",
+    "no-archived-categories": "Sie haben keine archivierten Kategorien für dieses Budget!",
+    "archived-categories": "Archivierte Kategorien",
+    "no-archived-expenses": "Sie haben keine archivierten Ausgaben für dieses Budget!",
+    "archived-expenses": "Archivierte Ausgaben",
+    "back": "Zurück"
   }
   

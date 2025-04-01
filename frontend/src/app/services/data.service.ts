@@ -3,7 +3,7 @@ import { Budget } from '../models/budget';
 import { Expense } from '../models/expense';
 import { Category } from '../models/category';
 import { DialogService } from './dialog.service';
-import { typeBudget, typeCategory, typeDialogData, typeExpense } from '../types/types';
+import { typeDialogData, typeExpense } from '../types/types';
 import { BehaviorSubject } from 'rxjs';
 import { User } from '../models/user';
 import { ThemeService } from './theme.service';
@@ -41,14 +41,17 @@ export class DataService {
   }
 
   public get archivedCategoriesArray() {
-    return this.archivedBudgetsSubject.value;
+    return this.archivedCategoriesSubject.value;
   }
 
   public get archivedExpensesArray() {
-    return this.archivedBudgetsSubject.value;
+    return this.archivedExpensesSubject.value;
   }
 
   filteredExpenses: Expense[] = [];
+  archivedCategoriesOfClickedBudget: Category[] = [];
+  archivedExpensesOfClickedBudget: Expense[] = [];
+  filteredArchivedExpenses: Expense[] = [];
 
   public selectedBudget: Budget | null = null;
   public selectedCategory: string = 'Select category';
@@ -61,10 +64,8 @@ export class DataService {
 
   public async init(): Promise<void> {
     await this.getData();
-
-    this.runMonthlyRecreationCheck();
+    await this.runMonthlyRecreationCheck();
   }
-
 
   private async getUser(): Promise<void> {
     if(!this.currentUser || !this.currentUserId) return;
@@ -129,23 +130,31 @@ export class DataService {
     if(!budgets.length) return;
     
     const budgetIds = budgets.map(budget => budget.id);
-    // const categories = await this.getArchivedCategories(budgetIds);
-    this.archivedBudgetsSubject.next(budgets);
-    // this.archivedCategoriesSubject.next(categories);
+    const categories = await this.getArchivedCategories(budgetIds);
+    const expenses = await this.getArchivedExpenses(budgetIds);
 
-    // console.log(budgets)
-    // console.log(categories)
+    this.archivedBudgetsSubject.next(budgets);
+    this.archivedCategoriesSubject.next(categories);
+    this.archivedExpensesSubject.next(expenses);
   }
 
-  // private async getArchivedCategories(budgetIds: string[]): Promise<Category[]> {
-  //   const categories = await Promise.all(
-  //     budgetIds.map(async (budgetId) => {
-  //       return (await Category.get(budgetId)).filter(category => category.isArchived === true);
-  //     })
-  //   );
+  private async getArchivedCategories(budgetIds: string[]): Promise<Category[]> {
+    const categories = await Promise.all(
+      budgetIds.map(async (budgetId) => {
+        return (await Category.get(budgetId)).filter(category => category.isArchived === true);
+      })
+    );
+    return categories.flat();
+  }
 
-  //   return categories.flat();
-  // }
+  private async getArchivedExpenses(budgetIds: string[]): Promise<Expense[]> {
+    const expenses = await Promise.all(
+      budgetIds.map(async (budgetId) => {
+        return (await Expense.get(budgetId)).filter(expense => expense.isArchived === true);
+      })
+    );
+    return expenses.flat();
+  }
 
   public calculateCurrentAvailable(): number {
     if(!this.selectedBudget) return 0;
@@ -170,26 +179,26 @@ export class DataService {
     return expenses.sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime());
   }
 
-  public selectBudget(budget: Budget): void {
+  public async selectBudget(budget: Budget): Promise<void> {
     this.selectedBudget = this.budgetsArray.find(dataBudget => dataBudget.id === budget.id) || null;
     if(!this.selectedBudget) return;
 
-    this.getCategories();
-    this.getExpenses();
+    await this.getCategories();
+    await this.getExpenses();
   }
 
-  private runMonthlyRecreationCheck(): void {
+  private async runMonthlyRecreationCheck(): Promise<void> {
     const today = new Date();
     const currentMonth = `${today.getFullYear()}-${today.getMonth() + 1}`;
     const executedMonth = localStorage.getItem("monthlyRecreationCheckExecuted");
   
-    // if(executedMonth !== currentMonth) {
-    //   this.checkRecreation();
-    //   localStorage.setItem("monthlyRecreationCheckExecuted", currentMonth);
-    // } else {
-    //   console.log("Monthly recreation check already executed for", currentMonth);
-    // }
-    this.checkRecreation();
+    if(executedMonth !== currentMonth) {
+      this.checkRecreation();
+      await this.getData();
+      localStorage.setItem("monthlyRecreationCheckExecuted", currentMonth);
+    } else {
+      console.log("Monthly recreation check already executed for", currentMonth);
+    }
   }
 
   private async checkRecreation(): Promise<void> {
@@ -201,21 +210,27 @@ export class DataService {
       })
     );
 
+    this.moveToArchive();
     this.recreateData(recreationData);
+    await this.getBudgets();
+    await this.getCategories();
+    await this.getExpenses();
+    await this.getArchivedBudgets();
+  }
+
+  private async moveToArchive(): Promise<void> {
+    const archivedBugets = await this.moveBudgetsToArchive();
+    const archivedCategories = await this.moveCategoriesToArchive(archivedBugets);
+    const archivedExpenses = await this.moveExpensesToArchive(archivedBugets);
   }
 
   private async recreateData(data: [Budget, Category[]][]): Promise<void> {
     const createdData = await Promise.all(
       data.map(async ([budget, categories]) => {
-        // const newBudget = await this.getNewBudgets(budget);
-        // const newCategories = await this.getNewCategories(newBudget.id, categories);
-        await this.moveBudgetsToArchive(budget);
-        await this.moveCategoriesToArchive(categories);
+        const newBudget = await this.getNewBudgets(budget);
+        const newCategories = await this.getNewCategories(newBudget.id, categories);
       })
     );
-
-    await this.getBudgets();
-    await this.getCategories();
   }
 
   private getNewBudgets(budget: Budget): Promise<Budget> {
@@ -253,25 +268,57 @@ export class DataService {
     }
   }
 
-  private moveBudgetsToArchive(budget: Budget): Promise<Budget> {
+  private moveBudgetsToArchive(): Promise<Budget[]> {
+    const allBudgetIds = this.budgetsArray.filter(budget => budget.isArchived === false).map(budget => budget.id);
+
     try {
-      return Budget.patch(budget.id, {
-        isArchived: true
-      });
+      return Promise.all(
+        allBudgetIds.map(async (budgetId) => {
+          return Budget.patch(budgetId, {
+            isArchived: true
+          });
+        })
+      )
     } catch (error) {
       console.error(error);
       throw error;
     }
   }
 
-  private moveCategoriesToArchive(categories: Category[]): Promise<Category[]> {
+  private moveCategoriesToArchive(budgets: Budget[]): Promise<Category[]> {
+    const budgetIds = budgets.map(budget => budget.id);
+    const filteredCategories = this.categoriesArray.filter(category =>
+      budgetIds.includes(category.budgetId)
+    );
+
     try {
       return Promise.all(
-        categories.map(async (category) => {
+        filteredCategories.map(async (category) => {
           return Category.patch(category.id, {
-            isArchived: false
+            isArchived: true
           });
-      }));
+        })
+      );
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
+  private moveExpensesToArchive(budgets: Budget[]): Promise<Expense[]> {
+    const budgetIds = budgets.map(budget => budget.id);
+    const filteredExpenses = this.expensesArray.filter(expense =>
+      budgetIds.includes(expense.budgetId)
+    );
+
+    try {
+      return Promise.all(
+        filteredExpenses.map(async (expense) => {
+          return Expense.patch(expense.id, {
+            isArchived: true
+          });
+        })
+      );
     } catch (error) {
       console.error(error);
       throw error;

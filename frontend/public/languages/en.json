@@ -112,5 +112,11 @@
     "monthly-recreate-category": "Recreate category monthly",
     "monthly-recreate-expense": "Recreate expense monthly",
     "archive-budget-after-month": "Archive budget next month",
-    "archive": "Archive"
+    "archive": "Archive",
+    "no-archived-budgets": "You have no archived budgets!",
+    "no-archived-categories": "You have no archived categories for this budget!",
+    "archived-categories": "Archived categories",
+    "no-archived-expenses": "You have no archived expenses for this budget!",
+    "archived-expenses": "Archived expenses",
+    "back": "Back"
 }

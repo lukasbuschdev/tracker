@@ -1,0 +1,159 @@
+@use 'variables' as *;
+
+.table{
+    .header {
+        width: 100%;
+
+        > div {
+            width: 100%;
+        }
+
+        img {
+            height: 20px;
+            width: 20px;
+            object-fit: contain;
+
+            &:hover {
+                cursor: pointer;
+                filter: brightness(1.6);
+            }
+        }
+
+        .number {
+            text-align: end;
+        }
+    }
+
+    .sticky {
+        position: sticky;
+        top: 0;
+        padding-top: 15px;
+        background-color: $white;
+    }
+}
+
+.filter {
+    img {
+        transition: all 100ms ease-in-out;
+    }
+    
+    &:hover img {
+        filter: brightness(15);
+        transition: all 100ms ease-in-out;
+    }
+}
+
+.filter-container {
+    height: 0;
+    transition: $transition-medium;
+    overflow: hidden;
+}
+
+.filter-content {
+    .dropdown-btn {
+        min-width: 80px;
+    }
+
+    .dropdown-menu {
+        left: 0;
+        right: 0;
+        margin: 5px auto;
+    }
+
+    .input-container {
+        position: relative;
+        width: 100%;
+        max-width: 250px;
+
+        input {
+            width: 100%;
+            border-radius: 99px;
+            outline: none;
+            border: 1px solid $gray;
+            font-size: 1rem;
+            padding: 10px 15px;
+        }
+
+        .img-container {
+            position: absolute;
+            height: 25px;
+            width: 25px;
+            border-radius: 999px;
+            background-color: transparent;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: $transition-medium;
+            
+            &:hover {
+                cursor: pointer;
+                background-color: $lightgray;
+                transition: $transition-medium;
+            }
+
+            img {
+                height: 20px;
+                width: 20px;
+            }
+        }
+    }
+
+}
+
+.reset-filter {
+    padding: 5px;
+
+    img {
+        height: 20px;
+        width: 20px;
+        object-fit: contain;
+    }
+}
+
+.single-expense {
+    padding: 10px 5px;
+    border-radius: 10px;
+}
+
+.expense-date-container span {
+    color: $darkgray;
+    font-size: 0.8rem;
+}
+
+.sum-container {
+    padding: 10px 5px;
+}
+
+.isVisible {
+    height: 45px;
+    transition: $transition-medium;
+    overflow: visible;
+}
+
+@media(max-width: 600px) {
+    .filter-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .isVisible {
+        height: 100px;
+    }
+}
+
+@media(max-width: 500px) {
+    .filter {
+        padding: 10px;
+
+        img {
+            height: 15px !important;
+            width: 15px !important;
+        }
+    }
+}
+
+@media(max-width: 400px) {
+    .input-container {
+        width: 100%;
+    }
+}

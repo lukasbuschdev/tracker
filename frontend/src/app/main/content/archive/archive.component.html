@@ -1,19 +1,12 @@
 <div class="section-container column gap-30 fade-in-up" (click)="closeBudget()" [ngClass]="{ 'dark-mode': theme.isDarkmode }">
     <div class="heading-container between">
         <h1>{{ 'archive' | translate }}</h1>
-
-        <div class="row align-center gap-10">
-            <!-- <div role="button" tabindex="0" class="btn-primary row gap-10 align-center" [class.isInactive]="activeBudgetId == ''" (click)="openDialog('edit-budget')">
-                <img src="img/edit.svg">
-                <span>{{ 'edit' | translate }}</span>
-            </div> -->
-        </div>
     </div>
 
     <div class="content-container column gap-20">
         @if(!data.archivedBudgetsArray.length) {
             <div class="center no-budgets-message-container center">
-                <h4>{{ 'no-budgets-yet' | translate }}</h4>
+                <h4>{{ 'no-archived-budgets' | translate }}</h4>
             </div>
         } @else {
             @for(budget of data.archivedBudgetsArray; track budget.id) {
@@ -55,6 +48,15 @@
                             } @else {
                                 <span>{{ budget.created | date:'dd/MM/yyyy, HH:mm' }}</span>
                             }
+                        </div>
+
+                        <div class="button-container row right gap-15">
+                            <div role="button" tabindex="0" class="btn-primary" (click)="getArchivedCategories()">
+                                <span>{{ 'categories' | translate }}</span>
+                            </div>
+                            <div role="button" tabindex="0" class="btn-primary" (click)="getArchivedExpenses()">
+                                <span>{{ 'expenses' | translate }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>

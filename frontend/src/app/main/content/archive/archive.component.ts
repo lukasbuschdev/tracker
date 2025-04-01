@@ -6,6 +6,7 @@ import { UtilsService } from '../../../services/utils.service';
 import { DataService } from '../../../services/data.service';
 import { DialogService } from '../../../services/dialog.service';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-archive',
@@ -17,25 +18,31 @@ export class ArchiveComponent {
   isActiveBudget: boolean = false;
   activeBudgetId: string = '';
 
-  constructor(private dialog: DialogService) { }
-
   data = inject(DataService);
   utils = inject(UtilsService);
   theme = inject(ThemeService);
   language = inject(LanguageService);
+  router = inject(Router);
+
 
   toggleActiveBudget(event: MouseEvent, budgetId: string): void {
     event.stopPropagation();
     if(this.activeBudgetId === budgetId) return this.closeBudget();
     this.activeBudgetId = budgetId;
-    this.data.clickedBudget = this.data.budgetsArray.filter(budget => budget.id === this.activeBudgetId)[0];
+    this.data.clickedBudget = this.data.archivedBudgetsArray.filter(budget => budget.id === this.activeBudgetId)[0];
+    this.data.archivedCategoriesOfClickedBudget = this.data.archivedCategoriesArray.filter(category => category.budgetId === this.data.clickedBudget?.id);
+    this.data.archivedExpensesOfClickedBudget = this.data.archivedExpensesArray.filter(expense => expense.budgetId === this.data.clickedBudget?.id);
   }
 
   closeBudget(): void {
     this.activeBudgetId = '';
   }
 
-  openDialog(str: string): void {
-    this.dialog.openDialog(str);
+  getArchivedCategories(): void {
+    this.router.navigateByUrl('/archive-categories');
+  }
+  
+  getArchivedExpenses(): void {
+    this.router.navigateByUrl('/archive-expenses');
   }
 }

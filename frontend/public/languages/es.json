@@ -107,6 +107,12 @@
     "monthly-recreate-category": "Recrear categoría mensualmente",
     "monthly-recreate-expense": "Recrear gasto mensualmente",
     "archive-budget-after-month": "Archivar presupuesto el próximo mes",
-    "archive": "Archivo"
+    "archive": "Archivo",
+    "no-archived-budgets": "¡No tienes presupuestos archivados!",
+    "no-archived-categories": "¡No tienes categorías archivadas para este presupuesto!",
+    "archived-categories": "Categorías archivadas",
+    "no-archived-expenses": "¡No tienes gastos archivados para este presupuesto!",
+    "archived-expenses": "Gastos archivados",
+    "back": "Atrás"
   }
   

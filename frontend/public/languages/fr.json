@@ -94,7 +94,7 @@
     "help": "Aide",
     "verification": "Vérification",
     "placeholder-verification-code": "Code de vérification...",
-    "verification-code-invalid": "Code de vérification invalide!",
+    "verification-code-invalid": "Code de vérification invalide !",
     "placeholder-new-password": "Nouveau mot de passe...",
     "placeholder-repeat-new-password": "Répétez le nouveau mot de passe...",
     "reset-password-confirmation-message": "Votre mot de passe a été réinitialisé avec succès. Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.",
@@ -108,6 +108,12 @@
     "monthly-recreate-category": "Recréer la catégorie mensuellement",
     "monthly-recreate-expense": "Recréer la dépense mensuellement",
     "archive-budget-after-month": "Archiver le budget le mois prochain",
-    "archive": "Archive"
+    "archive": "Archive",
+    "no-archived-budgets": "Vous n'avez aucun budget archivé !",
+    "no-archived-categories": "Vous n'avez aucune catégorie archivée pour ce budget !",
+    "archived-categories": "Catégories archivées",
+    "no-archived-expenses": "Vous n'avez aucune dépense archivée pour ce budget !",
+    "archived-expenses": "Dépenses archivées",
+    "back": "Retour"
   }
   
