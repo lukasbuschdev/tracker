@@ -100,8 +100,12 @@
     "filter": "Filtro",
     "search": "Buscar...",
     "expenses-result": "Suma",
-    "expense-created": "Creado",
+    "created": "Creado",
     "darkmode": "Modo oscuro",
-    "month": "Mes"
+    "month": "Mes",
+    "monthly-recreate-budget": "Recrear presupuesto mensualmente",
+    "monthly-recreate-category": "Recrear categoría mensualmente",
+    "monthly-recreate-expense": "Recrear gasto mensualmente",
+    "archive-budget-after-month": "Archivar presupuesto el próximo mes"
   }
   

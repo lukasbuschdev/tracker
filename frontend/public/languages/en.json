@@ -105,7 +105,11 @@
     "filter": "Filter",
     "search": "Search...",
     "expenses-result": "Sum",
-    "expense-created": "Created",
+    "created": "Created",
     "darkmode": "Darkmode",
-    "month": "Month"
+    "month": "Month",
+    "monthly-recreate-budget": "Recreate budget monthly",
+    "monthly-recreate-category": "Recreate category monthly",
+    "monthly-recreate-expense": "Recreate expense monthly",
+    "archive-budget-after-month": "Archive budget next month"
 }

@@ -39,7 +39,8 @@ export type typeUser = {
 
 export type typeDialogData = {
     name: string,
-    amount: number
+    amount: number,
+    recreate: boolean
 }
 
 export type UploadData<Type> = Omit<Type, 'id' | 'created'>;

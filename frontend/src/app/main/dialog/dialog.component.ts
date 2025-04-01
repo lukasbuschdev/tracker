@@ -17,9 +17,11 @@ import { ThemeService } from '../../services/theme.service';
 export class DialogComponent implements OnInit {
   isOpen: boolean = false;
   isDropdownOpened: boolean = false;
+  isArchiveChecked: boolean = false;
   selectableCategories: string[] = [];
   nameRegex: RegExp = /^[A-Za-z0-9 ]+$/;
   availableInSelectedBudget: number = 0;
+  isRecreateChecked: boolean = false;
 
   constructor(public dialog: DialogService, public data: DataService) { }
 
@@ -32,12 +34,29 @@ export class DialogComponent implements OnInit {
   ngOnInit(): void {
     this.dialog.isVisible$.subscribe(state => {
       this.isOpen = state;
+
+      if(this.isOpen) {
+        this.setIsCreated();
+      }
     });
+  }
+
+  setIsCreated(): void {
+    if(this.dialog.addOrEdit === 'Edit') {
+      if(this.dialog.type === 'budget') {
+        this.isRecreateChecked = this.data.clickedBudget?.recreate || false;
+      } else if(this.dialog.type === 'category') {
+        this.isRecreateChecked = this.data.clickedCategory?.recreate || false;
+      }
+    } else {
+      this.isRecreateChecked = false;
+    }
   }
 
   closeDialog(): void {
     this.dialog.closeDialog();
     this.data.selectedCategory = 'Select category';
+    this.isRecreateChecked = false;
   }
 
   getData(name: string, amount: string): void {
@@ -47,7 +66,8 @@ export class DialogComponent implements OnInit {
 
     const dialogData: typeDialogData = {
       name: name,
-      amount: Number(amount)
+      amount: Number(amount),
+      recreate: this.isRecreateChecked
     }
     
     this.dialog.addOrEdit === 'Add' ? this.data.addData(dialogData) : this.data.editData(dialogData);
@@ -85,6 +105,14 @@ export class DialogComponent implements OnInit {
   logoutAndResetPassword(): void {
     this.data.logout();
     this.router.navigateByUrl('/reset-password-mail');
+  }
+
+  toggleIsRecreateChecked(): void {
+    this.isRecreateChecked = !this.isRecreateChecked;
+  }
+
+  toggleIsArchiveChecked(): void {
+    this.isArchiveChecked = !this.isArchiveChecked;
   }
 
 

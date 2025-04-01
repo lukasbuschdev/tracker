@@ -24,9 +24,9 @@ export class DialogService {
   isConfirmationVisible$ = this._isConfirmationVisible.asObservable();
 
   openDialog(str: string, cat?: string): void {
-    this._isVisible.next(true);
     this.checkAddOrEdit(str, cat);
     this.checkType(str);
+    this._isVisible.next(true);
   }
 
   openConfirmationDialog(str: string): void {

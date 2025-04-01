@@ -48,6 +48,19 @@
                                 {{ utils.formatNumber(budget.amount - budget.used) }}
                             </div>
                         </div>
+
+                        <div class="budget-date-container row between">
+                            <span>{{ 'created' | translate }}:</span>
+                            @if(language.currentLanguage === 'en') {
+                                <span>{{ budget.created | date:'M/d/yy, h:mm a' }}</span>
+                            } @else if(language.currentLanguage === 'de') {
+                                <span>{{ budget.created | date:'dd.MM.yyyy, HH:mm' }}</span>
+                            } @else if(language.currentLanguage === 'es') {
+                                <span>{{ budget.created | date:'dd/MM/yyyy, h:mm a' }}</span>
+                            } @else {
+                                <span>{{ budget.created | date:'dd/MM/yyyy, HH:mm' }}</span>
+                            }
+                        </div>
                     </div>
                 </div>
             }

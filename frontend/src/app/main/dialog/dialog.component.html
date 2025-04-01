@@ -87,6 +87,29 @@
                             </div>
                         }
                     </div>
+
+                    <div class="column w-100 align-center gap-15">
+                        <div class="row gap-10 align-center checkbox-container">
+                            @if(dialog.type === 'budget' || dialog.type === 'category' && data.selectedBudget?.recreate) {
+                                @if(!theme.isDarkmode) {
+                                    <img class="checkbox" [src]="isRecreateChecked ? 'img/checkbox-checked.svg' : 'img/checkbox-unchecked.svg'" (click)="toggleIsRecreateChecked()">
+                                } @else {
+                                    <img class="checkbox" [src]="isRecreateChecked ? 'img/checkbox-checked-white.svg' : 'img/checkbox-unchecked-white.svg'" (click)="toggleIsRecreateChecked()">
+                                }
+                                <span>{{ 'monthly-recreate' + '-' + dialog.type | translate }}</span>
+                            }
+                        </div>
+                        <!-- <div class="row gap-10 align-center checkbox-container">
+                            @if(dialog.type === 'budget') {
+                                @if(!theme.isDarkmode) {
+                                    <img class="checkbox" [src]="isArchiveChecked ? 'img/checkbox-checked.svg' : 'img/checkbox-unchecked.svg'" (click)="toggleIsArchiveChecked()">
+                                } @else {
+                                    <img class="checkbox" [src]="isArchiveChecked ? 'img/checkbox-checked-white.svg' : 'img/checkbox-unchecked-white.svg'" (click)="toggleIsArchiveChecked()">
+                                }
+                                <span>{{ 'archive-budget-after-month'| translate }}</span>
+                            }
+                        </div> -->
+                    </div>
                 } @else {
                     <div class="column gap-30 w-100">
                         <div class="row between setting-name align-center w-100">

@@ -100,8 +100,12 @@
     "filter": "Filter",
     "search": "Suche...",
     "expenses-result": "Summe",
-    "expense-created": "Erstellt",
+    "created": "Erstellt",
     "darkmode": "Dunkler Modus",
-    "month": "Monat"
+    "month": "Monat",
+    "monthly-recreate-budget": "Budget monatlich neu erstellen",
+    "monthly-recreate-category": "Kategorie monatlich neu erstellen",
+    "monthly-recreate-expense": "Ausgabe monatlich neu erstellen",
+    "archive-budget-after-month": "Budget nächsten Monat archivieren"
   }
   

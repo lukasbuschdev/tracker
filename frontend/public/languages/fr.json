@@ -101,8 +101,12 @@
     "filter": "Filtre",
     "search": "Recherche...",
     "expenses-result": "Somme",
-    "expense-created": "Créé",
+    "created": "Créé",
     "darkmode": "Mode sombre",
-    "month": "Mois"
+    "month": "Mois",
+    "monthly-recreate-budget": "Recréer le budget mensuellement",
+    "monthly-recreate-category": "Recréer la catégorie mensuellement",
+    "monthly-recreate-expense": "Recréer la dépense mensuellement",
+    "archive-budget-after-month": "Archiver le budget le mois prochain"
   }
   

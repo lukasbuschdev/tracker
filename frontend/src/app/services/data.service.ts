@@ -3,7 +3,7 @@ import { Budget } from '../models/budget';
 import { Expense } from '../models/expense';
 import { Category } from '../models/category';
 import { DialogService } from './dialog.service';
-import { typeDialogData, typeExpense } from '../types/types';
+import { typeBudget, typeCategory, typeDialogData, typeExpense } from '../types/types';
 import { BehaviorSubject } from 'rxjs';
 import { User } from '../models/user';
 import { ThemeService } from './theme.service';
@@ -16,6 +16,7 @@ export class DataService {
   public currentUserId: string = '';
   public currentUser: User | null = null;
   public isLoggedIn: boolean = false;
+  private isRecreated: boolean = false;
 
   private budgetsSubject = new BehaviorSubject<Budget[]>([]);
   private categoriesSubject = new BehaviorSubject<Category[]>([]);
@@ -46,6 +47,8 @@ export class DataService {
 
   public async init(): Promise<void> {
     await this.getData();
+
+    this.runMonthlyRecreationCheck();
   }
 
 
@@ -76,18 +79,21 @@ export class DataService {
     if(!this.currentUserId) return;
     
     try {
-      const budgets = await Budget.get(this.currentUserId);
-      if(!budgets.length) return;
-      
-      this.budgetsSubject.next(budgets);
-      this.selectedBudget = this.budgetsArray[0];
-      
+      await this.getBudgets();
       await this.getCategories();
       await this.getExpenses();
       this.calculateCurrentAvailable();
     } catch (error) {
       console.error(error);
     }
+  }
+
+  private async getBudgets(): Promise<void> {
+    const budgets = await Budget.get(this.currentUserId);
+    if(!budgets.length) return;
+    
+    this.budgetsSubject.next(budgets);
+    this.selectedBudget = this.budgetsArray[0];
   }
 
   public async getCategories(): Promise<void> {
@@ -134,6 +140,78 @@ export class DataService {
     this.getExpenses();
   }
 
+  private runMonthlyRecreationCheck(): void {
+    const today = new Date();
+    const currentMonth = `${today.getFullYear()}-${today.getMonth() + 1}`;
+    const executedMonth = localStorage.getItem("monthlyRecreationCheckExecuted");
+  
+    if(executedMonth !== currentMonth) {
+      this.checkRecreation();
+      localStorage.setItem("monthlyRecreationCheckExecuted", currentMonth);
+    } else {
+      console.log("Monthly recreation check already executed for", currentMonth);
+    }
+  }
+
+  private async checkRecreation(): Promise<void> {
+    const recreationBudgets = this.budgetsArray.filter(budget => budget.recreate === true);
+    const recreationData: [Budget, Category[]][] = await Promise.all(
+      recreationBudgets.map(async (recreationBudget) => {
+        const categories = (await Category.get(recreationBudget.id)).filter(category => category.recreate === true);
+        return [recreationBudget, categories];
+      })
+    );
+
+    this.recreateData(recreationData);
+  }
+
+  private async recreateData(data: [Budget, Category[]][]): Promise<void> {
+    const createdData = await Promise.all(
+      data.map(async ([budget, categories]) => {
+        const newBudget = await this.getNewBudgets(budget);
+        const newCategories = await this.getNewCategories(newBudget.id, categories);
+      })
+    );
+
+    this.isRecreated = true;
+
+    await this.getBudgets();
+    await this.getCategories();
+  }
+
+  private getNewBudgets(budget: Budget): Promise<Budget> {
+    try {
+      return Budget.create({
+        name: `${budget.name} NEW`,
+        userId: this.currentUserId,
+        amount: budget.amount,
+        used: 0,
+        recreate: budget.recreate
+      });
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
+  private getNewCategories(newBudgetId: string, categories: Category[]): Promise<Category[]> {
+    try {
+      return Promise.all(
+        categories.map(async (category) => {
+          return Category.create({
+            name: `${category.name} NEW`,
+            budgetId: newBudgetId,
+            amount: category.amount,
+            used: 0,
+            recreate: category.recreate
+          });
+      }));
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
   public logout(): void {
     this.resetLoggedUserInLocalStorage();
 
@@ -174,7 +252,7 @@ export class DataService {
       userId: this.currentUserId,
       amount: dialogData.amount,
       used: 0,
-      recreate: false
+      recreate: dialogData.recreate
     }
 
     const newBudget = await Budget.create(budget);
@@ -191,7 +269,7 @@ export class DataService {
       budgetId: this.selectedBudget.id,
       amount: dialogData.amount,
       used: 0,
-      recreate: false
+      recreate: dialogData.recreate
     }
 
     const newCategory = await Category.create(category);
@@ -258,7 +336,7 @@ export class DataService {
     const budgetData = {
       name: dialogData.name,
       amount: dialogData.amount,
-      recreate: false
+      recreate: dialogData.recreate
     }
 
     const editedBudget = await Budget.patch(this.clickedBudget.id, budgetData);
@@ -278,7 +356,7 @@ export class DataService {
     const categoryData = {
       name: dialogData.name,
       amount: dialogData.amount,
-      recreate: false
+      recreate: dialogData.recreate
     }
 
     const clickedCategoryName = this.clickedCategory.name;
