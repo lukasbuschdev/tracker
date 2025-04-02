@@ -1,0 +1,22 @@
+@use 'variables' as *;
+
+:host {
+    display: block;
+    position: absolute;
+    left: -9999px;
+    visibility: hidden;
+}
+
+.heading-container img {
+    height: 80px;
+    width: 80px;
+    object-fit: contain;
+}
+
+.file-container {
+    padding: 40px 30px;
+}
+
+.row-container {
+    width: 30%;
+}

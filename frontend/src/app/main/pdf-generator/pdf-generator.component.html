@@ -1,0 +1,112 @@
+<div #pdfContent class="file-container column gap-10">
+    <div class="heading-container row between align-center">
+        <h1>{{ 'summary' | translate }}</h1>
+        <img src="img/logo.svg">
+    </div>
+    <div class="column gap-30">
+        <div class="column gap-30 salary-container">
+            <div class="heading-container">
+                <h2>{{ data.clickedBudget?.name }}</h2>
+            </div>
+            <div class="column between gap-15 information">
+                <div class="row between">
+                    <div class="txt-bold">{{ 'amount' | translate }}:</div>
+                    <div class="number txt-red">- {{ utils.formatNumber(data.clickedBudget?.amount || 0) }}</div>
+                </div>
+                
+                <div class="row between">
+                    <div class="txt-bold">{{ 'used' | translate }}:</div>
+                    <div class="number txt-red">- {{ utils.formatNumber(data.clickedBudget?.used || 0) }}</div>
+                </div>
+    
+                <div class="budget-date-container row between">
+                    <span class="txt-bold">{{ 'created' | translate }}:</span>
+                    @if(language.currentLanguage === 'en') {
+                        <span>{{ data.clickedBudget?.created | date:'M/d/yy, h:mm a' }}</span>
+                    } @else if(language.currentLanguage === 'de') {
+                        <span>{{ data.clickedBudget?.created | date:'dd.MM.yyyy, HH:mm' }}</span>
+                    } @else if(language.currentLanguage === 'es') {
+                        <span>{{ data.clickedBudget?.created | date:'dd/MM/yyyy, h:mm a' }}</span>
+                    } @else {
+                        <span>{{ data.clickedBudget?.created | date:'dd/MM/yyyy, HH:mm' }}</span>
+                    }
+                </div>
+            </div>
+        </div>
+    
+        <div class="column gap-30 categories-container">
+            <div class="heading-container">
+                <h2>{{ 'categories' | translate }}</h2>
+            </div>
+            <div class="column gap-20">
+                @for(category of data.archivedCategoriesOfClickedBudget; track category.id) {
+                    <div class="column category-container gap-10">
+                        <div class="row between">
+                            <div class="txt-bold">{{ category.name }}:</div>
+                            <div class="row gap-10 align-center">
+                                <div class="number txt-green">+ {{ utils.formatNumber(category.amount) }}</div>
+                            </div>
+                        </div>
+        
+                        <div class="row between">
+                            <div class="txt-bold">{{ 'used' | translate }}:</div>
+                            <div class="number txt-red">- {{ utils.formatNumber(calculateCategoryUsed(category)) }}</div>
+                        </div>
+                
+                        <div class="row between">
+                            <div>{{ 'available' | translate }}:</div>
+                            <div class="number" [class]="(category.amount - calculateCategoryUsed(category)) > 0 ? 'txt-green' : 'txt-red'">
+                                {{ (category.amount - calculateCategoryUsed(category)) > 0 ? '+ ' : '- ' }}
+                                {{ utils.formatNumber(category.amount - calculateCategoryUsed(category)) }}
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="line gray"></div>
+                }
+            </div>
+        </div>
+        <div class="expense-container column gap-30">
+            <div class="heading-container">
+                <h2>{{ 'expenses' | translate }}</h2>
+            </div>
+            <div class="column gap-20">
+                @for(expense of data.archivedExpensesOfClickedBudget; track $index) {
+                    <div class="single-expense column gap-10">
+                        <div class="row between gap-15 w-100">
+                            <div class="row-container txt-bold">{{ expense.name }}</div>
+                            <div class="row-container">{{ expense.category }}</div>
+                            <div class="row-container right number txt-red">- {{ utils.formatNumber(expense.amount) }}</div>
+                        </div>
+        
+                        <div class="expense-date-container row between">
+                            <span class="txt-bold">{{ 'created' | translate }}:</span>
+                            @if(language.currentLanguage === 'en') {
+                                <span>{{ expense.created | date:'M/d/yy, h:mm a' }}</span>
+                            } @else if(language.currentLanguage === 'de') {
+                                <span>{{ expense.created | date:'dd.MM.yyyy, HH:mm' }}</span>
+                            } @else if(language.currentLanguage === 'es') {
+                                <span>{{ expense.created | date:'dd/MM/yyyy, h:mm a' }}</span>
+                            } @else {
+                                <span>{{ expense.created | date:'dd/MM/yyyy, HH:mm' }}</span>
+                            }
+                        </div>
+                    </div>
+        
+                    <div class="line gray"></div>
+                }
+    
+                <div class="column gap-10">
+                    <div class="sum-container row between">
+                        <span class="txt-bold">{{ 'expenses-result' | translate }}</span>
+                        <span class="number txt-red">- {{ utils.formatNumber(calculateCurrentBudgetSum()) }}</span>
+                    </div>
+                    <div class="line-container column gap-5">
+                        <div class="line gray"></div>
+                        <div class="line gray"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

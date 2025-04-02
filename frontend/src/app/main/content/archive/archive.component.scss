@@ -34,13 +34,13 @@
         padding: 20px;
 
         .information {
-            height: 220px;
+            height: 240px;
         }
     }
 
     .button-container {
-        flex-direction: column;
-        align-items: center;
+        flex-wrap: wrap-reverse;
+        justify-content: center;
 
         span {
             display: block !important;

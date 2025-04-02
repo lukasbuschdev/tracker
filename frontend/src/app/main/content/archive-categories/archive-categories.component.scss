@@ -36,3 +36,9 @@
         gap: 20px;
     }
 }
+
+@media(max-width: 500px) {
+    .btn-primary span {
+        display: block !important;
+    }
+}

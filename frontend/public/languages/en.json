@@ -118,5 +118,7 @@
     "archived-categories": "Archived categories",
     "no-archived-expenses": "You have no archived expenses for this budget!",
     "archived-expenses": "Archived expenses",
-    "back": "Back"
+    "back": "Back",
+    "download": "Download PDF",
+    "summary": "Summary"
 }

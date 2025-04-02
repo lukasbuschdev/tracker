@@ -4,13 +4,14 @@ import { LanguageService } from '../../../services/language.service';
 import { TranslatePipe } from '../../../pipe/translate.pipe';
 import { UtilsService } from '../../../services/utils.service';
 import { DataService } from '../../../services/data.service';
-import { DialogService } from '../../../services/dialog.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { DownloadService } from '../../../services/download.service';
+import { PdfGeneratorComponent } from "../../pdf-generator/pdf-generator.component";
 
 @Component({
   selector: 'app-archive',
-  imports: [TranslatePipe, CommonModule],
+  imports: [TranslatePipe, CommonModule, PdfGeneratorComponent],
   templateUrl: './archive.component.html',
   styleUrl: './archive.component.scss'
 })
@@ -23,6 +24,7 @@ export class ArchiveComponent {
   theme = inject(ThemeService);
   language = inject(LanguageService);
   router = inject(Router);
+  download = inject(DownloadService);
 
 
   toggleActiveBudget(event: MouseEvent, budgetId: string): void {

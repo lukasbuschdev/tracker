@@ -97,7 +97,6 @@
             }
         }
     }
-
 }
 
 .reset-filter {
@@ -149,6 +148,11 @@
             height: 15px !important;
             width: 15px !important;
         }
+    }
+
+
+    .btn-primary span {
+        display: block !important;
     }
 }
 
