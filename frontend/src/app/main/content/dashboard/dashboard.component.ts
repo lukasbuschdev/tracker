@@ -37,11 +37,4 @@ export class DashboardComponent implements OnInit {
   closeBudgtes(): void {
     this.isDropdownOpened = false;
   }
-
-  calculateAvailableBudget(): number {
-    if(!this.data.selectedBudget) return 0;
-    const categoriesAmounts = this.data.categoriesArray.map(category => category.amount);
-
-    return this.availableInSelectedBudget = this.data.selectedBudget.amount - categoriesAmounts.reduce((acc, curr) => acc + curr, 0);
-  }
 }

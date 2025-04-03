@@ -188,7 +188,6 @@ input[type="number"] {
   max-width: 1440px;
   padding: 0 30px 20px;
   overflow: auto;
-  background-color: $white;
 
   .heading-container {
     width: 100%;
@@ -522,10 +521,6 @@ input[type="number"] {
   }
 }
 
-.access-container .content-container {
-  height: calc(100vh - 80px);
-}
-
 .no-budgets-message-container {
   height: 90%;
   width: 100%;
@@ -682,30 +677,45 @@ input[type="number"] {
 
 
 // DARK MODE SECTION
+
 .app-content.dark-mode {
   background-color: $darkmode;
+  transition: $transition-medium;
 }
 
 .nav.dark-mode, .header.dark-mode {
-  background-color: $wine-light
+  background-color: $wine-light;
+  transition: $transition-medium;
 }
 
 .section-container.dark-mode {
   background-color: $darkmode;
   color: $white;
+  transition: $transition-medium;
 }
 
 .access-container.dark-mode {
   background-color: $darkmode;
+  transition: $transition-medium;
+}
+
+.access-container.dark-mode .header {
+  background-color: $darkmode;
+  transition: $transition-medium;
 }
 
 .dark-mode {
-  h1, h2, h3, h4, li, a {
+  h1, h2, h3, h4, a {
     color: $wine-light !important;
+  }
+
+  .section-container .navigation li {
+    color: $white;
   }
 
   .nav-row {
     background-color: $wine-light;
+    transition: $transition-medium;
 
     &:hover {
       background-color: $wine !important;

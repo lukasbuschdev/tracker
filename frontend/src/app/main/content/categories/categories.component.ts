@@ -23,6 +23,12 @@ export class CategoriesComponent {
 
   theme = inject(ThemeService);
 
+  async ngOnInit(): Promise<void> {
+    this.data.dataLoaded$.subscribe(async (loaded) => {
+      if(loaded) return this.data.getCategories();
+    });
+  }
+
   toggleActiveCategory(event: MouseEvent, categoryId: string): void {
     event.stopPropagation();
     if(this.activeCategoryId === categoryId) return this.closeCategory();

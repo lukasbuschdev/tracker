@@ -7,7 +7,6 @@ import { HttpClient } from '@angular/common/http';
 import { LanguageService } from '../../services/language.service';
 import { DataService } from '../../services/data.service';
 import { NavigationService } from '../../services/navigation.service';
-import { LoadingService } from '../../services/loading.service';
 import { ThemeService } from '../../services/theme.service';
 
 @Component({
@@ -24,7 +23,7 @@ export class SignupComponent {
   password: string = '';
   repeatedPassword: string = '';
   signupAttemptMade: boolean = false;
-  nameRegex: RegExp = /^(?=.{3,})[A-Za-z0-9 ]+$/;
+  nameRegex: RegExp = /^(?=.{3,})(?=.*[A-Za-z])[A-Za-z0-9 ]+$/;
   emailRegex: RegExp = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
   passwordRegex: RegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.,!?&§@+\-\/\\]).+$/;
   isAlreadyExistingUser: boolean = false;
@@ -35,28 +34,24 @@ export class SignupComponent {
   http = inject(HttpClient);
   data = inject(DataService);
   navigation = inject(NavigationService);
-  loading = inject(LoadingService);
   theme = inject(ThemeService);
 
   toggleIsChecked() {
     this.isChecked = !this.isChecked;
   }
 
-  async checkSignup(name: string, email: string, password: string, repeatedPassword: string): Promise<void> {
+  async checkSignup(name: string, email: string, password: string, repeatedPassword: string): Promise<boolean | void> {
     this.isAlreadyExistingUser = false;
     this.signupAttemptMade = true;
 
-    if(await this.checkIfUserAlreadyExists(email)) {
-      this.isAlreadyExistingUser = true;
-      return;
-    }
+    if(await this.checkIfUserAlreadyExists(email)) return this.isAlreadyExistingUser = true;
 
     this.isSignupSuccessful = this.testInputs(name, email, password, repeatedPassword);
     const hashedPassword = await this.utils.sha256(password);
     const verificationCode = this.utils.createVerificationCode();
 
     if(!this.isSignupSuccessful) return;
-    this.loading.loadingAnimation(1000);
+    this.data.isLoading = true;
 
     const unverifiedUser = await User.create({
       name, 
@@ -67,7 +62,7 @@ export class SignupComponent {
     });
 
     this.sendMail(name, email, verificationCode, unverifiedUser.id);
-    this.navigation.setNavigation('/verification', 3000);
+    this.navigation.setNavigation(`/verification?userId=${unverifiedUser.id}`, 3000);
   }
 
   async checkIfUserAlreadyExists(email: string): Promise<boolean> {
@@ -75,7 +70,6 @@ export class SignupComponent {
       const user = await User.getUserWithEmail(email);
       return user ? true : false; 
     } catch (error) {
-      console.error('No user found!', error);
       return false;
     }
   }
@@ -98,9 +92,7 @@ export class SignupComponent {
       url: `https://expensetracker.lukasbusch.dev/verification?verificationCode=${verificationCode}&userId=${userId}`,
       verificationCode: verificationCode,
       lang: lang
-    }).subscribe(response => {
-      console.log('Email send result: ', response);
-    });
+    }).subscribe();
   }
 
   getCurrentLang(): string {

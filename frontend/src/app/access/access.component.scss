@@ -5,9 +5,11 @@ section {
     width: 100%;
     overflow: hidden;
     padding: 10px 30px;
-
+    transition: $transition-medium;
+    
     .header {
         height: 80px;
+        transition: $transition-medium;
         
         .logo {
             height: unset;

@@ -7,6 +7,7 @@ nav {
     background-color: $wine;
     color: $white;
     padding: 25px 0;
+    transition: $transition-medium;
     
     .nav-row {
         height: 60px;

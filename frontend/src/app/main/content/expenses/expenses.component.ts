@@ -31,14 +31,21 @@ export class ExpensesComponent {
   selectedCategory: string = '';
   isFilterActive: boolean = false;
 
-  constructor(private dialog: DialogService, public utils: UtilsService, public data: DataService) { }
+  constructor(private dialog: DialogService) { }
 
   theme = inject(ThemeService);
   language = inject(LanguageService);
+  data = inject(DataService);
+  utils = inject(UtilsService);
 
-  ngOnInit(): void {
-    this.data.filteredExpenses = this.data.expensesArray;
-    this.isFilterVisible = false;
+  async ngOnInit(): Promise<void> {
+    this.data.dataLoaded$.subscribe(async (loaded) => {
+      if(loaded) {
+        await this.data.getExpenses();
+        this.data.filteredExpenses = this.data.expensesArray;
+        this.isFilterVisible = false;
+      }
+    });
   }
 
   toggleFilter(): void {

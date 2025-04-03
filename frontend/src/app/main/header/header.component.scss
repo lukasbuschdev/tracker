@@ -8,6 +8,7 @@ header {
     z-index: 99;
     position: relative;
     box-shadow: 0 0 10px 5px rgba($color: $black, $alpha: 0.2);
+    transition: $transition-medium;
 
     .logo {
         height: 60px;

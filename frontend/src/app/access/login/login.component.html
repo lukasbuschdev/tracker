@@ -1,4 +1,4 @@
-@if(loading.isLoading) {
+@if(data.isLoading) {
     <div class="center spinner-container">
         <div class="spinner"></div>
     </div>
@@ -21,7 +21,7 @@
                             } @else {
                                 <img class="checkbox" [src]="isChecked ? 'img/checkbox-checked-white.svg' : 'img/checkbox-unchecked-white.svg'" (click)="toggleIsChecked()">
                             }
-                            <span>{{ 'remember-me' | translate }}</span>
+                            <span class="remember-me" (click)="toggleIsChecked()">{{ 'remember-me' | translate }}</span>
                         </div>
                     </div>
                     
@@ -34,8 +34,8 @@
                     </div>
                 </div>
         
-                <div class="column links gap-10">
-                    <div class="row gap-15">
+                <div class="column links gap-20">
+                    <div class="row gap-25">
                         <span routerLink="/access-legal-notice">{{ 'legal-notice' | translate }}</span>
                         <span routerLink="/access-privacy-policy">{{ 'privacy-policy' | translate }}</span>
                     </div>

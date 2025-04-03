@@ -26,6 +26,7 @@ export class VerificationComponent implements OnInit {
   route = inject(ActivatedRoute);
 
   ngOnInit(): void {
+    this.data.isLoading = false;
     this.verificationCode = this.route.snapshot.queryParamMap.get('verificationCode') || '';
     this.unverifiedUserId = this.route.snapshot.queryParamMap.get('userId') || '';
   }

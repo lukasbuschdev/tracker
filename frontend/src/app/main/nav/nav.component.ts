@@ -25,7 +25,7 @@ export class NavComponent {
 
     this.scroll.scrollToTop();
 
-    if(this.activeNav === 'expenses') return await this.data.getExpenses();
-    if(this.activeNav === 'categories') return await this.data.getCategories();
+    if(this.activeNav === 'expenses') return this.data.getExpenses();
+    if(this.activeNav === 'categories') return this.data.getCategories();
   }
 }

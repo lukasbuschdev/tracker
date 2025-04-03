@@ -42,7 +42,7 @@ export class ResetPasswordMailComponent {
 
     this.sendMail(user.name, user.email, verificationCode, user.id);
     this.resetMailSent = true;
-    this.navigation.setNavigation('/reset-password', 3000);
+    this.navigation.setNavigation(`/reset-password?userId=${user.id}`, 3000);
   }
 
   async getUser(email: string): Promise<User | void> {

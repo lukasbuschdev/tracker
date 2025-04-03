@@ -47,6 +47,7 @@
     "signup": "Signup",
     "enter-name": "Enter a name!",
     "name-too-short": "Name too short!",
+    "name-invalid": "Only letters, and digits allowed!",
     "enter-email": "Enter an email!",
     "enter-password": "Enter a password!",
     "password-too-short": "Password too short!",

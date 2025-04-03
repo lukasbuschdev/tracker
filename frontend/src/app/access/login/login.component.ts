@@ -6,7 +6,6 @@ import { UtilsService } from '../../services/utils.service';
 import { User } from '../../models/user';
 import { DataService } from '../../services/data.service';
 import { TranslatePipe } from '../../pipe/translate.pipe';
-import { LoadingService } from '../../services/loading.service';
 import { NavigationService } from '../../services/navigation.service';
 import { typeUser } from '../../types/types';
 import { ThemeService } from '../../services/theme.service';
@@ -25,13 +24,15 @@ export class LoginComponent implements OnInit {
   loginAttempted: boolean = false;
   existsStoredUser: boolean = false;
 
-  constructor(private utils: UtilsService, private data: DataService, public loading: LoadingService) { }
+  constructor(private utils: UtilsService) { }
 
   navigation = inject(NavigationService);
   theme = inject(ThemeService);
+  data = inject(DataService);
 
   ngOnInit(): void {
     this.getCredentialsFromLocalStorage();
+    this.data.isLoading = false;
   }
 
   toggleIsChecked() {
@@ -44,7 +45,7 @@ export class LoginComponent implements OnInit {
     this.isUserFound = true;
     
     try {
-      this.loading.loadingAnimation(2000);
+      this.data.isLoading = true;
       const user = await User.getUserWithEmailOrNameAndPassword(emailOrName, hashedPassword);
 
       if(!user.isVerified) return;
@@ -55,11 +56,9 @@ export class LoginComponent implements OnInit {
       }
 
       this.saveLoggedUserToLocalStorage(user.id);
-      await this.data.init();
       this.navigation.setNavigation('/dashboard', 0);
       this.theme.loadTheme();
     } catch (error) {
-      console.error(error);
       this.resetBooleans();
     }
 

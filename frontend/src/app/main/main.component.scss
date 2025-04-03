@@ -4,6 +4,10 @@
     height: 100vh;
 }
 
+.nav-content-container {
+    overflow: hidden;
+}
+
 @media(max-width: 800px) {
     :host {
         display: block;

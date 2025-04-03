@@ -16,6 +16,7 @@ export class DataService {
   public currentUserId: string = '';
   public currentUser: User | null = null;
   public isLoggedIn: boolean = false;
+  public isLoading: boolean = true;
 
   private budgetsSubject = new BehaviorSubject<Budget[]>([]);
   private categoriesSubject = new BehaviorSubject<Category[]>([]);
@@ -23,6 +24,8 @@ export class DataService {
   private archivedBudgetsSubject = new BehaviorSubject<Budget[]>([]);
   private archivedCategoriesSubject = new BehaviorSubject<Category[]>([]);
   private archivedExpensesSubject = new BehaviorSubject<Expense[]>([]);
+
+  public dataLoaded$ = new BehaviorSubject<boolean>(false);
 
   public get budgetsArray() {
     return this.budgetsSubject.value;
@@ -63,18 +66,14 @@ export class DataService {
   constructor(private dialog: DialogService, private theme: ThemeService) { }
 
   public async init(): Promise<void> {
-    await this.getData();
-    await this.runMonthlyRecreationCheck();
-  }
+    await Promise.all([
+      this.getData(),
+      this.runMonthlyRecreationCheck()
+    ]);
 
-  private async getUser(): Promise<void> {
-    if(!this.currentUser || !this.currentUserId) return;
-
-    try {
-      this.currentUser = await User.get(this.currentUserId); 
-    } catch (error) {
-      console.error(error);
-    }
+    this.getSelectedBudgetFromLocalStorage();
+    this.dataLoaded$.next(true);
+    this.isLoading = false;
   }
 
   public async getLoggedUserFromLocalStorage(): Promise<void> {
@@ -89,19 +88,24 @@ export class DataService {
     this.currentUser = await User.get(this.currentUserId);
   }
 
+  public getSelectedBudgetFromLocalStorage(): void {
+    const selectedBudgetString = localStorage.getItem('selectedBudget');
+    this.selectedBudget = this.budgetsArray.find(budget => budget.id === selectedBudgetString) ?? this.budgetsArray[0];
+    this.selectBudget(this.selectedBudget);
+  }
+
   private async getData(): Promise<void> {
     this.theme.loadTheme();
     if(!this.currentUserId) return;
     
-    try {
-      await this.getBudgets();
-      await this.getCategories();
-      await this.getExpenses();
-      await this.getArchivedBudgets();
-      this.calculateCurrentAvailable();
-    } catch (error) {
-      console.error(error);
-    }
+    await Promise.all([
+      this.getBudgets(),
+      this.getCategories(),
+      this.getExpenses(),
+      this.getArchivedBudgets()
+    ]);
+
+    this.calculateCurrentAvailable()
   }
 
   private async getBudgets(): Promise<void> {
@@ -109,7 +113,6 @@ export class DataService {
     if(!budgets.length) return;
     
     this.budgetsSubject.next(budgets);
-    this.selectedBudget = this.budgetsArray[0];
   }
 
   public async getCategories(): Promise<void> {
@@ -130,8 +133,11 @@ export class DataService {
     if(!budgets.length) return;
     
     const budgetIds = budgets.map(budget => budget.id);
-    const categories = await this.getArchivedCategories(budgetIds);
-    const expenses = await this.getArchivedExpenses(budgetIds);
+
+    const [categories, expenses] = await Promise.all([
+      this.getArchivedCategories(budgetIds),
+      this.getArchivedExpenses(budgetIds)
+    ]);
 
     this.archivedBudgetsSubject.next(budgets);
     this.archivedCategoriesSubject.next(categories);
@@ -140,18 +146,14 @@ export class DataService {
 
   private async getArchivedCategories(budgetIds: string[]): Promise<Category[]> {
     const categories = await Promise.all(
-      budgetIds.map(async (budgetId) => {
-        return (await Category.get(budgetId)).filter(category => category.isArchived === true);
-      })
+      budgetIds.map(async (budgetId) => (await Category.get(budgetId)).filter(category => category.isArchived === true))
     );
     return categories.flat();
   }
 
   private async getArchivedExpenses(budgetIds: string[]): Promise<Expense[]> {
     const expenses = await Promise.all(
-      budgetIds.map(async (budgetId) => {
-        return (await Expense.get(budgetId)).filter(expense => expense.isArchived === true);
-      })
+      budgetIds.map(async (budgetId) => (await Expense.get(budgetId)).filter(expense => expense.isArchived === true))
     );
     return expenses.flat();
   }
@@ -179,15 +181,20 @@ export class DataService {
     return expenses.sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime());
   }
 
-  public async selectBudget(budget: Budget): Promise<void> {
+  public selectBudget(budget: Budget): Promise<void[]> | void {
     this.selectedBudget = this.budgetsArray.find(dataBudget => dataBudget.id === budget.id) || null;
     if(!this.selectedBudget) return;
+    localStorage.setItem('selectedBudget', this.selectedBudget.id);
 
-    await this.getCategories();
-    await this.getExpenses();
+    return Promise.all([
+      this.getCategories(),
+      this.getExpenses()
+    ]);
   }
 
   private async runMonthlyRecreationCheck(): Promise<void> {
+    if(this.currentUserId === '687d7a01-fcad-497a-be8d-b0e4389da2da') return;
+
     const today = new Date();
     const currentMonth = `${today.getFullYear()}-${today.getMonth() + 1}`;
     const executedMonth = localStorage.getItem("monthlyRecreationCheckExecuted");
@@ -197,11 +204,11 @@ export class DataService {
       await this.getData();
       localStorage.setItem("monthlyRecreationCheckExecuted", currentMonth);
     } else {
-      console.log("Monthly recreation check already executed for", currentMonth);
+      // console.log("Monthly recreation check already executed for", currentMonth);
     }
   }
 
-  private async checkRecreation(): Promise<void> {
+  private async checkRecreation(): Promise<void[]> {
     const recreationBudgets = this.budgetsArray.filter(budget => budget.recreate === true);
     const recreationData: [Budget, Category[]][] = await Promise.all(
       recreationBudgets.map(async (recreationBudget) => {
@@ -212,77 +219,64 @@ export class DataService {
 
     this.moveToArchive();
     this.recreateData(recreationData);
-    await this.getBudgets();
-    await this.getCategories();
-    await this.getExpenses();
-    await this.getArchivedBudgets();
+    
+    return Promise.all([
+      this.getBudgets(),
+      this.getCategories(),
+      this.getExpenses(),
+      this.getArchivedBudgets()
+    ]);
   }
 
-  private async moveToArchive(): Promise<void> {
+  private async moveToArchive(): Promise<(Category[] | Expense[])[]> {
     const archivedBugets = await this.moveBudgetsToArchive();
-    const archivedCategories = await this.moveCategoriesToArchive(archivedBugets);
-    const archivedExpenses = await this.moveExpensesToArchive(archivedBugets);
+    
+    return Promise.all([
+      this.moveCategoriesToArchive(archivedBugets),
+      this.moveExpensesToArchive(archivedBugets)
+    ]);
   }
 
-  private async recreateData(data: [Budget, Category[]][]): Promise<void> {
-    const createdData = await Promise.all(
+  private async recreateData(data: [Budget, Category[]][]): Promise<Category[][]> {
+    return Promise.all(
       data.map(async ([budget, categories]) => {
         const newBudget = await this.getNewBudgets(budget);
-        const newCategories = await this.getNewCategories(newBudget.id, categories);
+        return this.getNewCategories(newBudget.id, categories);
       })
     );
   }
 
   private getNewBudgets(budget: Budget): Promise<Budget> {
-    try {
-      return Budget.create({
-        name: `${budget.name} NEW`,
-        userId: this.currentUserId,
-        amount: budget.amount,
-        used: 0,
-        recreate: budget.recreate,
-        isArchived: false
-      });
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
+    return Budget.create({
+      name: `${budget.name} NEW`,
+      userId: this.currentUserId,
+      amount: budget.amount,
+      used: 0,
+      recreate: budget.recreate,
+      isArchived: false
+    });
   }
 
   private getNewCategories(newBudgetId: string, categories: Category[]): Promise<Category[]> {
-    try {
-      return Promise.all(
-        categories.map(async (category) => {
-          return Category.create({
-            name: `${category.name} NEW`,
-            budgetId: newBudgetId,
-            amount: category.amount,
-            used: 0,
-            recreate: category.recreate,
-            isArchived: false
-          });
-      }));
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
+    return Promise.all(
+      categories.map(async (category) => {
+        return Category.create({
+          name: `${category.name} NEW`,
+          budgetId: newBudgetId,
+          amount: category.amount,
+          used: 0,
+          recreate: category.recreate,
+          isArchived: false
+        });
+    }));
   }
 
   private moveBudgetsToArchive(): Promise<Budget[]> {
     const allBudgetIds = this.budgetsArray.filter(budget => budget.isArchived === false).map(budget => budget.id);
 
-    try {
-      return Promise.all(
-        allBudgetIds.map(async (budgetId) => {
-          return Budget.patch(budgetId, {
-            isArchived: true
-          });
-        })
-      )
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
+    return Promise.all(
+      allBudgetIds.map(async (budgetId) => Budget.patch(budgetId, { isArchived: true }))
+    );
   }
 
   private moveCategoriesToArchive(budgets: Budget[]): Promise<Category[]> {
@@ -291,18 +285,9 @@ export class DataService {
       budgetIds.includes(category.budgetId)
     );
 
-    try {
-      return Promise.all(
-        filteredCategories.map(async (category) => {
-          return Category.patch(category.id, {
-            isArchived: true
-          });
-        })
-      );
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
+    return Promise.all(
+      filteredCategories.map(async (category) => Category.patch(category.id, { isArchived: true }))
+    );
   }
 
   private moveExpensesToArchive(budgets: Budget[]): Promise<Expense[]> {
@@ -311,18 +296,9 @@ export class DataService {
       budgetIds.includes(expense.budgetId)
     );
 
-    try {
-      return Promise.all(
-        filteredExpenses.map(async (expense) => {
-          return Expense.patch(expense.id, {
-            isArchived: true
-          });
-        })
-      );
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
+    return Promise.all(
+      filteredExpenses.map(async (expense) => Expense.patch(expense.id, { isArchived: true }))
+    );
   }
 
   public logout(): void {
@@ -345,12 +321,6 @@ export class DataService {
     this.filteredExpenses = this.expensesArray;
   }
 
-
-
-
-
-
-
   // ADD DATA TO DATABASE
 
   public addData(dialogData: typeDialogData): Promise<void> {
@@ -360,16 +330,15 @@ export class DataService {
   }
 
   private async createBudget(dialogData: typeDialogData): Promise<void> {
-    const budget = {
+    const newBudget = await Budget.create({
       name: dialogData.name,
       userId: this.currentUserId,
       amount: dialogData.amount,
       used: 0,
       recreate: dialogData.recreate,
       isArchived: false
-    }
+    });
 
-    const newBudget = await Budget.create(budget);
     const currentBudgets = this.budgetsSubject.value;
     this.budgetsSubject.next([...currentBudgets, newBudget]);
     this.selectedBudget = newBudget;
@@ -378,16 +347,15 @@ export class DataService {
   private async createCategory(dialogData: typeDialogData): Promise<void> {
     if(!this.selectedBudget) return;
 
-    const category = {
+    const newCategory = await Category.create({
       name: dialogData.name,
       budgetId: this.selectedBudget.id,
       amount: dialogData.amount,
       used: 0,
       recreate: dialogData.recreate,
       isArchived: false
-    }
+    });
 
-    const newCategory = await Category.create(category);
     const currentCategories = this.categoriesSubject.value;
     this.categoriesSubject.next([...currentCategories, newCategory]);
   }
@@ -395,16 +363,15 @@ export class DataService {
   private async createExpense(dialogData: typeDialogData): Promise<void> {
     if(!this.selectedBudget) return;
 
-    const expense = {
+    const newExpense = await Expense.create({
       name: dialogData.name,
       budgetId: this.selectedBudget.id,
       amount: dialogData.amount,
       category: this.selectedCategory,
       recreate: false,
       isArchived: false
-    }
+    });
 
-    const newExpense = await Expense.create(expense);
     const currentExpenses = this.expensesSubject.value;
     const currentExpensesSorted = this.sortExpensesByDate([...currentExpenses, newExpense]);
     this.expensesSubject.next(currentExpensesSorted);
@@ -416,27 +383,13 @@ export class DataService {
   private async updateUsed(): Promise<void> {
     if(!this.selectedBudget) return;
 
-    let updatedUsed = this.selectedBudget.amount - this.calculateCurrentAvailable();
+    const updatedUsed = this.selectedBudget.amount - this.calculateCurrentAvailable();
 
-    const budgetUsed = {
-      used: updatedUsed
-    }
-
-    const editedBudget = await Budget.patch(this.selectedBudget.id, budgetUsed);
-    const updatedBudgets = this.budgetsSubject.value.map(budget => {
-      return budget.id === editedBudget.id ? { ...budget, ...editedBudget } : budget;
-    });
+    const editedBudget = await Budget.patch(this.selectedBudget.id, { used: updatedUsed });
+    const updatedBudgets = this.budgetsSubject.value.map(budget => budget.id === editedBudget.id ? { ...budget, ...editedBudget } : budget);
 
     this.budgetsSubject.next(updatedBudgets);
   }
-
-
-
-
-
-
-
-
 
   // EDIT DATA FROM DATABASE
 
@@ -456,9 +409,7 @@ export class DataService {
     }
 
     const editedBudget = await Budget.patch(this.clickedBudget.id, budgetData);
-    const updatedBudgets = this.budgetsSubject.value.map(budget => {
-      return budget.id === editedBudget.id ? { ...budget, ...editedBudget } : budget;
-    });
+    const updatedBudgets = this.budgetsSubject.value.map(budget => budget.id === editedBudget.id ? { ...budget, ...editedBudget } : budget);
 
     this.budgetsSubject.next(updatedBudgets);
 
@@ -477,13 +428,11 @@ export class DataService {
 
     const clickedCategoryName = this.clickedCategory.name;
     const editedCategory = await Category.patch(this.clickedCategory.id, categoryData);
-    const updatedCategories = this.categoriesSubject.value.map(category => {
-      return category.id === editedCategory.id ? { ...category, ...editedCategory } : category;
-    });
+    const updatedCategories = this.categoriesSubject.value.map(category => category.id === editedCategory.id ? { ...category, ...editedCategory } : category);
 
     this.categoriesSubject.next(updatedCategories);
 
-    this.updateExpenses(dialogData, clickedCategoryName);
+    await this.updateExpenses(dialogData, clickedCategoryName);
     this.calculateCurrentAvailable();
   }
 
@@ -518,9 +467,7 @@ export class DataService {
     }
 
     const editedExpense = await Expense.patch(this.clickedExpense?.id, expenseData);
-    const updatedExpenses = this.expensesSubject.value.map(expense => {
-      return expense.id === editedExpense.id ? { ...expense, ...editedExpense } : expense;
-    });
+    const updatedExpenses = this.expensesSubject.value.map(expense => expense.id === editedExpense.id ? { ...expense, ...editedExpense } : expense);
     const updatedExpensesSorted = this.sortExpensesByDate(updatedExpenses);
 
     this.expensesSubject.next(updatedExpensesSorted);
@@ -535,18 +482,8 @@ export class DataService {
       isVerified: isVerified
     } 
 
-    await User.patch(this.currentUserId, userData);
-    await this.getUser();
+    this.currentUser = await User.patch(this.currentUserId, userData);
   }
-
-
-
-
-
-
-
-
-  
 
   // DELETE
 
@@ -567,9 +504,7 @@ export class DataService {
     this.updateCategoriesAndExpenses(budgetId);
     this.dialog.closeDialog();
     
-    if(this.selectedBudget?.id === budgetId) {
-      this.selectedBudget = this.budgetsArray[0];
-    }
+    if(this.selectedBudget?.id === budgetId) this.selectedBudget = this.budgetsArray[0];
   }
 
   private updateCategoriesAndExpenses(budgetId: string): void {
@@ -589,13 +524,12 @@ export class DataService {
     const updatedCategories = this.categoriesArray.filter(category => category.id !== selectedCategory.id);
     this.categoriesSubject.next(updatedCategories);
 
-    await this.deleteExpensesOfCategory(selectedCategory);
+    return this.deleteExpensesOfCategory(selectedCategory);
   }
 
   private async deleteExpensesOfCategory(category: Category): Promise<void> {
     const expensesOfCategory = this.expensesArray.filter(expense => expense.category === category.name);
-    const promises = expensesOfCategory.map(expense => Expense.delete(expense.id));
-    await Promise.all(promises);
+    await Promise.all(expensesOfCategory.map(expense => Expense.delete(expense.id)));
 
     const updatedExpenses = this.expensesArray.filter(expense => expense.category !== category.name);
     const updatedExpensesSorted = this.sortExpensesByDate(updatedExpenses);

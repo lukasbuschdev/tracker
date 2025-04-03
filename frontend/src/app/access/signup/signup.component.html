@@ -1,4 +1,4 @@
-@if(loading.isLoading) {
+@if(data.isLoading) {
     <div class="center spinner-container">
         <div class="spinner"></div>
     </div>
@@ -18,6 +18,8 @@
                                 <span class="error-message">{{ 'enter-name' | translate }}</span>
                             } @else if(signupAttemptMade && name.value.length >= 1 && name.value.length < 3) {
                                 <span class="error-message">{{ 'name-too-short' | translate }}</span>
+                            } @else if(signupAttemptMade && !nameRegex.test(name.value)) {
+                                <span class="error-message">{{ 'name-invalid' | translate }}</span>
                             } @else {
                                 <span class="error-message"></span>
                             }
@@ -60,7 +62,7 @@
                                 } @else {
                                     <img class="checkbox" [src]="isChecked ? 'img/checkbox-checked-white.svg' : 'img/checkbox-unchecked-white.svg'" (click)="toggleIsChecked()">
                                 }
-                                <span>{{ 'accept' | translate }} <span class="link" routerLink="access-privacy-policy">{{ 'privacy-policy-lowercase' | translate }}</span></span>
+                                <span class="accept" (click)="toggleIsChecked()">{{ 'accept' | translate }} <span class="link" (click)="$event.stopPropagation()" routerLink="access-privacy-policy">{{ 'privacy-policy-lowercase' | translate }}</span></span>
                             </div>
                             @if(signupAttemptMade && !isChecked) {
                                 <span class="error-message">{{ 'accept-privacy-policy' | translate }}</span>
