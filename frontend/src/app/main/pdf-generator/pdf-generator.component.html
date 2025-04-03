@@ -1,14 +1,14 @@
-<div #pdfContent class="file-container column gap-10">
+<div #pdfContent class="file-container column">
     <div class="heading-container row between align-center">
         <h1>{{ 'summary' | translate }}</h1>
         <img src="img/logo.svg">
     </div>
     <div class="column gap-30">
-        <div class="column gap-30 salary-container">
+        <div class="column gap-10 salary-container">
             <div class="heading-container">
                 <h2>{{ data.clickedBudget?.name }}</h2>
             </div>
-            <div class="column between gap-15 information">
+            <div class="column between gap-5 information">
                 <div class="row between">
                     <div class="txt-bold">{{ 'amount' | translate }}:</div>
                     <div class="number txt-red">- {{ utils.formatNumber(data.clickedBudget?.amount || 0) }}</div>
@@ -34,22 +34,22 @@
             </div>
         </div>
     
-        <div class="column gap-30 categories-container">
+        <div class="column gap-10 categories-container">
             <div class="heading-container">
                 <h2>{{ 'categories' | translate }}</h2>
             </div>
-            <div class="column gap-20">
+            <div class="column gap-5">
                 @for(category of data.archivedCategoriesOfClickedBudget; track category.id) {
-                    <div class="column category-container gap-10">
+                    <div class="column category-container gap-5">
                         <div class="row between">
                             <div class="txt-bold">{{ category.name }}:</div>
-                            <div class="row gap-10 align-center">
+                            <div class="row align-center">
                                 <div class="number txt-green">+ {{ utils.formatNumber(category.amount) }}</div>
                             </div>
                         </div>
         
                         <div class="row between">
-                            <div class="txt-bold">{{ 'used' | translate }}:</div>
+                            <div>{{ 'used' | translate }}:</div>
                             <div class="number txt-red">- {{ utils.formatNumber(calculateCategoryUsed(category)) }}</div>
                         </div>
                 
@@ -66,21 +66,21 @@
                 }
             </div>
         </div>
-        <div class="expense-container column gap-30">
+        <div class="expense-container column gap-10">
             <div class="heading-container">
                 <h2>{{ 'expenses' | translate }}</h2>
             </div>
-            <div class="column gap-20">
+            <div class="column gap-5">
                 @for(expense of data.archivedExpensesOfClickedBudget; track $index) {
-                    <div class="single-expense column gap-10">
-                        <div class="row between gap-15 w-100">
+                    <div class="single-expense column gap-5">
+                        <div class="row between gap-5 w-100">
                             <div class="row-container txt-bold">{{ expense.name }}</div>
                             <div class="row-container">{{ expense.category }}</div>
                             <div class="row-container right number txt-red">- {{ utils.formatNumber(expense.amount) }}</div>
                         </div>
         
                         <div class="expense-date-container row between">
-                            <span class="txt-bold">{{ 'created' | translate }}:</span>
+                            <span>{{ 'created' | translate }}:</span>
                             @if(language.currentLanguage === 'en') {
                                 <span>{{ expense.created | date:'M/d/yy, h:mm a' }}</span>
                             } @else if(language.currentLanguage === 'de') {
