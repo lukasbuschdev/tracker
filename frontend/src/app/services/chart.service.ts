@@ -28,8 +28,8 @@ export class ChartService {
       labels: ['Amount available', 'Amount used'],
       datasets: [{
         data: [
-          (this.data.selectedBudget?.amount - this.data.selectedBudget?.used),  
-          this.data.selectedBudget?.used, 
+          Number((this.data.selectedBudget?.amount - this.data.selectedBudget?.used).toFixed(2)),  
+          Number(this.data.selectedBudget?.used.toFixed(2)), 
         ],
         backgroundColor: ['#0eb50e', '#d70f0f'],
         hoverBackgroundColor: ['#0eb50ebf', '#d70f0fbf']
