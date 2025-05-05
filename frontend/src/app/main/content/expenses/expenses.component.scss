@@ -13,9 +13,11 @@
             width: 20px;
             object-fit: contain;
 
-            &:hover {
-                cursor: pointer;
-                filter: brightness(1.6);
+            @media(hover: hover) {
+                &:hover {
+                    cursor: pointer;
+                    filter: brightness(1.6);
+                }
             }
         }
 
@@ -37,9 +39,11 @@
         transition: all 100ms ease-in-out;
     }
     
-    &:hover img {
-        filter: brightness(15);
-        transition: all 100ms ease-in-out;
+    @media(hover: hover) {
+        &:hover img {
+            filter: brightness(15);
+            transition: all 100ms ease-in-out;
+        }
     }
 }
 
@@ -85,10 +89,12 @@
             transform: translateY(-50%);
             transition: $transition-medium;
             
-            &:hover {
-                cursor: pointer;
-                background-color: $lightgray;
-                transition: $transition-medium;
+            @media(hover: hover) {
+                &:hover {
+                    cursor: pointer;
+                    background-color: $lightgray;
+                    transition: $transition-medium;
+                }
             }
 
             img {
@@ -114,9 +120,11 @@
     padding: 10px 5px;
     border-radius: 10px;
     
-    &:hover {
-        cursor: pointer;
-        background-color: $lightgray;
+    @media(hover: hover) {
+        &:hover {
+            cursor: pointer;
+            background-color: $lightgray;
+        }
     }
 }
 

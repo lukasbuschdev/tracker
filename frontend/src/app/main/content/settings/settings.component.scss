@@ -22,7 +22,9 @@
     width: 20px;
     object-fit: contain;
     
-    &:hover {
-        cursor: pointer;
+    @media(hover: hover) {
+        &:hover {
+            cursor: pointer;
+        }
     }
 }

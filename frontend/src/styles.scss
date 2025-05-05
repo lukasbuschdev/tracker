@@ -165,8 +165,10 @@ input[type="number"] {
   width: 15px;
   object-fit: contain;
 
-  &:hover {
-    cursor: pointer;
+  @media(hover: hover) {
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
 
@@ -204,9 +206,11 @@ input[type="number"] {
         font-weight: 600;
         width: fit-content;
     
-        &:hover {
-            cursor: pointer;
-            filter: brightness(1.5);
+        @media(hover: hover) {
+          &:hover {
+              cursor: pointer;
+              filter: brightness(1.5);
+          }
         }
     }
   }
@@ -214,9 +218,11 @@ input[type="number"] {
   h3[routerLink] {
     width: fit-content;
 
-    &:hover {
-        cursor: pointer;
-        filter: brightness(1.5);
+    @media(hover: hover) {
+      &:hover {
+          cursor: pointer;
+          filter: brightness(1.5);
+      }
     }
   }
 }
@@ -232,6 +238,7 @@ input[type="number"] {
   padding: 10px 15px;
   border: 2px solid $wine;
   border-radius: 999px;
+  box-shadow: 0 4px 6px #00000035;
 
   img {
     height: 15px;
@@ -239,13 +246,16 @@ input[type="number"] {
     object-fit: contain;
   }
 
-  &:hover {
-    cursor: pointer;
-    color: $wine;
-    background-color: $white;
-
-    img {
-      filter: $icon-wine;
+  @media(hover: hover) {
+    &:hover {
+      cursor: pointer;
+      color: $wine;
+      background-color: $white;
+      box-shadow: 0 4px 8px #00000050;
+  
+      img {
+        filter: $icon-wine;
+      }
     }
   }
 }
@@ -259,6 +269,7 @@ input[type="number"] {
   padding: 10px 15px;
   border: 2px solid $wine;
   border-radius: 999px;
+  box-shadow: 0 4px 6px #00000035;
 
   img {
     height: 15px;
@@ -266,13 +277,16 @@ input[type="number"] {
     object-fit: contain;
   }
 
-  &:hover {
-    cursor: pointer;
-    color: $white;
-    background-color: $wine;
-
-    img {
-      filter: $icon-wine;
+  @media(hover: hover) {
+    &:hover {
+      cursor: pointer;
+      color: $white;
+      background-color: $wine;
+      box-shadow: 0 4px 8px #00000050;
+  
+      img {
+        filter: $icon-wine;
+      }
     }
   }
 }
@@ -285,8 +299,10 @@ input[type="number"] {
       width: 20px;
       object-fit: contain;
   
-      &:hover {
-          cursor: pointer;
+      @media(hover: hover) {
+        &:hover {
+            cursor: pointer;
+        }
       }
   }
 }
@@ -359,13 +375,17 @@ input[type="number"] {
   padding: 10px 20px;
   border: 2px solid $wine;
   border-radius: 999px;
+  box-shadow: 0 4px 6px #00000035;
   background-color: $white;
   cursor: pointer;
   transition: background-color 125ms;
   
-  &:hover {
-    color: $white;
-    background-color: $wine;
+  @media(hover: hover) {
+    &:hover {
+      color: $white;
+      background-color: $wine;
+      box-shadow: 0 4px 8px #00000050;
+    }
   }
 }
 
@@ -497,9 +517,11 @@ input[type="number"] {
       font-weight: 600;
       text-align: center;
 
-      &:hover {
-          cursor: pointer;
-          filter: brightness(1.6);
+      @media(hover: hover) {
+        &:hover {
+            cursor: pointer;
+            filter: brightness(1.6);
+        }
       }
   }
 }
@@ -543,9 +565,11 @@ input[type="number"] {
   a {
     color: $wine;
 
-    &:hover {
-      cursor: pointer;
-      filter: brightness(1.5);
+    @media(hover: hover) {
+      &:hover {
+        cursor: pointer;
+        filter: brightness(1.5);
+      }
     }
   }
 }
@@ -717,8 +741,10 @@ input[type="number"] {
     background-color: $wine-light;
     transition: $transition-medium;
 
-    &:hover {
-      background-color: $wine !important;
+    @media(hover: hover) {
+      &:hover {
+        background-color: $wine !important;
+      }
     }
   }
 
@@ -730,12 +756,14 @@ input[type="number"] {
     border-color: $wine-light;
     background-color: $wine-light;
 
-    &:hover {
-      color: $white;
-      background-color: $darkmode;
+    @media(hover: hover) {
+      &:hover {
+        color: $white;
+        background-color: $darkmode;
 
-      img {
-        filter: $icon-white
+        img {
+          filter: $icon-white
+        }
       }
     }
   }
@@ -749,8 +777,10 @@ input[type="number"] {
       filter: $icon-white;
     }
   
-    &:hover {
-      background-color: $wine-light;
+    @media(hover: hover) {
+      &:hover {
+        background-color: $wine-light;
+      }
     }
   }
 
@@ -759,9 +789,11 @@ input[type="number"] {
     background-color: $darkmode;
     color: $white;
     
-    &:hover {
-      color: $white;
-      background-color: $wine-light;
+    @media(hover: hover) {
+      &:hover {
+        color: $white;
+        background-color: $wine-light;
+      }
     }
   }
   
@@ -791,12 +823,14 @@ input[type="number"] {
   }
 
   .single-expense {
-    &:hover {
-      background-color: $darkmode-hover !important;
-      
-      .header {
+    @media(hover: hover) {
+      &:hover {
         background-color: $darkmode-hover !important;
-        transition: $transition-medium;
+        
+        .header {
+          background-color: $darkmode-hover !important;
+          transition: $transition-medium;
+        }
       }
     }
   }

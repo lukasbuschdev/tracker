@@ -17,10 +17,12 @@ a, span {
 a {
     color: $wine;
 
-    &:hover {
-        cursor: pointer;
-        filter: brightness(1.6);
-        transition: $transition-medium;
+    @media(hover: hover) {
+        &:hover {
+            cursor: pointer;
+            filter: brightness(1.6);
+            transition: $transition-medium;
+        }
     }
 }
 
@@ -30,9 +32,11 @@ a {
     width: 30px;
     cursor: pointer;
 
-    &:hover {
-        filter: brightness(1.6);
-        transition: $transition-medium;
+    @media(hover: hover) {
+        &:hover {
+            filter: brightness(1.6);
+            transition: $transition-medium;
+        }
     }
 }
 

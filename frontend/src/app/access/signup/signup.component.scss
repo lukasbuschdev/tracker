@@ -3,9 +3,11 @@
 .link {
     color: $wine;
 
-    &:hover {
-        cursor: pointer;
-        filter: brightness(1.6);
+    @media(hover: hover) {
+        &:hover {
+            cursor: pointer;
+            filter: brightness(1.6);
+        }
     }
 }
 

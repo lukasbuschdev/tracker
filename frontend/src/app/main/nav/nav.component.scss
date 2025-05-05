@@ -15,9 +15,11 @@ nav {
         padding: 0 20px;
         font-size: 1.2rem;
         
-        &:hover {
-            cursor: pointer;
-            background-color: $wine-hover;
+        @media(hover: hover) {
+            &:hover {
+                cursor: pointer;
+                background-color: $wine-hover;
+            }
         }
 
         img {
