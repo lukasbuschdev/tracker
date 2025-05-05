@@ -7,6 +7,7 @@
             <li (click)="scroll.scrollToSection('expenses')">Dépenses</li>
             <li (click)="scroll.scrollToSection('budgets')">Budgets</li>
             <li (click)="scroll.scrollToSection('categories')">Catégories</li>
+            <li (click)="scroll.scrollToSection('archive')">Archives</li>
             <li (click)="scroll.scrollToSection('settings')">Paramètres</li>
         </ul>
     </section>
@@ -25,8 +26,8 @@
         <h3 routerLink="../dashboard">Tableau de bord</h3>
         <p>Le tableau de bord fournit des statistiques globales par budget avec des représentations graphiques.</p>
         <ul>
-            <li>Voir les statistiques générales</li>
-            <li>Voir des résumés graphiques des performances budgétaires</li>
+            <li>Voir les statistiques globales</li>
+            <li>Consulter des résumés graphiques des performances budgétaires</li>
         </ul>
     </section>
   
@@ -34,7 +35,7 @@
         <h3 routerLink="../expenses">Dépenses</h3>
         <p>Gérez vos dépenses pour chaque budget :</p>
         <ul>
-            <li>Créer une dépense (spécifiez le nom, la catégorie et le montant)</li>
+            <li>Créer une dépense (indiquer le nom, la catégorie et le montant)</li>
             <li>Modifier une dépense existante</li>
             <li>Supprimer une dépense</li>
         </ul>
@@ -47,6 +48,7 @@
             <li>Nom du budget</li>
             <li>Budget disponible actuel</li>
             <li>Créer, modifier et supprimer des budgets</li>
+            <li>Option pour recréer automatiquement le budget chaque mois</li>
         </ul>
     </section>
   
@@ -55,8 +57,19 @@
         <p>Gérez les catégories pour chaque budget. Chaque catégorie comprend :</p>
         <ul>
             <li>Nom de la catégorie</li>
-            <li>Budget disponible actuel de la catégorie</li>
+            <li>Budget actuel disponible de la catégorie</li>
             <li>Créer, modifier et supprimer des catégories</li>
+            <li>Option pour recréer automatiquement chaque mois si le budget parent est configuré pour se recréer</li>
+        </ul>
+    </section>
+
+    <section class="column gap-10" id="archive">
+        <h3 routerLink="../archive">Archives</h3>
+        <p>Consultez vos budgets récents, leurs catégories et les dépenses associées. Inclut des statistiques détaillées telles que :</p>
+        <ul>
+            <li>Liste des budgets récents</li>
+            <li>Catégories et dépenses liées à chaque budget</li>
+            <li>Statistiques globales : montant total du budget, montant utilisé par budget et ventilations par catégorie et dépense</li>
         </ul>
     </section>
 

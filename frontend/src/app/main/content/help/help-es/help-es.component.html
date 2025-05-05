@@ -7,17 +7,18 @@
             <li (click)="scroll.scrollToSection('expenses')">Gastos</li>
             <li (click)="scroll.scrollToSection('budgets')">Presupuestos</li>
             <li (click)="scroll.scrollToSection('categories')">Categorías</li>
+            <li (click)="scroll.scrollToSection('archive')">Archivo</li>
             <li (click)="scroll.scrollToSection('settings')">Configuración</li>
         </ul>
     </section>
     
     <section class="column gap-10" id="create-account">
         <h3>Crear cuenta</h3>
-        <p>Gestiona tu cuenta:</p>
+        <p>Administra tu cuenta:</p>
         <ul>
-            <li>Crea una nueva cuenta</li>
-            <li>Edita los detalles de tu cuenta</li>
-            <li>Elimina tu cuenta</li>
+            <li>Crear una nueva cuenta</li>
+            <li>Editar los detalles de tu cuenta</li>
+            <li>Eliminar tu cuenta</li>
         </ul>
     </section>
   
@@ -32,37 +33,49 @@
   
     <section class="column gap-10" id="expenses">
         <h3 routerLink="../expenses">Gastos</h3>
-        <p>Gestiona tus gastos para cada presupuesto:</p>
+        <p>Administra tus gastos por presupuesto:</p>
         <ul>
-            <li>Crea un gasto (especifica nombre, categoría y monto)</li>
-            <li>Edita un gasto existente</li>
-            <li>Elimina un gasto</li>
+            <li>Crear un gasto (especifica nombre, categoría y monto)</li>
+            <li>Editar un gasto existente</li>
+            <li>Eliminar un gasto</li>
         </ul>
     </section>
   
     <section class="column gap-10" id="budgets">
         <h3 routerLink="../budgets">Presupuestos</h3>
-        <p>Gestiona tus presupuestos. Cada presupuesto incluye:</p>
+        <p>Administra tus presupuestos. Cada presupuesto incluye:</p>
         <ul>
             <li>Nombre del presupuesto</li>
             <li>Presupuesto disponible actual</li>
             <li>Crear, editar y eliminar presupuestos</li>
+            <li>Opción para recrear automáticamente el presupuesto cada mes</li>
         </ul>
     </section>
   
     <section class="column gap-10" id="categories">
         <h3 routerLink="../categories">Categorías</h3>
-        <p>Gestiona las categorías para cada presupuesto. Cada categoría incluye:</p>
+        <p>Administra categorías por presupuesto. Cada categoría incluye:</p>
         <ul>
             <li>Nombre de la categoría</li>
             <li>Presupuesto disponible actual de la categoría</li>
             <li>Crear, editar y eliminar categorías</li>
+            <li>Opción para recrear automáticamente cada mes si el presupuesto principal está configurado para recrearse</li>
+        </ul>
+    </section>
+
+    <section class="column gap-10" id="archive">
+        <h3 routerLink="../archive">Archivo</h3>
+        <p>Revisa tus presupuestos recientes, sus categorías y gastos asociados. Incluye estadísticas detalladas como:</p>
+        <ul>
+            <li>Lista de presupuestos recientes</li>
+            <li>Categorías y gastos vinculados a cada presupuesto</li>
+            <li>Estadísticas generales: monto total del presupuesto, monto utilizado por presupuesto y desglose por categoría y gasto</li>
         </ul>
     </section>
 
     <section class="column gap-10" id="settings">
         <h3 routerLink="../settings">Configuración</h3>
-        <p>Gestiona la configuración de la cuenta:</p>
+        <p>Administra la configuración de la cuenta:</p>
         <ul>
             <li>Editar detalles de la cuenta</li>
             <li>Eliminar cuenta</li>

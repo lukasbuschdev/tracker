@@ -7,6 +7,7 @@
             <li (click)="scroll.scrollToSection('expenses')">Expenses</li>
             <li (click)="scroll.scrollToSection('budgets')">Budgets</li>
             <li (click)="scroll.scrollToSection('categories')">Categories</li>
+            <li (click)="scroll.scrollToSection('archive')">Archive</li>
             <li (click)="scroll.scrollToSection('settings')">Settings</li>
         </ul>
     </section>
@@ -47,6 +48,7 @@
             <li>Budget name</li>
             <li>Current available budget</li>
             <li>Create, edit, and delete budgets</li>
+            <li>Option to automatically recreate the budget monthly</li>
         </ul>
     </section>
   
@@ -57,6 +59,17 @@
             <li>Category name</li>
             <li>Current available category budget</li>
             <li>Create, edit, and delete categories</li>
+            <li>Option to automatically recreate monthly if the parent budget is set to recreate</li>
+        </ul>
+    </section>
+
+    <section class="column gap-10" id="archive">
+        <h3 routerLink="../archive">Archive</h3>
+        <p>Review your recent budgets, their categories, and associated expenses. Includes detailed statistics such as:</p>
+        <ul>
+            <li>List of recent budgets</li>
+            <li>Categories and expenses linked to each budget</li>
+            <li>Overall statistics: total budget amount, amount used per budget, and breakdowns per category and expense</li>
         </ul>
     </section>
 

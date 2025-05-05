@@ -3,10 +3,11 @@
         <h3>Navigation</h3>
         <ul>
             <li (click)="scroll.scrollToSection('create-account')">Konto erstellen</li>
-            <li (click)="scroll.scrollToSection('dashboard')">Übersicht</li>
+            <li (click)="scroll.scrollToSection('dashboard')">Dashboard</li>
             <li (click)="scroll.scrollToSection('expenses')">Ausgaben</li>
             <li (click)="scroll.scrollToSection('budgets')">Budgets</li>
             <li (click)="scroll.scrollToSection('categories')">Kategorien</li>
+            <li (click)="scroll.scrollToSection('archive')">Archiv</li>
             <li (click)="scroll.scrollToSection('settings')">Einstellungen</li>
         </ul>
     </section>
@@ -16,14 +17,14 @@
         <p>Verwalte dein Konto:</p>
         <ul>
             <li>Ein neues Konto erstellen</li>
-            <li>Kontodetails bearbeiten</li>
+            <li>Kontodaten bearbeiten</li>
             <li>Konto löschen</li>
         </ul>
     </section>
   
     <section class="column gap-10" id="dashboard">
-        <h3 routerLink="../dashboard">Übersicht</h3>
-        <p>Die Übersicht bietet statistische Informationen pro Budget mit grafischen Darstellungen.</p>
+        <h3 routerLink="../dashboard">Dashboard</h3>
+        <p>Das Dashboard zeigt Gesamtstatistiken pro Budget mit grafischen Darstellungen.</p>
         <ul>
             <li>Gesamtstatistiken anzeigen</li>
             <li>Grafische Zusammenfassungen der Budgetleistung ansehen</li>
@@ -32,11 +33,11 @@
   
     <section class="column gap-10" id="expenses">
         <h3 routerLink="../expenses">Ausgaben</h3>
-        <p>Verwalte deine Ausgaben für jedes Budget:</p>
+        <p>Verwalte deine Ausgaben pro Budget:</p>
         <ul>
-            <li>Eine Ausgabe erstellen (Name, Kategorie und Betrag angeben)</li>
-            <li>Eine bestehende Ausgabe bearbeiten</li>
-            <li>Eine Ausgabe löschen</li>
+            <li>Ausgabe erstellen (Name, Kategorie und Betrag angeben)</li>
+            <li>Bestehende Ausgabe bearbeiten</li>
+            <li>Ausgabe löschen</li>
         </ul>
     </section>
   
@@ -47,16 +48,28 @@
             <li>Budgetname</li>
             <li>Aktuell verfügbares Budget</li>
             <li>Budgets erstellen, bearbeiten und löschen</li>
+            <li>Option zur automatischen monatlichen Wiedererstellung des Budgets</li>
         </ul>
     </section>
   
     <section class="column gap-10" id="categories">
         <h3 routerLink="../categories">Kategorien</h3>
-        <p>Verwalte Kategorien für jedes Budget. Jede Kategorie beinhaltet:</p>
+        <p>Verwalte Kategorien pro Budget. Jede Kategorie beinhaltet:</p>
         <ul>
             <li>Kategoriename</li>
             <li>Aktuell verfügbares Budget der Kategorie</li>
             <li>Kategorien erstellen, bearbeiten und löschen</li>
+            <li>Option zur automatischen monatlichen Wiedererstellung, wenn das übergeordnete Budget entsprechend eingestellt ist</li>
+        </ul>
+    </section>
+
+    <section class="column gap-10" id="archive">
+        <h3 routerLink="../archive">Archiv</h3>
+        <p>Schaue dir deine letzten Budgets, deren Kategorien und zugehörige Ausgaben an. Enthält detaillierte Statistiken wie:</p>
+        <ul>
+            <li>Liste der letzten Budgets</li>
+            <li>Kategorien und Ausgaben pro Budget</li>
+            <li>Gesamtstatistiken: Budgetgesamtbetrag, verwendeter Betrag pro Budget sowie Aufschlüsselungen nach Kategorie und Ausgabe</li>
         </ul>
     </section>
 
@@ -64,7 +77,7 @@
         <h3 routerLink="../settings">Einstellungen</h3>
         <p>Verwalte deine Kontoeinstellungen:</p>
         <ul>
-            <li>Kontodetails bearbeiten</li>
+            <li>Kontodaten bearbeiten</li>
             <li>Konto löschen</li>
         </ul>
     </section>
