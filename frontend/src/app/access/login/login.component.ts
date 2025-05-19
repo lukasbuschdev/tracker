@@ -60,6 +60,7 @@ export class LoginComponent implements OnInit {
       this.theme.loadTheme();
     } catch (error) {
       this.resetBooleans();
+      this.data.isLoading = false;
     }
 
     this.resetInputs();

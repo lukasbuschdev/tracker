@@ -64,3 +64,9 @@ section {
         padding: 3% 2vh;
     }
 }
+
+@media(min-height: 650px) {
+    .content-container {
+        height: calc(100vh - 80px);
+    }
+}
